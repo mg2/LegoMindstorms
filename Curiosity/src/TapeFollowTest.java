@@ -20,7 +20,7 @@ public class TapeFollowTest {
 	 */
 	public static void main(String[] args) {
 		diffPilot = 
-				new DifferentialPilot(8.5, 15, Motor.C, Motor.B);
+				new DifferentialPilot(8.5, 14.5, Motor.C, Motor.B);
 		configDiffPilot(400, 400);
 		calibrateLightSensor();
 
