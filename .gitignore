@@ -50,6 +50,6 @@ Desktop.ini
 ## Miscellaneous
 ############
 .pdf
-.nxd
-.nxt
-.nxj
+*.nxd
+*.nxt
+*.nxj
