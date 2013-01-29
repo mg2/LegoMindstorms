@@ -3,7 +3,11 @@ import lejos.nxt.LightSensor;
 import lejos.nxt.SensorPort;
 import lejos.nxt.UltrasonicSensor;
 
-
+/*
+ * normalized light sensor values:
+ * 	- tape: 600+ vs. black plane: 350-400?
+ * 	- on bridge: ~500 vs. down bridge ~250
+ */
 public class SensorTest {
 
 	/**
