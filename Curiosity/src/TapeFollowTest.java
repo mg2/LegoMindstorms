@@ -4,11 +4,11 @@ import lejos.nxt.LightSensor;
 import lejos.nxt.Motor;
 import lejos.nxt.SensorPort;
 import lejos.nxt.TouchSensor;
-import lejos.robotics.navigation.DifferentialPilot;
+import lejos.robotics.navigation.CustomDifferentialPilot;
 
 
 public class TapeFollowTest {
-	private static DifferentialPilot diffPilot;
+	private static CustomDifferentialPilot diffPilot;
 	static int lightLow;
 	static int lightHigh;
 	
@@ -20,8 +20,8 @@ public class TapeFollowTest {
 	 */
 	public static void main(String[] args) {
 		diffPilot = 
-				new DifferentialPilot(8.5, 15, Motor.C, Motor.B);
-		configDiffPilot(400, 400);
+				new CustomDifferentialPilot(8.5, 15, Motor.C, Motor.B);
+		configDiffPilot(40, 10);
 		calibrateLightSensor();
 
 		int mode = 0;
@@ -68,8 +68,8 @@ public class TapeFollowTest {
 			diffPilot.forward();
 		} else {
 			int i = 0;
-			diffPilot.quickStop();
-			diffPilot.travel(-5);
+			//diffPilot.quickStop();
+			//diffPilot.travel(-5);
 			while(light.getLightValue() < 70 && !touch.isPressed()) {
 				if(i % 2 == 0 && i < 10) {
 					diffPilot.rotate(10 * (i + 1));
