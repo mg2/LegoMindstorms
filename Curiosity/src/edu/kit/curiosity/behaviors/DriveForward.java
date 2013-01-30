@@ -1,6 +1,8 @@
 package edu.kit.curiosity.behaviors;
 
 import edu.kit.curiosity.Settings;
+import lejos.nxt.SensorPort;
+import lejos.nxt.UltrasonicSensor;
 import lejos.robotics.navigation.DifferentialPilot;
 import lejos.robotics.subsumption.*;
 
@@ -12,12 +14,15 @@ import lejos.robotics.subsumption.*;
 public class DriveForward implements Behavior {
 	private DifferentialPilot pilot;
 	private boolean suppressed = false;
+	private UltrasonicSensor sonic;
 	
 	/**
 	 * Constructs a new DriveForward Behavior
 	 */
 	public DriveForward() {
 		this.pilot = Settings.pilot;
+		pilot.setTravelSpeed(pilot.getTravelSpeed() / 5);
+		sonic = (new UltrasonicSensor(SensorPort.S1));
 	}
 
 	/**
@@ -42,6 +47,8 @@ public class DriveForward implements Behavior {
 		suppressed = false;
 		pilot.forward();
 		while (!suppressed) {
+			System.out.println(sonic.getDistance() + " Drive");
+			
 			Thread.yield();
 		}
 		pilot.stop();

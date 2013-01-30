@@ -1,7 +1,6 @@
 package edu.kit.curiosity.behaviors;
 import edu.kit.curiosity.Settings;
 import lejos.nxt.TouchSensor;
-import lejos.nxt.UltrasonicSensor;
 import lejos.robotics.navigation.DifferentialPilot;
 import lejos.robotics.subsumption.Behavior;
 
@@ -15,7 +14,6 @@ public class HitWall implements Behavior {
 	private boolean suppressed = false;
 	
 	private TouchSensor touch;
-	private UltrasonicSensor sonic;
 	private DifferentialPilot pilot;
 	
 	
@@ -23,8 +21,7 @@ public class HitWall implements Behavior {
 	 * Constructs a new HitWall Behavior
 	 */
 	public HitWall() {
-		touch = new TouchSensor(Settings.TOUCH_SENSOR_PORT);
-		sonic = new UltrasonicSensor(Settings.SONIC_SENSOR_PORT);
+		touch = Settings.TOUCH;
 		pilot = Settings.pilot;
 	}
 	
@@ -43,12 +40,12 @@ public class HitWall implements Behavior {
 	@Override
 	public void action() {
 		suppressed = false;
-		if (sonic.getDistance() > 15) {
-			pilot.rotate(90, true);
-		} else {
-			pilot.rotate(-90, true);
+		while (touch.isPressed()) {
+			pilot.travel(-1);
+			pilot.rotate(90);
+			/*pilot.backward();
+			pilot.arcForward(25);*/
 		}
-		
 		while( pilot.isMoving() && !suppressed ) {
 			Thread.yield();
 		}

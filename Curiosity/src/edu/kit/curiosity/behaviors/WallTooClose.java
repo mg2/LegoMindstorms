@@ -6,43 +6,46 @@ import lejos.robotics.navigation.DifferentialPilot;
 import lejos.robotics.subsumption.Behavior;
 
 /**
- * The class {@code WallToFar} describes the Behavior when the Wall is to far from the sensor.
- * @author Tobias Hey
+ * This class describes the Behavior when a wall comes to close
+ * @author Team Curiosity
  *
  */
-public class WallToFar implements Behavior {
-
+public class WallTooClose implements Behavior {
+	
 	private boolean suppressed = false;
 	
-	private UltrasonicSensor sonic;
 	private DifferentialPilot pilot;
+	private UltrasonicSensor sonic;
 
 	/**
 	 * Constructs  new WallToClose Behavior.
 	 */
-	public WallToFar()
+	public WallTooClose()
 	{
 		pilot = Settings.pilot;
-		sonic = new UltrasonicSensor(Settings.SONIC_SENSOR_PORT);
+		sonic = Settings.SONIC;
 	}
 	
 	/**
-	 * This Behavior takes control if the Distance is higher than 15
+	 * This Behavior takes control if the Distance is lower than 8
 	 */
 	@Override
 	public boolean takeControl() {
-		return (sonic.getDistance() > 15);
+		return (sonic.getDistance() < 8);
 	}
 
 	/**
-	 * Moves to the right.
+	 * Moves to the left.
 	 */
 	@Override
 	public void action() {
 		suppressed = false;
 		pilot.arcForward(10);
-		pilot.rotate(-10);
-		while(!suppressed && pilot.isMoving()) {
+		while(!suppressed) {
+			System.out.println(sonic.getDistance() + " Close");
+			if (sonic.getDistance() >= 15) {
+				return;
+			}
 			Thread.yield();
 		}
 		pilot.stop();
