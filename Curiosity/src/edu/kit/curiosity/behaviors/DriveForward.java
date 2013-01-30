@@ -20,7 +20,7 @@ public class DriveForward implements Behavior {
 	 * Constructs a new DriveForward Behavior
 	 */
 	public DriveForward() {
-		this.pilot = Settings.pilot;
+		this.pilot = Settings.PILOT;
 		pilot.setTravelSpeed(pilot.getTravelSpeed() / 5);
 		sonic = (new UltrasonicSensor(SensorPort.S1));
 	}

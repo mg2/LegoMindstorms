@@ -13,7 +13,7 @@ public class Settings {
 	public final static double TRACK_WIDTH = 14.5;
 	public final static double WHEEL_WIDTH = 8;
 	
-	public static DifferentialPilot pilot = new DifferentialPilot(WHEEL_WIDTH, TRACK_WIDTH, Motor.C, Motor.B);
+	public final static DifferentialPilot PILOT = new DifferentialPilot(WHEEL_WIDTH, TRACK_WIDTH, Motor.C, Motor.B);
 	
 	public final static SensorPort SONIC_SENSOR_PORT = SensorPort.S1;
 	public final static SensorPort LIGHT_SENSOR_PORT = SensorPort.S2;

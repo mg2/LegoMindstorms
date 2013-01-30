@@ -22,7 +22,7 @@ public class WallTooClose implements Behavior {
 	 */
 	public WallTooClose()
 	{
-		pilot = Settings.pilot;
+		pilot = Settings.PILOT;
 		sonic = Settings.SONIC;
 	}
 	

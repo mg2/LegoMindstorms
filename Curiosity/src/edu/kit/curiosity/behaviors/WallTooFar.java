@@ -22,7 +22,7 @@ public class WallTooFar implements Behavior {
 	 */
 	public WallTooFar()
 	{
-		pilot = Settings.pilot;
+		pilot = Settings.PILOT;
 		sonic = Settings.SONIC;
 	}
 	

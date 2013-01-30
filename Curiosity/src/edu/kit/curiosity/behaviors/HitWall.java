@@ -22,7 +22,7 @@ public class HitWall implements Behavior {
 	 */
 	public HitWall() {
 		touch = Settings.TOUCH;
-		pilot = Settings.pilot;
+		pilot = Settings.PILOT;
 	}
 	
 	/**
@@ -34,8 +34,8 @@ public class HitWall implements Behavior {
 	}
 
 	/**
-	 * The robot turns 90° right if the right side is free,
-	 * else it turns 90° left.
+	 * The robot turns 90ï¿½ right if the right side is free,
+	 * else it turns 90ï¿½ left.
 	 */
 	@Override
 	public void action() {
