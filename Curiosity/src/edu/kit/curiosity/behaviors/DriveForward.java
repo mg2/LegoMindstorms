@@ -1,5 +1,6 @@
 package edu.kit.curiosity.behaviors;
 
+import edu.kit.curiosity.Settings;
 import lejos.nxt.*;
 import lejos.robotics.navigation.DifferentialPilot;
 import lejos.robotics.subsumption.*;
@@ -7,6 +8,11 @@ import lejos.robotics.subsumption.*;
 public class DriveForward implements Behavior {
 	private DifferentialPilot pilot;
 	private boolean suppressed = false;
+	
+	public DriveForward()
+	{
+		this.pilot = Settings.pilot;
+	}
 
 	public boolean takeControl() {
 		return true;
@@ -18,11 +24,9 @@ public class DriveForward implements Behavior {
 
 	public void action() {
 		suppressed = false;
-		Motor.A.forward();
-		Motor.C.forward();
+		pilot.forward();
 		while (!suppressed)
 			Thread.yield();
-		Motor.A.stop(); // clean up
-		Motor.C.stop();
+		pilot.stop();
 	}
 }
