@@ -43,7 +43,8 @@ public class Settings {
 	 * SensorPort of the light sensor
 	 */
 	public final static SensorPort LIGHT_SENSOR_PORT = SensorPort.S2;
-	
+
+
 	/**
 	 * SensorPort of the right touch sensor
 	 */
@@ -77,4 +78,6 @@ public class Settings {
 	public static int angle = 0;
 	
 	public static int numberOfTurns = 0;
+	
+	public static int motorAAngle = 0;
 }
