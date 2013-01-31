@@ -1,4 +1,4 @@
-package edu.kit.curiosity.behaviors;
+package edu.kit.curiosity.behaviors.maze;
 import edu.kit.curiosity.Settings;
 import lejos.nxt.Motor;
 import lejos.robotics.subsumption.*;

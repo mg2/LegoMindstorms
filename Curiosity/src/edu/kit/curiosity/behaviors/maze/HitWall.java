@@ -1,4 +1,4 @@
-package edu.kit.curiosity.behaviors;
+package edu.kit.curiosity.behaviors.maze;
 import edu.kit.curiosity.Settings;
 import lejos.nxt.TouchSensor;
 import lejos.robotics.navigation.DifferentialPilot;
@@ -13,7 +13,8 @@ public class HitWall implements Behavior {
 
 	private boolean suppressed = false;
 	
-	private TouchSensor touch;
+	private TouchSensor touch_r;
+	private TouchSensor touch_l;
 	private DifferentialPilot pilot;
 	
 	
@@ -21,7 +22,8 @@ public class HitWall implements Behavior {
 	 * Constructs a new HitWall Behavior
 	 */
 	public HitWall() {
-		touch = Settings.TOUCH;
+		touch_r = Settings.TOUCH_R;
+		touch_l = Settings.TOUCH_L;
 		pilot = Settings.PILOT;
 	}
 	
@@ -30,22 +32,19 @@ public class HitWall implements Behavior {
 	 */
 	@Override
 	public boolean takeControl() {
-		return touch.isPressed();
+		return touch_r.isPressed() || touch_l.isPressed();
 	}
 
 	/**
-	 * The robot turns 90� right if the right side is free,
-	 * else it turns 90� left.
+	 * The robot turns left.
+	 * 
 	 */
 	@Override
 	public void action() {
 		suppressed = false;
-		while (touch.isPressed()) {
-			pilot.travel(-1);
-			pilot.rotate(90);
-			/*pilot.backward();
-			pilot.arcForward(25);*/
-		}
+		pilot.travel(-5);
+		pilot.rotate(100);
+		Settings.numberOfTurns = 0;
 		while( pilot.isMoving() && !suppressed ) {
 			Thread.yield();
 		}

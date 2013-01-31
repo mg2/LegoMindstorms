@@ -1,16 +1,11 @@
-package edu.kit.curiosity.behaviors;
+package edu.kit.curiosity.behaviors.maze;
 
 import edu.kit.curiosity.Settings;
 import lejos.nxt.UltrasonicSensor;
 import lejos.robotics.navigation.DifferentialPilot;
 import lejos.robotics.subsumption.Behavior;
 
-/**
- * The class {@code WallToFar} describes the Behavior when the Wall is to far from the sensor.
- * @author Tobias Hey
- *
- */
-public class WallTooFar implements Behavior {
+public class NoWallInReach implements Behavior {
 
 	private boolean suppressed = false;
 	
@@ -18,20 +13,20 @@ public class WallTooFar implements Behavior {
 	private UltrasonicSensor sonic;
 
 	/**
-	 * Constructs  new WallToClose Behavior.
+	 * Constructs new NoWallInReach Behavior.
 	 */
-	public WallTooFar()
+	public NoWallInReach()
 	{
 		pilot = Settings.PILOT;
 		sonic = Settings.SONIC;
 	}
 	
 	/**
-	 * This Behavior takes control if the Distance is higher than 15
+	 * This Behavior takes control if the Distance is higher than 40
 	 */
 	@Override
 	public boolean takeControl() {
-		return (sonic.getDistance() > 15);
+		return (sonic.getDistance() > 40);
 	}
 
 	/**
@@ -40,13 +35,10 @@ public class WallTooFar implements Behavior {
 	@Override
 	public void action() {
 		suppressed = false;
-		pilot.arc(-10, -10, true);
-		//pilot.arcForward(-10);
+		pilot.travel(5);
+		pilot.arc(-20, -100, true);
+		Settings.numberOfTurns++;
 		while(pilot.isMoving() && !suppressed) {
-			System.out.println(sonic.getDistance() + " FAR");
-			/*if (sonic.getDistance() <= 15) {
-				return;
-			}*/
 			Thread.yield();
 		}
 		pilot.stop();
@@ -59,5 +51,4 @@ public class WallTooFar implements Behavior {
 	public void suppress() {
 		suppressed = true;
 	}
-
 }
