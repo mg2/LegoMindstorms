@@ -6,7 +6,6 @@ import lejos.nxt.MotorPort;
 import lejos.robotics.subsumption.Behavior;
 import lejos.robotics.subsumption.CustomArbitrator;
 import edu.kit.curiosity.behaviors.*;
-import edu.kit.curiosity.behaviors.maze.DriveForward;
 import edu.kit.curiosity.behaviors.maze.HitWall;
 import edu.kit.curiosity.behaviors.maze.WallTooClose;
 import edu.kit.curiosity.behaviors.maze.WallTooFar;
