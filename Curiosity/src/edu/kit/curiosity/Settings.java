@@ -1,5 +1,6 @@
 package edu.kit.curiosity;
 
+import lejos.nxt.LightSensor;
 import lejos.nxt.Motor;
 import lejos.nxt.SensorPort;
 import lejos.nxt.TouchSensor;
@@ -19,7 +20,9 @@ public class Settings {
 	public final static SensorPort LIGHT_SENSOR_PORT = SensorPort.S2;
 	public final static SensorPort TOUCH_SENSOR_PORT = SensorPort.S3;
 	
-	public static final UltrasonicSensor SONIC = new UltrasonicSensor(Settings.SONIC_SENSOR_PORT);
-	public static final TouchSensor TOUCH = new TouchSensor(Settings.TOUCH_SENSOR_PORT);
+	public static final UltrasonicSensor SONIC = new UltrasonicSensor(SONIC_SENSOR_PORT);
+	public static final TouchSensor TOUCH = new TouchSensor(TOUCH_SENSOR_PORT);
+	public static final LightSensor LIGHT = new LightSensor(LIGHT_SENSOR_PORT);
+	
 	public static int angle = 0;
 }
