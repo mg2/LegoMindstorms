@@ -1,4 +1,4 @@
-package edu.kit.curiosity.behaviors.maze;
+package edu.kit.curiosity.behaviors;
 
 import lejos.nxt.Motor;
 import lejos.robotics.subsumption.Behavior;
@@ -28,6 +28,7 @@ public class SensorHeadPosition implements Behavior {
 	@Override
 	public void action() {
 		suppressed = false;
+		///Motor.A.flt(true); //TODO hier? ER IS LOCKT!!!! 
 		Motor.A.rotateTo(0);
 		while (Motor.A.isMoving() && !suppressed) {
 			Thread.yield();

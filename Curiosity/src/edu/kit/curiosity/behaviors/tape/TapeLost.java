@@ -1,10 +1,9 @@
-package edu.kit.curiosity.behaviors;
+package edu.kit.curiosity.behaviors.tape;
 
 import edu.kit.curiosity.Settings;
 import lejos.nxt.LightSensor;
 import lejos.robotics.navigation.DifferentialPilot;
 import lejos.robotics.subsumption.Behavior;
-import lejos.util.PilotProps;
 
 public class TapeLost implements Behavior {
 	//Auf dem schwarzen Planner entsprechen 90 Grad 136.5 CodeGrad
@@ -27,19 +26,22 @@ public class TapeLost implements Behavior {
 
 	@Override
 	public void action() {
+		System.out.println("Lost");
 		suppressed = false;
-		int angle = 15 * m;
 		//int m = 1; // 1: Kante wird links vom Sensor sein, -1: Kante wird rechts
-		dp.rotate(angle);
+		dp.rotate(Settings.angle);
 		while (!suppressed && ls.getLightValue() < 20) {
-			angle = angle + 5 * m;
-			angle = angle * (-1);
+			Settings.angle += 5 * m;
+			Settings.angle *= (-1);
 			m = m * (-1);
-			dp.rotate(angle);
-			dp.travel(0.35);
+			dp.rotate(Settings.angle);
+			//dp.travel(0.35 + Math.abs(Settings.angle) * 0.05);
+			System.out.print(" " + Settings.angle);
 		}
-		dp.rotate(7.5*m);
-		m = m * (-1);
+		if (!suppressed) {
+			System.out.println("Suppressed");
+			dp.rotate(7.5*m, true);
+		}
 	}
 
 	@Override

@@ -9,6 +9,9 @@ import lejos.robotics.subsumption.Behavior;
 import lejos.robotics.subsumption.CustomArbitrator;
 import edu.kit.curiosity.behaviors.*;
 import edu.kit.curiosity.behaviors.maze.*;
+import edu.kit.curiosity.behaviors.tape.GapFound;
+import edu.kit.curiosity.behaviors.tape.LineFollow;
+import edu.kit.curiosity.behaviors.tape.TapeLost;
 
 public class Main implements ButtonListener {
 
@@ -43,15 +46,14 @@ public class Main implements ButtonListener {
 		
 		Settings.PILOT.setTravelSpeed(Settings.PILOT.getMaxTravelSpeed() * 0.75);
 		//calibrateLight();
-		Settings.LIGHT.setLow(260);
-		Settings.LIGHT.setHigh(415);
+		Settings.LIGHT.setLow(273); Settings.LIGHT.setHigh(452);
 		Behavior tf1 = new LineFollow();
 		Behavior tf2 = new TapeLost();
 		Behavior tf3 = new GapFound(); // >130
 		//Behavior tf4 = new ObstacleFound();
 		Behavior tf5 = new SensorHeadPosition();
 		Behavior tf6 = new MotorAStall();
-		Behavior[] tapeFollow = {tf1, tf2, tf5, tf6};
+		Behavior[] tapeFollow = {tf1, tf2, /*tf3,*/ tf5, tf6};
 		Arbitrator tapeFollowArbitrator = new Arbitrator(tapeFollow);
 		tapeFollowArbitrator.start();
 		

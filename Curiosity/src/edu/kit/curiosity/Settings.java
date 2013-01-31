@@ -75,7 +75,7 @@ public class Settings {
 	/**
 	 * the angle
 	 */
-	public static int angle = 0;
+	public static int angle = 15;
 	
 	public static int numberOfTurns = 0;
 	
