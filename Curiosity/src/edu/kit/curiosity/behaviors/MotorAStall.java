@@ -1,24 +1,20 @@
 package edu.kit.curiosity.behaviors;
-
 import edu.kit.curiosity.Settings;
-import lejos.robotics.navigation.DifferentialPilot;
+import lejos.nxt.Motor;
 import lejos.robotics.subsumption.*;
 
 /**
- * This class describes the Behavior to simple drive forward.
+ * This class describes the Behavior when Motor A is stalled.
  * @author Team Curiosity
  *
  */
-public class DriveForward implements Behavior {
-	private DifferentialPilot pilot;
+public class MotorAStall implements Behavior {
 	private boolean suppressed = false;
 	
 	/**
 	 * Constructs a new DriveForward Behavior
 	 */
-	public DriveForward() {
-		this.pilot = Settings.PILOT;
-		pilot.setTravelSpeed(pilot.getTravelSpeed() / 5);
+	public MotorAStall() {
 	}
 
 	/**
@@ -26,7 +22,7 @@ public class DriveForward implements Behavior {
 	 * returns true
 	 */
 	public boolean takeControl() {
-		return true;
+		return (Motor.A.isStalled());
 	}
 
 	/**
@@ -40,11 +36,12 @@ public class DriveForward implements Behavior {
 	 * Moves forward as long as this Behavior is active
 	 */
 	public void action() {
+		System.out.println("Stall.");
 		suppressed = false;
-		pilot.forward();
-		while (!suppressed) {
+		Motor.A.flt();
+		Motor.A.rotateTo(Settings.angle);
+		while (!suppressed && Motor.A.isStalled()) {
 			Thread.yield();
 		}
-		pilot.stop();
 	}
 }

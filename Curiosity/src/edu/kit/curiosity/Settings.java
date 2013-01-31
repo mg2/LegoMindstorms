@@ -21,4 +21,5 @@ public class Settings {
 	
 	public static final UltrasonicSensor SONIC = new UltrasonicSensor(Settings.SONIC_SENSOR_PORT);
 	public static final TouchSensor TOUCH = new TouchSensor(Settings.TOUCH_SENSOR_PORT);
+	public static int angle = 0;
 }
