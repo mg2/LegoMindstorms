@@ -1,4 +1,4 @@
-package edu.kit.curiosity.behaviors;
+package edu.kit.curiosity.behaviors.maze;
 
 import edu.kit.curiosity.Settings;
 import lejos.robotics.navigation.DifferentialPilot;
@@ -18,7 +18,6 @@ public class DriveForward implements Behavior {
 	 */
 	public DriveForward() {
 		this.pilot = Settings.PILOT;
-		pilot.setTravelSpeed(pilot.getTravelSpeed() / 5);
 	}
 
 	/**
