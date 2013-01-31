@@ -40,12 +40,10 @@ public class WallTooClose implements Behavior {
 	@Override
 	public void action() {
 		suppressed = false;
-		pilot.arcForward(10);
-		while(!suppressed) {
+		pilot.arc(20, 20, false);
+		pilot.rotate(-10);
+		while(pilot.isMoving() && !suppressed) {
 			System.out.println(sonic.getDistance() + " Close");
-			if (sonic.getDistance() >= 15) {
-				return;
-			}
 			Thread.yield();
 		}
 		pilot.stop();

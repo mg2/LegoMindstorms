@@ -40,12 +40,13 @@ public class WallTooFar implements Behavior {
 	@Override
 	public void action() {
 		suppressed = false;
-		pilot.arcForward(-10);
-		while(!suppressed) {
+		pilot.arc(-10, -10, true);
+		//pilot.arcForward(-10);
+		while(pilot.isMoving() && !suppressed) {
 			System.out.println(sonic.getDistance() + " FAR");
-			if (sonic.getDistance() <= 30) {
+			/*if (sonic.getDistance() <= 15) {
 				return;
-			}
+			}*/
 			Thread.yield();
 		}
 		pilot.stop();
