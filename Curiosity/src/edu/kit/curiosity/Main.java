@@ -50,8 +50,8 @@ public class Main implements ButtonListener {
 		Behavior tf3 = new GapFound(); // >130
 		//Behavior tf4 = new ObstacleFound();
 		Behavior tf5 = new SensorHeadPosition();
-		Behavior tf9 = new MotorAStall();
-		Behavior[] tapeFollow = {tf1, tf2, tf5, tf9};
+		Behavior tf6 = new MotorAStall();
+		Behavior[] tapeFollow = {tf1, tf2, tf5, tf6};
 		Arbitrator tapeFollowArbitrator = new Arbitrator(tapeFollow);
 		tapeFollowArbitrator.start();
 		
