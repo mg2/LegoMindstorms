@@ -42,16 +42,8 @@ public class MitkoTest {
 		      }
 		    });
 		
-		//calibrateLightSensor();
-		light.setLow(lightLow);
-		light.setHigh(lightHigh);
+		calibrateLightSensor();
 		
-		System.out.println("ENTER for IR test.\nLEFT checks if Motor.A is stalled/moving and fixes it.");
-		Button.ENTER.waitForPressAndRelease();
-		while (light.getLightValue() < tresh) {
-			System.out.println(light.getLightValue());
-			diffPilot.forward();
-		}
 		
 		while (true) {
 			while (light.getLightValue() > tresh) {
@@ -83,7 +75,6 @@ public class MitkoTest {
 	}
 
 	public static void calibrateLightSensor() {
-		Button.ENTER.waitForPressAndRelease();
 		System.out.println("Calibrate LightSensor!");
 		System.out.print("Calibrate Low: ");
 		Button.ENTER.waitForPressAndRelease();
@@ -91,7 +82,7 @@ public class MitkoTest {
 		lightLow = light.getLow();
 		System.out.println(lightLow);
 		Button.ENTER.waitForPressAndRelease();
-		System.out.print("Calibrate High: ");
+		System.out.print("\nCalibrate High: ");
 		light.calibrateHigh();
 		lightHigh = light.getHigh();
 		System.out.println(lightHigh);
