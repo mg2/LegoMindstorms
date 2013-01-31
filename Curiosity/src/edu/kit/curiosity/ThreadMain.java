@@ -16,6 +16,8 @@ public class ThreadMain implements ButtonListener {
 	}
 
 	public static void main(String[] args) throws Exception {
+		new ThreadMain();
+		
 		Behavior b1 = new DriveForward();
 		Behavior b2 = new WallTooClose();
 		Behavior b3 = new WallTooFar();
