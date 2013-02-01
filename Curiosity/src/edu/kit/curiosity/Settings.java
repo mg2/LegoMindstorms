@@ -52,10 +52,6 @@ public class Settings {
 	public static int angle = 15;
 	public static int motorAAngle = 0;
 	
-
-
-
-
 	/**
 	 * Different light settings.
 	 */
