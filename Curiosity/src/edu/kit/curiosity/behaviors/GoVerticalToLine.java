@@ -12,7 +12,7 @@ public class GoVerticalToLine implements Behavior {
 	private DifferentialPilot pilot;
 	private LightSensor light;
 
-	int settingsSilverLightNorm = 500;
+	int settingsSilverLightNorm = 350;
 
 	public GoVerticalToLine() {
 		pilot = Settings.PILOT;
@@ -28,6 +28,8 @@ public class GoVerticalToLine implements Behavior {
 
 	@Override
 	public void action() {
+		pilot.setRotateSpeed(Settings.ROTATION_SPEED / 4);
+		pilot.setTravelSpeed(Settings.DRIVE_SPEED / 10);
 		while (!suppressed
 				&& light.getNormalizedLightValue() < settingsSilverLightNorm) {
 			pilot.backward();
