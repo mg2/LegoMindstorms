@@ -30,6 +30,7 @@ public class SensorHeadPosition implements Behavior {
 		suppressed = false;
 		///Motor.A.flt(true); //TODO hier? ER IS LOCKT!!!! 
 		Motor.A.rotateTo(0);
+		Motor.A.flt(true);
 		while (Motor.A.isMoving() && !suppressed) {
 			Thread.yield();
 		}
