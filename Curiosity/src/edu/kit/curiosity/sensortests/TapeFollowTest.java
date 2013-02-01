@@ -1,3 +1,4 @@
+package edu.kit.curiosity.sensortests;
 import lejos.nxt.Button;
 import lejos.nxt.LCD;
 import lejos.nxt.LightSensor;
