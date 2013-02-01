@@ -41,16 +41,6 @@ public class Settings {
 	public static final TouchSensor TOUCH_L = new TouchSensor(TOUCH_L_SENSOR_PORT);
 
 	/**
-	 * Numerous states for different behaviors of the robot.
-	 */
-	public static enum RobotorStates {
-		// TODO: Add additional states, when needed
-		MAZE,
-		LINE,
-		BRIDGE
-	}
-
-	/**
 	 * Different angle settings.
 	 */
 	public static int angle = 15;
