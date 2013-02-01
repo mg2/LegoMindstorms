@@ -51,6 +51,10 @@ public class Settings {
 	 */
 	public static int angle = 15;
 	public static int motorAAngle = 0;
+	
+
+
+
 
 	/**
 	 * Different light settings.
@@ -61,9 +65,9 @@ public class Settings {
 	/**
 	 * Miscellaneous.
 	 */
-	public static int numberOfTurns = 0;
 	public static boolean atStartOfMaze = true;
-	public static boolean inSwamp = false;
-	public static boolean afterSwamp = false;
 	public static boolean endOfMaze = false;
+	public static boolean inSwamp = false;
+	public static boolean afterSwamp = false;	
+	public static boolean fromLeft;
 }
