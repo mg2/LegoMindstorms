@@ -77,18 +77,18 @@ public class Settings {
 	 */
 	public static int angle = 15;
 	
-	public static int numberOfTurns = 0;
-	
 	public static int motorAAngle = 0;
 	
 	public static boolean atStartOfMaze = true;
+	public static boolean endOfMaze = false;
 	
 	public static boolean inSwamp = false;
 	public static boolean afterSwamp = false;
 
 	public static int swampLight = 340;
-
 	public static int blackLight = 300;
+
+
 	
 
 }
