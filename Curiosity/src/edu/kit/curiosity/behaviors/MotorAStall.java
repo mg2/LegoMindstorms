@@ -39,7 +39,7 @@ public class MotorAStall implements Behavior {
 		System.out.println("Stall.");
 		suppressed = false;
 		Motor.A.flt();
-		Motor.A.rotateTo(Settings.angle);
+		Motor.A.rotateTo(Settings.motorAAngle);
 		while (!suppressed && Motor.A.isStalled()) {
 			Thread.yield();
 		}

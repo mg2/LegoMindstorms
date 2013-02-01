@@ -17,7 +17,7 @@ public class StartMaze implements Behavior {
 	@Override
 	public boolean takeControl() {
 
-		return Settings.AT_START_OF_MAZE;
+		return Settings.atStartOfMaze;
 	}
 
 	@Override

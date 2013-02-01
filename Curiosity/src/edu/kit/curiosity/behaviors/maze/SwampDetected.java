@@ -20,15 +20,17 @@ public class SwampDetected implements Behavior {
 
 	@Override
 	public boolean takeControl() {
-		return light.getNormalizedLightValue() > Settings.Swamp_Light;
+		return (light.getNormalizedLightValue() > Settings.swampLight) && !Settings.afterSwamp;
 	}
 
 	@Override
 	public void action() {
 		suppressed = false;
-		Settings.IN_SWAMP = true;
+		System.out.println("IN SWAMP");
+		Settings.inSwamp = true;
+		Settings.motorAAngle = 90;
 		Motor.A.flt(true);
-		Motor.A.rotateTo(90);
+		Motor.A.rotateTo(Settings.motorAAngle);
 		Motor.A.flt(true);
 		pilot.forward();
 		while (pilot.isMoving() && !suppressed) {

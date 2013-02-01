@@ -31,7 +31,7 @@ public class WallTooClose implements Behavior {
 	 */
 	@Override
 	public boolean takeControl() {
-		return (sonic.getDistance() < 9);
+		return (sonic.getDistance() < 9 && !Settings.inSwamp);
 	}
 
 	/**

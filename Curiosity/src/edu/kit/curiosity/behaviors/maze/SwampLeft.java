@@ -21,15 +21,18 @@ public class SwampLeft implements Behavior {
 	@Override
 	public boolean takeControl() {
 
-		return (Settings.IN_SWAMP && light.getNormalizedLightValue() < Settings.Black_Light);
+		return (Settings.inSwamp && (light.getNormalizedLightValue() < Settings.blackLight));
 	}
 
 	@Override
 	public void action() {
 		suppressed = false;
-		Settings.IN_SWAMP = false;
+		System.out.println("OUT SWAMP");
+		Settings.inSwamp = false;
+		Settings.afterSwamp = true;
+		Settings.motorAAngle = 0;
 		Motor.A.flt(true);
-		Motor.A.rotateTo(0);
+		Motor.A.rotateTo(Settings.motorAAngle);
 		Motor.A.flt(true);
 		while (Motor.A.isMoving() && !suppressed) {
 			Thread.yield();

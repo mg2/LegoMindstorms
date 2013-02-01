@@ -31,7 +31,7 @@ public class WallTooFar implements Behavior {
 	 */
 	@Override
 	public boolean takeControl() {
-		return (sonic.getDistance() > 18);
+		return (sonic.getDistance() > 18 && !Settings.inSwamp);
 	}
 
 	/**

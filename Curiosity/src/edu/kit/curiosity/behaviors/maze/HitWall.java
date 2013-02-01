@@ -32,7 +32,7 @@ public class HitWall implements Behavior {
 	 */
 	@Override
 	public boolean takeControl() {
-		return touch_r.isPressed() || touch_l.isPressed();
+		return (touch_r.isPressed() || touch_l.isPressed());
 	}
 
 	/**
@@ -42,7 +42,7 @@ public class HitWall implements Behavior {
 	@Override
 	public void action() {
 		suppressed = false;
-		Settings.AT_START_OF_MAZE = false;
+		Settings.atStartOfMaze = false;
 		pilot.travel(-5);
 		pilot.rotate(100);
 		Settings.numberOfTurns = 0;

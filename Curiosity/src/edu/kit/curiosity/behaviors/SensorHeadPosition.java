@@ -1,5 +1,6 @@
 package edu.kit.curiosity.behaviors;
 
+import edu.kit.curiosity.Settings;
 import lejos.nxt.Motor;
 import lejos.robotics.subsumption.Behavior;
 
@@ -29,7 +30,7 @@ public class SensorHeadPosition implements Behavior {
 	public void action() {
 		suppressed = false;
 		Motor.A.flt(true);
-		Motor.A.rotateTo(0);
+		Motor.A.rotateTo(Settings.motorAAngle);
 		Motor.A.flt(true);
 		while (Motor.A.isMoving() && !suppressed) {
 			Thread.yield();

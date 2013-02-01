@@ -1,6 +1,7 @@
 package edu.kit.curiosity.behaviors.maze;
 
 import edu.kit.curiosity.Settings;
+import lejos.nxt.Motor;
 import lejos.nxt.UltrasonicSensor;
 import lejos.robotics.navigation.DifferentialPilot;
 import lejos.robotics.subsumption.Behavior;
@@ -22,17 +23,17 @@ public class FollowWall implements Behavior {
 
 	@Override
 	public boolean takeControl() {
-		// TODO STATE_LABYRINTH
 		
-		return true;
+		return (!Settings.inSwamp);
 	}
 
 	@Override
 	public void action() {
 		suppressed = false;
+		System.out.println("FOLLOOW WALLLLL");
 		while(!suppressed) {
 			if(sonic.getDistance() > (distanceToWall + 10)) {
-				pilot.arc(-10, -90, true);
+				pilot.arc(-15, -90, true);
 			} else if(sonic.getDistance() < distanceToWall) {
 				pilot.arc(70, 20, true);
 			} else if(sonic.getDistance() >= distanceToWall) {
@@ -44,7 +45,7 @@ public class FollowWall implements Behavior {
 
 	@Override
 	public void suppress() {
-		suppressed = false;
+		suppressed = true;
 	}
 
 }
