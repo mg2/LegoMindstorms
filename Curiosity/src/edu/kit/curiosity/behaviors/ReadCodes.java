@@ -12,11 +12,12 @@ public class ReadCodes implements Behavior {
 	private DifferentialPilot pilot;
 	private LightSensor light;
 	
-	private static int numOfTapes = 0;
+	private int numOfTapes;
 	
-	int settingsSilverLightNorm = 500;
+	int settingsSilverLightNorm = 350;
 	
 	public ReadCodes() {
+		numOfTapes = 0;
 		READ_STATE = false;
 		pilot = Settings.PILOT;
 		light = Settings.LIGHT;
@@ -24,27 +25,27 @@ public class ReadCodes implements Behavior {
 	
 	@Override
 	public boolean takeControl() {
-		// if its in a state with the need to read a code...??
 		return READ_STATE;
 	}
 
 	@Override
 	public void action() {
-		pilot.setTravelSpeed(Settings.DRIVE_SPEED);
+		suppressed = false;
 		pilot.forward();
-		int timer = 0;
+		long timer = System.currentTimeMillis();
+		numOfTapes = 0;
 		while(!suppressed) {
-			if(timer > 1000) {
+			if((System.currentTimeMillis() - timer) > 3000) {
 				System.out.println("CodeNumber: " + numOfTapes);
 				System.out.println("");
 				System.out.println("-> State Bridge?");
 			}
 			if(light.getNormalizedLightValue() > settingsSilverLightNorm) {
 				numOfTapes++;
-				timer = 0;
+				timer = System.currentTimeMillis();
 			}
-			timer++;
 		}
+		READ_STATE = false;
 	}
 
 	@Override

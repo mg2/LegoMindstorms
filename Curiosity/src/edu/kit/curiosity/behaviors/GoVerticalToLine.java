@@ -31,7 +31,7 @@ public class GoVerticalToLine implements Behavior {
 		pilot.setRotateSpeed(Settings.ROTATION_SPEED / 4);
 		pilot.setTravelSpeed(Settings.DRIVE_SPEED / 10);
 		while (!suppressed
-				&& light.getNormalizedLightValue() < settingsSilverLightNorm) {
+				&& light.getNormalizedLightValue() > settingsSilverLightNorm) {
 			pilot.backward();
 		}
 		while (!suppressed
@@ -39,7 +39,7 @@ public class GoVerticalToLine implements Behavior {
 			pilot.rotate(10, true);
 		}
 		int i = 0;
-		while (!suppressed && light.getNormalizedLightValue() > settingsSilverLightNorm) {
+		while (!suppressed && light.getNormalizedLightValue() >= settingsSilverLightNorm) {
 			pilot.rotate(10, true);
 			i++;
 		}

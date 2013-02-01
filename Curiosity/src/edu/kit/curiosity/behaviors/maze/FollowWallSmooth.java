@@ -32,7 +32,7 @@ public class FollowWallSmooth implements Behavior {
 		suppressed = false;
 		while(pilot.isMoving() && !suppressed) {
 			if(sonic.getDistance() > (distanceToWall + 10)) {
-				pilot.arc(20, 90, true);
+				pilot.arc(-20, -90, true);
 			} else if(sonic.getDistance() < distanceToWall) {
 				pilot.arc(50, 20, true);
 			} else if(sonic.getDistance() >= distanceToWall) {
