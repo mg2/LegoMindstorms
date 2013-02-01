@@ -57,7 +57,6 @@ public class Settings {
 	 */
 	public static int numberOfTurns = 0;
 	public static boolean atStartOfMaze = true;
-	public static boolean endOfMaze = false;
 	public static boolean inSwamp = false;
 	public static boolean afterSwamp = false;
 	public static boolean endOfMaze = false;
