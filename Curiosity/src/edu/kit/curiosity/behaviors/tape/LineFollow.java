@@ -15,7 +15,7 @@ public class LineFollow implements Behavior {
 
 	@Override
 	public void action() {
-		System.out.println("Line");
+		//System.out.println("Line");
 		suppressed = false;
 		Settings.angle = 15;
 		Settings.PILOT.forward();

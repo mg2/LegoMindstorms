@@ -8,7 +8,6 @@ import lejos.robotics.subsumption.Behavior;
 public class TapeLost implements Behavior {
 	//Auf dem schwarzen Planner entsprechen 90 Grad 136.5 CodeGrad
 	private boolean suppressed = false;
-	private int m = 1;
 	
 	DifferentialPilot dp;
 	LightSensor ls;
@@ -26,22 +25,22 @@ public class TapeLost implements Behavior {
 
 	@Override
 	public void action() {
-		System.out.println("Lost");
+		System.out.print(" Lost");
 		suppressed = false;
-		//int m = 1; // 1: Kante wird links vom Sensor sein, -1: Kante wird rechts
-		dp.rotate(Settings.angle);
+		
 		while (!suppressed && ls.getLightValue() < 20) {
-			Settings.angle += 5 * m;
-			Settings.angle *= (-1);
-			m = m * (-1);
-			dp.rotate(Settings.angle);
-			//dp.travel(0.35 + Math.abs(Settings.angle) * 0.05);
-			System.out.print(" " + Settings.angle);
+			if (!dp.isMoving()) {
+				dp.rotate(Settings.angle, true);
+				System.out.print(" " + Settings.angle);
+				Settings.angle *= -2;
+			}			
 		}
+		/*
 		if (!suppressed) {
 			System.out.println("Suppressed");
 			dp.rotate(7.5*m, true);
 		}
+		*/
 	}
 
 	@Override

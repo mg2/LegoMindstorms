@@ -24,7 +24,7 @@ public class GapFound implements Behavior {
 
 	@Override
 	public void action() {
-		System.out.println("GAP?");
+		System.out.print(" GAP?");
 		suppressed = false;
 		dp.stop();
 		dp.rotate(Settings.angle);

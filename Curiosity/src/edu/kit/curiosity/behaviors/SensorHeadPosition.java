@@ -28,13 +28,12 @@ public class SensorHeadPosition implements Behavior {
 	@Override
 	public void action() {
 		suppressed = false;
-		///Motor.A.flt(true); //TODO hier? ER IS LOCKT!!!! 
-		Motor.A.rotateTo(0);
 		Motor.A.flt(true);
+		Motor.A.rotateTo(0, true);
 		while (Motor.A.isMoving() && !suppressed) {
 			Thread.yield();
 		}
-
+		Motor.A.flt(true);
 	}
 
 	/**
