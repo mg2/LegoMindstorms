@@ -60,6 +60,7 @@ public class Settings {
 	 * Miscellaneous.
 	 */
 	public static boolean atStartOfMaze = true;
+	public static boolean endOfMaze = false;
 	public static boolean inSwamp = false;
 	public static boolean afterSwamp = false;	
 	public static boolean fromLeft;
