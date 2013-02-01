@@ -15,6 +15,12 @@ import lejos.robotics.navigation.DifferentialPilot;
 public class Settings {
 
 	/**
+	 * ArbitratorManager to change arbitrators depending on the current level.
+	 */
+	public static ArbitratorManager arbiMgr;
+	public final static RobotStates FIRST_LEVEL = RobotStates.MAZE;
+
+	/**
 	 * General settings for the robot.
 	 */
 	public final static double DRIVE_SPEED = 40;
