@@ -4,34 +4,35 @@ import edu.kit.curiosity.Settings;
 import lejos.robotics.navigation.DifferentialPilot;
 import lejos.robotics.subsumption.Behavior;
 
-public class TurnedToMuch implements Behavior {
+public class StartMaze implements Behavior {
 
-	private boolean suppressed = false;
+	private boolean suppressed;
+	
 	private DifferentialPilot pilot;
 	
-	public TurnedToMuch() {
+	public StartMaze() {
 		pilot = Settings.PILOT;
 	}
 
 	@Override
 	public boolean takeControl() {
-		return Settings.numberOfTurns > 5;
+
+		return Settings.AT_START_OF_MAZE;
 	}
 
 	@Override
 	public void action() {
 		suppressed = false;
-		pilot.travel(100, true);
-		Settings.numberOfTurns = 0;
+		pilot.arcForward(-30);
 		while(pilot.isMoving() && !suppressed) {
 			Thread.yield();
 		}
-		pilot.stop();
 	}
 
 	@Override
 	public void suppress() {
 		suppressed = true;
+
 	}
 
 }

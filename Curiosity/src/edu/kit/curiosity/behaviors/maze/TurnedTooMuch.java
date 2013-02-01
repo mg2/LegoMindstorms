@@ -1,54 +1,37 @@
 package edu.kit.curiosity.behaviors.maze;
 
 import edu.kit.curiosity.Settings;
-import lejos.nxt.UltrasonicSensor;
 import lejos.robotics.navigation.DifferentialPilot;
 import lejos.robotics.subsumption.Behavior;
 
-public class NoWallInReach implements Behavior {
+public class TurnedTooMuch implements Behavior {
 
 	private boolean suppressed = false;
-	
 	private DifferentialPilot pilot;
-	private UltrasonicSensor sonic;
-
-	/**
-	 * Constructs new NoWallInReach Behavior.
-	 */
-	public NoWallInReach()
-	{
-		pilot = Settings.PILOT;
-		sonic = Settings.SONIC;
-	}
 	
-	/**
-	 * This Behavior takes control if the Distance is higher than 40
-	 */
+	public TurnedTooMuch() {
+		pilot = Settings.PILOT;
+	}
+
 	@Override
 	public boolean takeControl() {
-		return (sonic.getDistance() > 40);
+		return Settings.numberOfTurns > 5;
 	}
 
-	/**
-	 * Moves to the right.
-	 */
 	@Override
 	public void action() {
 		suppressed = false;
-		pilot.travel(15);
-		pilot.arc(-10, -100, true);
-		Settings.numberOfTurns++;
+		pilot.travel(100, true);
+		Settings.numberOfTurns = 0;
 		while(pilot.isMoving() && !suppressed) {
 			Thread.yield();
 		}
 		pilot.stop();
 	}
 
-	/**
-	 * Initiates the cleanup when this Behavior is suppressed
-	 */
 	@Override
 	public void suppress() {
 		suppressed = true;
 	}
+
 }

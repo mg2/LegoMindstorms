@@ -43,5 +43,6 @@ public class MotorAStall implements Behavior {
 		while (!suppressed && Motor.A.isStalled()) {
 			Thread.yield();
 		}
+		Motor.A.stop();
 	}
 }

@@ -40,8 +40,8 @@ public class WallTooFar implements Behavior {
 	@Override
 	public void action() {
 		suppressed = false;
-		pilot.travel(5);
-		pilot.arc(-30, -50, true);
+		pilot.travel(10);
+		pilot.arc(-30, -20, true);
 		while(pilot.isMoving() && !suppressed) {
 			Thread.yield();
 		}

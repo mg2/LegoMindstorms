@@ -42,6 +42,7 @@ public class HitWall implements Behavior {
 	@Override
 	public void action() {
 		suppressed = false;
+		Settings.AT_START_OF_MAZE = false;
 		pilot.travel(-5);
 		pilot.rotate(100);
 		Settings.numberOfTurns = 0;

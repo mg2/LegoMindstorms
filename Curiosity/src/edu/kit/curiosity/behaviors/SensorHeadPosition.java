@@ -29,11 +29,13 @@ public class SensorHeadPosition implements Behavior {
 	public void action() {
 		suppressed = false;
 		Motor.A.flt(true);
-		Motor.A.rotateTo(0, true);
+		Motor.A.rotateTo(0);
+		Motor.A.flt(true);
 		while (Motor.A.isMoving() && !suppressed) {
 			Thread.yield();
 		}
-		Motor.A.flt(true);
+		Motor.A.stop();
+
 	}
 
 	/**

@@ -80,4 +80,12 @@ public class Settings {
 	public static int numberOfTurns = 0;
 	
 	public static int motorAAngle = 0;
+	
+	public static boolean AT_START_OF_MAZE = true;
+	
+	public static boolean IN_SWAMP = false;
+
+	public static int Swamp_Light = 400;
+
+	public static int Black_Light = 200;
 }
