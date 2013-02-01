@@ -17,18 +17,18 @@ public class LineFollow implements Behavior {
 	public void action() {
 		//System.out.println("Line");
 		suppressed = false;
-		Settings.angle = 15;
+		Settings.angle = 15; //initial angle
 		Settings.PILOT.forward();
 		while (!suppressed) {
 			Thread.yield();
 		}
+		Settings.PILOT.stop();
 
 	}
 
 	@Override
 	public void suppress() {
 		suppressed = true;
-		Settings.PILOT.stop();
 	}
 
 }

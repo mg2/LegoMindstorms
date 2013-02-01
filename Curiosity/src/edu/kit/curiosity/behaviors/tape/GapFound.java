@@ -7,7 +7,7 @@ import lejos.robotics.subsumption.Behavior;
 
 public class GapFound implements Behavior {
 
-	private static boolean suppressed = false;
+	private boolean suppressed = false;
 	DifferentialPilot dp;
 	LightSensor ls;
 	
@@ -18,23 +18,21 @@ public class GapFound implements Behavior {
 	
 	@Override
 	public boolean takeControl() {
-		if (Math.abs(Settings.angle) > 50) return true;
+		if (Math.abs(Settings.angle) == 999) return true;
 		return false;
 	}
 
 	@Override
 	public void action() {
-		System.out.print(" GAP?");
 		suppressed = false;
-		dp.stop();
-		dp.rotate(Settings.angle);
-		dp.travel(20);
+		//System.out.print(" GAP?");
 		Settings.angle = 15;
+		dp.travel(15, true);
 	}
 
 	@Override
 	public void suppress() {
-		dp.stop(); //WAS PASSIERT WENN UTERBROCHEN. SOLL SETTINGS.ANGLE ZURUCK ZU 15???
+		dp.stop(); //was passiert, wenn rammt und steht queer? :(
 		suppressed = true;
 	}
 
