@@ -28,7 +28,12 @@ public class TapeLost implements Behavior {
 		//System.out.print(" Lost");
 		suppressed = false;
 		boolean flag = false;
-		Settings.angle = 15;
+		if (Settings.fromLeft) {
+			Settings.angle = -20;
+		} else {
+			Settings.angle = 20;
+		}
+		
 		while (!suppressed && ls.getLightValue() < 60) { //until suppressed or line found
 			//for GAPS:
 			if (!dp.isMoving() && Math.abs(Settings.angle) >= 600)	{

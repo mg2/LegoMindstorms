@@ -17,7 +17,12 @@ public class LineFollow implements Behavior {
 	public void action() {
 		//System.out.println("Line");
 		suppressed = false;
-		Settings.angle = 15; //initial angle
+		if (Settings.angle < 0) {
+			Settings.fromLeft = false;
+		} else {
+			Settings.fromLeft = true;
+		}
+		
 		Settings.PILOT.forward();
 		while (!suppressed) {
 			Thread.yield();
