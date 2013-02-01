@@ -8,7 +8,6 @@ import lejos.robotics.subsumption.Behavior;
 public class TapeLost implements Behavior {
 	//Auf dem schwarzen Planner entsprechen 90 Grad 136.5 CodeGrad
 	private boolean suppressed = false;
-	private int m = 1;
 	
 	DifferentialPilot dp;
 	LightSensor ls;
@@ -26,37 +25,33 @@ public class TapeLost implements Behavior {
 
 	@Override
 	public void action() {
-		System.out.print(" Lost");
+		//System.out.print(" Lost");
 		suppressed = false;
+		boolean flag = false;
 		Settings.angle = 15;
-		while (!suppressed && ls.getLightValue() < 40) {
-			if (!dp.isMoving()) {
+		while (!suppressed && ls.getLightValue() < 60) { //until suppressed or line found
+			//for GAPS:
+			if (!dp.isMoving() && Math.abs(Settings.angle) >= 600)	{
+				dp.rotate(Math.signum(Settings.angle) * 135, true); //should be looking forward
+				Settings.angle = 999;
+			}
+			else if (!dp.isMoving()) { 
 				dp.rotate(Settings.angle, true);
-				System.out.print(" " + Settings.angle);
 				Settings.angle *= -2;
-			}			
+				
+				//for GAPS:
+				if (!flag && Math.abs(Settings.angle) >= 480) { //for gaps searching
+					Settings.angle = (int) (Math.signum(Settings.angle) * 300); //sonst ueberdreht
+					flag = true;
+				}
+			}
 		}
-		/*
-		 * 5-er Inkrement
-		while (!suppressed && ls.getLightValue() < 20) {
-			Settings.angle += 5 * m;
-			Settings.angle *= (-1);
-			m = m * (-1);
-			dp.rotate(Settings.angle);
-			//dp.travel(0.35 + Math.abs(Settings.angle) * 0.05);
-			System.out.print(" " + Settings.angle);
-		}
-		if (!suppressed) {
-			System.out.println("Suppressed");
-			dp.rotate(7.5*m, true);
-		}
-		*/
+		dp.stop();
 	}
 
 	@Override
 	public void suppress() {
 		suppressed = true;
-		dp.stop();
 	}
 
 }

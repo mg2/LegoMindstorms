@@ -1,5 +1,6 @@
 package edu.kit.curiosity;
 
+
 import lejos.nxt.Button;
 import lejos.nxt.ButtonListener;
 import lejos.nxt.MotorPort;
@@ -7,8 +8,6 @@ import lejos.robotics.subsumption.Behavior;
 import lejos.robotics.subsumption.CustomArbitrator;
 import edu.kit.curiosity.behaviors.*;
 import edu.kit.curiosity.behaviors.maze.HitWall;
-import edu.kit.curiosity.behaviors.maze.WallTooClose;
-import edu.kit.curiosity.behaviors.maze.WallTooFar;
 
 public class ThreadMain implements ButtonListener {
 
@@ -22,10 +21,8 @@ public class ThreadMain implements ButtonListener {
 		new ThreadMain();
 		
 		Behavior b1 = new DriveForward();
-		Behavior b2 = new WallTooClose();
-		Behavior b3 = new WallTooFar();
 		Behavior b4 = new HitWall();
-		Behavior[] bArray = { b1, b2, b3, b4 };
+		Behavior[] bArray = { b1, b4 };
 		CustomArbitrator arbitrator = new CustomArbitrator(bArray);
 
 		Thread t = new Thread(arbitrator);

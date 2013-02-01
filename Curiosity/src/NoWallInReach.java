@@ -1,4 +1,4 @@
-package edu.kit.curiosity.behaviors.maze;
+
 
 import edu.kit.curiosity.Settings;
 import lejos.nxt.UltrasonicSensor;
@@ -37,7 +37,6 @@ public class NoWallInReach implements Behavior {
 		suppressed = false;
 		pilot.travel(15);
 		pilot.arc(-10, -100, true);
-		Settings.numberOfTurns++;
 		while(pilot.isMoving() && !suppressed) {
 			Thread.yield();
 		}

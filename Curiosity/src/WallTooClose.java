@@ -1,4 +1,4 @@
-package edu.kit.curiosity.behaviors.maze;
+
 
 import edu.kit.curiosity.Settings;
 import lejos.nxt.UltrasonicSensor;
@@ -41,7 +41,6 @@ public class WallTooClose implements Behavior {
 	public void action() {
 		suppressed = false;
 		pilot.arc(10, 15, true);
-		Settings.numberOfTurns = 0;
 		while(pilot.isMoving() && !suppressed) {
 			System.out.println(sonic.getDistance() + " Close");
 			Thread.yield();
