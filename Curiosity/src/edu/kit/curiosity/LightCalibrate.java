@@ -146,7 +146,6 @@ public class LightCalibrate {
 			System.out.print("Black: ");
 			Button.ENTER.waitForPressAndRelease();
 			light.calibrateLow();
-			Settings.light_black = light.getLow();
 			System.out.println(Settings.LIGHT.getLow());
 		}
 
@@ -154,9 +153,13 @@ public class LightCalibrate {
 			// Calibrate BRIDGE
 			System.out.println("White: ");
 			Button.ENTER.waitForPressAndRelease();
-			Settings.light_bridge = light.getNormalizedLightValue();
+			light.calibrateHigh();
 			System.out.println(Settings.light_bridge);
 		}
+
+		System.out.println("Press ENTER to continue.");
+		Button.ENTER.waitForPressAndRelease();
+		LCD.clear();
 
 	}
 }
