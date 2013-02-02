@@ -66,4 +66,9 @@ public class Settings {
 	public static boolean inSwamp = false;
 	public static boolean afterSwamp = false;	
 	public static boolean fromLeft;
+	
+	/**
+	 * boolean if in obstacle found mode
+	 */
+	public static boolean obstacle = false;
 }

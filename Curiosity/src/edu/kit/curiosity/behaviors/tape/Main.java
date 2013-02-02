@@ -22,11 +22,11 @@ public class Main implements ButtonListener {
 
 	public Main() {
 		Button.ESCAPE.addButtonListener(this);
+		Settings.motorAAngle = 90; //Move the head forward
 	}
 
 	public static void main(String[] args) throws Exception {
 		new Main();
-		
 		
 		Motor.A.setSpeed(Motor.A.getMaxSpeed() / 5);
 

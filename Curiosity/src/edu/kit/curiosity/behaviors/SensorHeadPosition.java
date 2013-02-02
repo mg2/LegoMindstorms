@@ -19,8 +19,7 @@ public class SensorHeadPosition implements Behavior {
 	 */
 	@Override
 	public boolean takeControl() {
-
-		return (Motor.A.getTachoCount() > 5 || Motor.A.getTachoCount() < -5);
+		return (Math.abs(Motor.A.getTachoCount() - Settings.motorAAngle) > 5/* && !Settings.TOUCH_R.isPressed()*/); //not sure
 	}
 
 	/**
@@ -31,11 +30,11 @@ public class SensorHeadPosition implements Behavior {
 		suppressed = false;
 		Motor.A.flt(true);
 		Motor.A.rotateTo(Settings.motorAAngle);
-		Motor.A.flt(true);
 		while (Motor.A.isMoving() && !suppressed) {
 			Thread.yield();
 		}
 		Motor.A.stop();
+		Motor.A.flt(true);
 
 	}
 
