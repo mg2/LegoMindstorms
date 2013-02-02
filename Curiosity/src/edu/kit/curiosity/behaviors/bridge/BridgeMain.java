@@ -2,17 +2,12 @@ package edu.kit.curiosity.behaviors.bridge;
 
 import lejos.nxt.Button;
 import lejos.nxt.ButtonListener;
-import lejos.nxt.LightSensor;
 import edu.kit.curiosity.ArbitratorManager;
 import edu.kit.curiosity.LightCalibrate;
 import edu.kit.curiosity.RobotState;
 import edu.kit.curiosity.Settings;
 
 public class BridgeMain implements ButtonListener {
-
-	// private static CustomArbitrator arbitrator;
-	private static LightSensor light = Settings.LIGHT;
-
 	public BridgeMain() {
 		Button.ESCAPE.addButtonListener(this);
 	}
@@ -20,7 +15,7 @@ public class BridgeMain implements ButtonListener {
 	public static void main(String[] args) throws Exception {
 		new BridgeMain();
 
-		new LightCalibrate(true, true, false, false);
+		new LightCalibrate(true, true);
 		Settings.arbiMgr = new ArbitratorManager(RobotState.BRIDGE);
 	}
 
