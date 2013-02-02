@@ -165,6 +165,7 @@ public class ArbitratorManager {
 				Settings.PILOT.setRotateSpeed(Settings.PILOT.getMaxRotateSpeed() / 4);
 				Motor.A.setSpeed(Motor.A.getMaxSpeed() / 5);
 				Settings.motorAAngle = 0;
+				Motor.A.setStallThreshold(10, 1000);
 				this.arbitrator = new CustomArbitrator(mazeBehavior);
 				break;
 			case TAPE:

@@ -39,10 +39,15 @@ public class MotorAStall implements Behavior {
 		System.out.println("Stall.");
 		suppressed = false;
 		Motor.A.flt();
-		Motor.A.rotateTo(Settings.motorAAngle);
+		//TODO direction of travel
+		Settings.PILOT.travel(-10 * Math.signum(Settings.PILOT.getTravelSpeed()));
+		Motor.A.rotateTo(Settings.motorAAngle, true);
+		Motor.A.flt();
 		while (!suppressed && Motor.A.isStalled()) {
 			Thread.yield();
 		}
+		
 		Motor.A.stop();
+		Motor.A.flt();
 	}
 }
