@@ -39,6 +39,7 @@ public class DriveUntilAbyss implements Behavior {
 	@Override
 	public void action() {
 		suppressed = false;
+		Settings.whipAndBridgeCounter = 0;
 		pilot.arc(-60, -40, true);
 		while (pilot.isMoving() && !suppressed) {
 			System.out.println(lightSensor.getLightValue() + "Reached Abyss");

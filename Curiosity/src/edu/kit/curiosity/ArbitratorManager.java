@@ -8,6 +8,7 @@ import edu.kit.curiosity.behaviors.MotorAStall;
 import edu.kit.curiosity.behaviors.SensorHeadPosition;
 import edu.kit.curiosity.behaviors.bridge.AbyssDetected;
 import edu.kit.curiosity.behaviors.bridge.DriveUntilAbyss;
+import edu.kit.curiosity.behaviors.bridge.ReachedEndOfBridge;
 import edu.kit.curiosity.behaviors.gate.RollFloor;
 import edu.kit.curiosity.behaviors.maze.BeginMaze;
 import edu.kit.curiosity.behaviors.maze.FollowWall;
@@ -46,9 +47,10 @@ public class ArbitratorManager {
 	 */
 	private Behavior b1 = new DriveUntilAbyss();
 	private Behavior b2 = new AbyssDetected();
-	private Behavior b3 = new SensorHeadPosition();
-	private Behavior b4 = new MotorAStall();
-	private Behavior[] bridgeBehavior = { b1, b2, b3, b4 };
+	private Behavior b3 = new ReachedEndOfBridge();
+	private Behavior b4 = new SensorHeadPosition();
+	private Behavior b5 = new MotorAStall();
+	private Behavior[] bridgeBehavior = { b1, b2, b3, b4, b5 };
 
 	/**
 	 * Maze behavior and arbitrator
