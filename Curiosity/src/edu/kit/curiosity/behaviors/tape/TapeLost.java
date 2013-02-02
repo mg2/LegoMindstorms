@@ -9,17 +9,17 @@ public class TapeLost implements Behavior {
 	//Auf dem schwarzen Planner entsprechen 90 Grad 136.5 CodeGrad
 	private boolean suppressed = false;
 	
-	DifferentialPilot dp;
-	LightSensor ls;
+	DifferentialPilot pilot;
+	LightSensor light;
 	
 	public TapeLost() {
-		dp = Settings.PILOT;
-		ls = Settings.LIGHT;
+		pilot = Settings.PILOT;
+		light = Settings.LIGHT;
 	}
 
 	@Override
 	public boolean takeControl() {
-		if (ls.getLightValue() < 20) return true;
+		if (light.getLightValue() < 20) return true;
 		else return false;
 	}
 
@@ -34,14 +34,14 @@ public class TapeLost implements Behavior {
 			Settings.angle = 20;
 		}
 		
-		while (!suppressed && ls.getLightValue() < 60) { //until suppressed or line found
+		while (!suppressed && light.getLightValue() < 60) { //until suppressed or line found
 			//for GAPS:
-			if (!dp.isMoving() && Math.abs(Settings.angle) >= 600)	{
-				dp.rotate(Math.signum(Settings.angle) * 135, true); //should be looking forward
+			if (!pilot.isMoving() && Math.abs(Settings.angle) >= 600)	{
+				pilot.rotate(Math.signum(Settings.angle) * 135, true); //should be looking forward
 				Settings.angle = 999;
 			}
-			else if (!dp.isMoving()) { 
-				dp.rotate(Settings.angle, true);
+			else if (!pilot.isMoving()) { 
+				pilot.rotate(Settings.angle, true);
 				Settings.angle *= -2;
 				
 				//for GAPS:
@@ -51,7 +51,7 @@ public class TapeLost implements Behavior {
 				}
 			}
 		}
-		dp.stop();
+		pilot.stop();
 	}
 
 	@Override

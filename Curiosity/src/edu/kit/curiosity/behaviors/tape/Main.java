@@ -3,18 +3,11 @@ package edu.kit.curiosity.behaviors.tape;
 import lejos.nxt.Button;
 import lejos.nxt.ButtonListener;
 import lejos.nxt.LCD;
-import lejos.nxt.LightSensor;
 import lejos.nxt.Motor;
-import lejos.robotics.localization.OdometryPoseProvider;
-import lejos.robotics.localization.PoseProvider;
-import lejos.robotics.navigation.DifferentialPilot;
-import lejos.robotics.navigation.Pose;
 import lejos.robotics.subsumption.Arbitrator;
 import lejos.robotics.subsumption.Behavior;
-import lejos.robotics.subsumption.CustomArbitrator;
 import edu.kit.curiosity.Settings;
 import edu.kit.curiosity.behaviors.*;
-import edu.kit.curiosity.behaviors.maze.*;
 
 public class Main implements ButtonListener {
 
