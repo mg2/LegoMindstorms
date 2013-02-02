@@ -89,4 +89,7 @@ public class Settings {
 	public static int searchedColor;
 	
 	
+
+	public static int whipAndBridgeCounter = 0;
+	
 }

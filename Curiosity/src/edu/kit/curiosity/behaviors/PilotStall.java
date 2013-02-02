@@ -20,7 +20,6 @@ public class PilotStall implements Behavior {
 		System.out.println("Pilot stall");
 		Motor.B.flt();
 		Motor.C.flt();
-		//otor.B.
 	}
 
 	@Override
