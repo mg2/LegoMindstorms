@@ -51,9 +51,9 @@ public class FollowWall implements Behavior {
 		while (!suppressed) {
 			if (sonic.getDistance() > (distanceToWall + 10)) {
 				pilot.arc(-15, -90, true);
-			} else if (sonic.getDistance() < distanceToWall) {
-				pilot.arc(60, 20, true);
-			} else if (sonic.getDistance() >= distanceToWall) {
+			} else if (sonic.getDistance() <= distanceToWall) {
+				pilot.arc(40, 20, true);
+			} else if (sonic.getDistance() > distanceToWall) {
 				pilot.arc(-60, -20, true);
 			}
 		}
