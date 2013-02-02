@@ -67,6 +67,8 @@ public class Settings {
 	public static boolean afterSwamp = false;	
 	public static boolean fromLeft;
 	public static boolean inFirstRow = true;
+	public static boolean onColors = false;;
+	public static boolean colorFound = false;
 	
 	/**
 	 * boolean if in obstacle found mode
@@ -81,5 +83,10 @@ public class Settings {
 	public static int light_bridge = 352; //whip = bridge + 20
 	public static int light_swamp = 400;
 	public static int light_line = 484;
+	public static int color1;
+	public static int color2;
+	public static int color3;
+	public static int searchedColor;
+	
 	
 }
