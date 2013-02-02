@@ -50,7 +50,7 @@ public class ObstacleFound implements Behavior {
 		}
 		if (light.getLightValue() > 50) { // if line found - leave obstacle mode
 			Settings.obstacle = false;
-			pilot.travel(-5);
+			//pilot.travel(-5); TODO do we need it?
 			Settings.motorAAngle = 90;
 		}
 		pilot.stop();
