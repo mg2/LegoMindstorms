@@ -32,7 +32,7 @@ public class Main implements ButtonListener {
 		Settings.PILOT.setRotateSpeed(Settings.PILOT.getMaxRotateSpeed() * 0.15);
 		
 		
-		new LightCalibrate();
+		new LightCalibrate(true, false, false, true);
 		
 		Behavior tf1 = new LineFollow();
 		Behavior tf2 = new TapeLost();

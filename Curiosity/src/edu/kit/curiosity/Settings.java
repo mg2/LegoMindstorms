@@ -79,6 +79,7 @@ public class Settings {
 	 */
 	public static int light_black = 261;
 	public static int light_bridge = 352; //whip = bridge + 20
+	public static int light_swamp = 400;
 	public static int light_line = 484;
 	
 }

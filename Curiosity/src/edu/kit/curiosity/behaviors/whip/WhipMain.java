@@ -30,7 +30,7 @@ public class WhipMain {
 		Motor.A.setSpeed(Motor.A.getMaxSpeed() / 5);
 		
 		
-		new LightCalibrate();
+		new LightCalibrate(true, true, false, false);
 		
 		Behavior w0 = new DriveForward();
 		Behavior w1 = new DriveUntilWhipAbyss();
