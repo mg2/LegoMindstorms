@@ -3,7 +3,6 @@ package edu.kit.curiosity.behaviors.bridge;
 import lejos.nxt.Button;
 import lejos.nxt.ButtonListener;
 import lejos.nxt.LightSensor;
-import lejos.nxt.Motor;
 import edu.kit.curiosity.ArbitratorManager;
 import edu.kit.curiosity.RobotState;
 import edu.kit.curiosity.Settings;
