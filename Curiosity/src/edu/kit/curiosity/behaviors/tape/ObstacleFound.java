@@ -29,8 +29,8 @@ public class ObstacleFound implements Behavior {
 		if (!Settings.obstacle) { //If not in obstacle mode - initialize obstacle mode
 			Settings.obstacle = true;
 			Settings.motorAAngle = 0;
-			pilot.travel(-10, true); // TODO true?
-			pilot.rotate(100, true); // TODO true?
+			pilot.travel(-10);
+			pilot.rotate(100);
 		}
 		while (!suppressed && light.getLightValue() < 50) { //arcs until line found
 			if (!pilot.isMoving() && sensor.getDistance() > (distanceToWall + 10)) {
