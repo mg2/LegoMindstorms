@@ -72,4 +72,13 @@ public class Settings {
 	 * boolean if in obstacle found mode
 	 */
 	public static boolean obstacle = false;
+	public static boolean beforeWhip = true;
+	
+	/**
+	 * saved light sensor settings with sample settings
+	 */
+	public static int light_black = 261;
+	public static int light_bridge = 352; //whip = bridge + 20
+	public static int light_line = 484;
+	
 }
