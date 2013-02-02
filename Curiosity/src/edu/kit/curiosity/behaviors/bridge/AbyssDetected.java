@@ -43,6 +43,7 @@ public class AbyssDetected implements Behavior {
 		suppressed = false;
 		while (lightSensor.getLightValue() < threshold  && !suppressed) {
 			pilot.rotate(10);
+			Settings.whipAndBridgeCounter++;
 		}
 		while (pilot.isMoving() && !suppressed) {
 			Thread.yield();

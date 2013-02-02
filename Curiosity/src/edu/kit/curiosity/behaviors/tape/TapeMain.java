@@ -20,30 +20,29 @@ public class TapeMain implements ButtonListener {
 
 	public TapeMain() {
 		Button.ESCAPE.addButtonListener(this);
-		Settings.motorAAngle = 90; //Move the head forward
+		Settings.motorAAngle = 90; // Move the head forward
 	}
 
 	public static void main(String[] args) throws Exception {
 		new TapeMain();
-		
+
 		Motor.A.setSpeed(Motor.A.getMaxSpeed() / 5);
 
 		Settings.PILOT.setTravelSpeed(Settings.PILOT.getMaxTravelSpeed() * 0.75);
 		Settings.PILOT.setRotateSpeed(Settings.PILOT.getMaxRotateSpeed() * 0.15);
-		
-		
-		new LightCalibrate(true, false, false, true);
-		
+
+		new LightCalibrate(true, false, false, true, false);
+
 		Behavior tf1 = new LineFollow();
 		Behavior tf2 = new TapeLost();
 		Behavior tf3 = new GapFound(); // >130
 		Behavior tf4 = new ObstacleFound();
 		Behavior tf5 = new SensorHeadPosition();
 		Behavior tf6 = new MotorAStall();
-		//Behavior tf7 = new PilotStall();
-		
-		Behavior[] tapeFollow = {tf1, tf2, tf3, tf4, tf5, tf6};
-		CustomArbitrator tapeFollowArbitrator = new CustomArbitrator(tapeFollow);	
+		// Behavior tf7 = new PilotStall();
+
+		Behavior[] tapeFollow = { tf1, tf2, tf3, tf4, tf5, tf6 };
+		CustomArbitrator tapeFollowArbitrator = new CustomArbitrator(tapeFollow);
 		Thread t = new Thread(tapeFollowArbitrator);
 		t.start();
 	}
