@@ -40,9 +40,11 @@ public class DriveForward implements Behavior {
 	 */
 	public void action() {
 		suppressed = false;
-		pilot.forward();
+		//pilot.forward();
 		while (!suppressed) {
-			Thread.yield();
+			if (!pilot.isMoving()) {
+				pilot.travel(10, true);
+			}
 		}
 		pilot.stop();
 	}
