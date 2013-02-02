@@ -1,56 +1,68 @@
 package edu.kit.curiosity.behaviors;
 
 import edu.kit.curiosity.Settings;
+import lejos.nxt.LCD;
 import lejos.nxt.LightSensor;
 import lejos.robotics.navigation.DifferentialPilot;
 import lejos.robotics.subsumption.Behavior;
 
 public class ReadCodes implements Behavior {
-	public static boolean READ_STATE;
+	public static boolean readState;
 	private boolean suppressed = false;
+	private boolean counted;
 	
 	private DifferentialPilot pilot;
 	private LightSensor light;
 	
 	private int numOfTapes;
 	
-	int settingsSilverLightNorm = 350;
-	
 	public ReadCodes() {
 		numOfTapes = 0;
-		READ_STATE = false;
+		counted = false;
+		readState = false;
 		pilot = Settings.PILOT;
 		light = Settings.LIGHT;
 	}
 	
 	@Override
 	public boolean takeControl() {
-		return READ_STATE;
+		return readState;
 	}
 
 	@Override
 	public void action() {
+		pilot.setTravelSpeed(Settings.DRIVE_SPEED / 2);
 		suppressed = false;
-		pilot.forward();
 		long timer = System.currentTimeMillis();
 		numOfTapes = 0;
+		counted = false;
+		pilot.forward();
 		while(!suppressed) {
-			if((System.currentTimeMillis() - timer) > 3000) {
-				System.out.println("CodeNumber: " + numOfTapes);
-				System.out.println("");
-				System.out.println("-> State Bridge?");
-			}
-			if(light.getNormalizedLightValue() > settingsSilverLightNorm) {
+			if(!suppressed && !counted 
+					&& light.getLightValue() > 30) {
 				numOfTapes++;
-				timer = System.currentTimeMillis();
+				System.out.println("TapeCount: " + numOfTapes);
+				counted = true;
+			} else if(!suppressed && counted
+					&& light.getLightValue() < 30) {
+				pilot.forward();	
+				System.out.println("Black Screen.");
+				counted = false;
+			} 
+			if(pilot.getMovementIncrement() > 10) {
+				LCD.clear();
+				// set States..
+				System.out.println("CodeNumber: " + numOfTapes);
+				// self-suppress (finished job)
+				suppress();
 			}
 		}
-		READ_STATE = false;
+		readState = false;
 	}
 
 	@Override
 	public void suppress() {
-		suppressed = false;
+		suppressed = true;
 	}
 
 }
