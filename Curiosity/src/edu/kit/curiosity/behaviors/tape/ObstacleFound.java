@@ -26,22 +26,29 @@ public class ObstacleFound implements Behavior {
 	@Override
 	public void action() {
 		suppressed = false;
-		if (!Settings.obstacle) { //If not in obstacle mode - initialize obstacle mode
+		if (!Settings.obstacle) { // If not in obstacle mode - initialize
+									// obstacle mode
 			Settings.obstacle = true;
 			Settings.motorAAngle = 0;
 			pilot.travel(-10);
 			pilot.rotate(100);
 		}
-		while (!suppressed && light.getLightValue() < 50) { //arcs until line found
-			if (!pilot.isMoving() && sensor.getDistance() > (distanceToWall + 10)) {
+		while (!suppressed && light.getLightValue() < 50) { // arcs until line
+															// found
+			if (touch_l.isPressed() || touch_r.isPressed())
+				pilot.rotate(50); // TODO wert genauer
+			else if (!pilot.isMoving()
+					&& sensor.getDistance() > (distanceToWall + 10)) {
 				pilot.arc(-15, -90, true);
-			} else if (!pilot.isMoving() && sensor.getDistance() < distanceToWall) {
+			} else if (!pilot.isMoving()
+					&& sensor.getDistance() < distanceToWall) {
 				pilot.arc(60, 20, true);
-			} else if (!pilot.isMoving() && sensor.getDistance() >= distanceToWall) {
+			} else if (!pilot.isMoving()
+					&& sensor.getDistance() >= distanceToWall) {
 				pilot.arc(-60, -20, true);
 			}
 		}
-		if (light.getLightValue() > 50) { //if line found - leave obstacle mode
+		if (light.getLightValue() > 50) { // if line found - leave obstacle mode
 			Settings.obstacle = false;
 			pilot.travel(-5);
 			Settings.motorAAngle = 90;
