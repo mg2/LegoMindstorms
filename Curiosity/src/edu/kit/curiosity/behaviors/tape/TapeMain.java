@@ -14,17 +14,17 @@ import edu.kit.curiosity.behaviors.*;
  * 
  * @author Curiosity
  */
-public class Main implements ButtonListener {
+public class TapeMain implements ButtonListener {
 
 	// private static CustomArbitrator arbitrator;
 
-	public Main() {
+	public TapeMain() {
 		Button.ESCAPE.addButtonListener(this);
 		Settings.motorAAngle = 90; //Move the head forward
 	}
 
 	public static void main(String[] args) throws Exception {
-		new Main();
+		new TapeMain();
 		
 		Motor.A.setSpeed(Motor.A.getMaxSpeed() / 5);
 
