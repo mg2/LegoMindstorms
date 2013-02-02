@@ -18,7 +18,6 @@ public class BridgeMain implements ButtonListener {
 	}
 
 	public static void main(String[] args) throws Exception {
-		Settings.motorAAngle = 0;
 		new BridgeMain();
 
 		while (!Button.ENTER.isDown()) {
@@ -33,9 +32,6 @@ public class BridgeMain implements ButtonListener {
 			}
 		}
 
-		Motor.A.setSpeed(Motor.A.getMaxSpeed() / 5);
-		Settings.PILOT.setRotateSpeed(Settings.PILOT.getMaxRotateSpeed() / 5);
-		Settings.PILOT.setTravelSpeed(30);
 //		Behavior b1 = new DriveUntilAbyss();
 //		Behavior b2 = new AbyssDetected();
 //
