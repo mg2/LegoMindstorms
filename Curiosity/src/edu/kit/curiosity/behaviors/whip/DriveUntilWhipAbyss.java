@@ -1,7 +1,6 @@
 package edu.kit.curiosity.behaviors.whip;
 
 import edu.kit.curiosity.Settings;
-import lejos.nxt.LightSensor;
 import lejos.robotics.navigation.DifferentialPilot;
 import lejos.robotics.subsumption.Behavior;
 
@@ -14,14 +13,12 @@ public class DriveUntilWhipAbyss implements Behavior {
 
 	private boolean suppressed = false;
 	private DifferentialPilot pilot;
-	private LightSensor lightSensor;
 
 	/**
 	 * Constructs new DriveUntilWhipAbyss behavior.
 	 */
 	public DriveUntilWhipAbyss() {
 		pilot = Settings.PILOT;
-		lightSensor = Settings.LIGHT;
 	}
 
 	/**
@@ -38,11 +35,10 @@ public class DriveUntilWhipAbyss implements Behavior {
 	 */
 	@Override
 	public void action() {
-		System.out.println("drive");
 		suppressed = false;
+		Settings.whipAndBridgeCounter = 0;
 		pilot.arc(-60, -40, true);
 		while (pilot.isMoving() && !suppressed) {
-			System.out.println(lightSensor.getLightValue() + "Reached Abyss");
 			Thread.yield();
 		}
 		pilot.stop();

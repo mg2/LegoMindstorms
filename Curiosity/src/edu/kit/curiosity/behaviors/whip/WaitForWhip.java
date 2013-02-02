@@ -24,7 +24,6 @@ public class WaitForWhip implements Behavior {
 
 	@Override
 	public void action() {
-		System.out.println("Wait");
 		suppressed = false;
 		while (!suppressed && sonic.getDistance() <= distance) {
 			pilot.travel(0, true);

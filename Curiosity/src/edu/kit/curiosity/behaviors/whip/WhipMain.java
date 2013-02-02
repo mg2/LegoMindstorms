@@ -15,9 +15,9 @@ import edu.kit.curiosity.behaviors.SensorHeadPosition;
  * @author Curiosity
  */
 public class WhipMain {
+	// TODO ASUGANG!!!
 	
 	public WhipMain(){
-		Settings.motorAAngle = 90;
 	}
 	
 	public static void main(String[] args) {
@@ -25,20 +25,27 @@ public class WhipMain {
 		/**
 		 * Motors speed
 		 */
-		Settings.PILOT.setTravelSpeed(Settings.PILOT.getMaxTravelSpeed() * 0.75);
+		Settings.PILOT.setTravelSpeed(Settings.PILOT.getMaxTravelSpeed() * 0.40);
 		Settings.PILOT.setRotateSpeed(Settings.PILOT.getMaxRotateSpeed() * 0.15);
-		Motor.A.setSpeed(Motor.A.getMaxSpeed() / 5);
+		Motor.A.setSpeed(Motor.A.getMaxSpeed() / 5);		
+
+		Settings.motorAAngle = 90;
 		
 		
 		new LightCalibrate(true, true, false, false);
+		Settings.LIGHT.setLow(Settings.light_black);
+		Settings.LIGHT.setHigh(Settings.light_bridge + 20);
+		
 		
 		Behavior w0 = new DriveForward();
-		Behavior w1 = new DriveUntilWhipAbyss();
-		Behavior w2 = new WhipAbyssDetected();
-		Behavior w3 = new WaitForWhip();
-		Behavior w4 = new SensorHeadPosition();
-		Behavior w5 = new MotorAStall();
-		Behavior[] whipArray = {w0, w1, w2, w3, w4, w5};
+		Behavior w1 = new WhipIsDown();
+		Behavior w2 = new DriveUntilWhipAbyss();
+		Behavior w3 = new WhipAbyssDetected();
+		Behavior w4 = new WaitForWhip();
+		Behavior w5 = new EndOfWhip();
+		Behavior w6 = new SensorHeadPosition();
+		Behavior w7 = new MotorAStall();
+		Behavior[] whipArray = {w0, w1, w2, w3, w4, w5, w6, w7};
 
 		CustomArbitrator arbitrator = new CustomArbitrator(whipArray);		
 		Thread t = new Thread(arbitrator);

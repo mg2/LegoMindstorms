@@ -82,4 +82,7 @@ public class Settings {
 	public static int light_swamp = 400;
 	public static int light_line = 484;
 	
+
+	public static int whipAndBridgeCounter = 0;
+	
 }
