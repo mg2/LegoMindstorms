@@ -3,7 +3,7 @@ package edu.kit.curiosity;
 /**
  * Numerous states for different behaviors of the robot.
  */
-public enum RobotStates {
+public enum RobotState {
 	// TODO: Add additional states, when needed
 	MAZE, 
 	LINE, 

@@ -18,7 +18,7 @@ public class Settings {
 	 * ArbitratorManager to change arbitrators depending on the current level.
 	 */
 	public static ArbitratorManager arbiMgr;
-	public final static RobotStates FIRST_LEVEL = RobotStates.MAZE;
+	public final static RobotState FIRST_LEVEL = RobotState.MAZE;
 
 	/**
 	 * General settings for the robot.
