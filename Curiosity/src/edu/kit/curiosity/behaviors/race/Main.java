@@ -39,7 +39,7 @@ public class Main implements ButtonListener {
 		Behavior b7 = new MotorAStall();
 		
 		// Not in first row
-		if (Settings.SONIC.getDistance() < 20) {
+		if (Settings.SONIC.getDistance() < 40) {
 			Settings.inFirstRow = false;
 			
 		// In first row
