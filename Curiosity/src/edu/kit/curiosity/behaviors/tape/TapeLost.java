@@ -36,8 +36,8 @@ public class TapeLost implements Behavior {
 		
 		while (!suppressed && light.getLightValue() < 60) { //until suppressed or line found
 			//for GAPS:
-			if (!pilot.isMoving() && Math.abs(Settings.angle) >= 600)	{
-				pilot.rotate(Math.signum(Settings.angle) * 135, true); //should be looking forward
+			if (!pilot.isMoving() && Math.abs(Settings.angle) >= 400)	{
+				pilot.rotate(Math.signum(Settings.angle) * 100, true); //should be looking forward
 				Settings.angle = 999;
 			}
 			else if (!pilot.isMoving()) { 
@@ -45,8 +45,8 @@ public class TapeLost implements Behavior {
 				Settings.angle *= -2;
 				
 				//for GAPS:
-				if (!flag && Math.abs(Settings.angle) >= 480) { //for gaps searching
-					Settings.angle = (int) (Math.signum(Settings.angle) * 300); //sonst ueberdreht
+				if (!flag && Math.abs(Settings.angle) >= 320) { //for gaps searching
+					Settings.angle = (int) (Math.signum(Settings.angle) * 200); //sonst ueberdreht
 					flag = true;
 				}
 			}
