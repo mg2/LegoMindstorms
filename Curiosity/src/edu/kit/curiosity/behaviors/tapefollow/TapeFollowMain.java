@@ -26,10 +26,9 @@ public class TapeFollowMain {
 		 */
 		double speed = pilot.getMaxTravelSpeed() * 0.15; //Linie-Suche = 15%, Haengebruecke = ca 40%
 		pilot.setTravelSpeed(speed);
-		pilot.setRotateSpeed(pilot.getRotateMaxSpeed());
-		
+		pilot.setRotateSpeed(pilot.getRotateMaxSpeed());		
 
-		Settings.motorAAngle = 90;
+		Settings.motorAAngle = 97; // TODO auf 90 wieder 
 		
 		new LightCalibrate(true, true);
 		
