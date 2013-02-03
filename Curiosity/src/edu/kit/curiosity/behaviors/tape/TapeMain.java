@@ -28,8 +28,8 @@ public class TapeMain implements ButtonListener {
 
 		Motor.A.setSpeed(Motor.A.getMaxSpeed() / 5);
 
-		Settings.PILOT.setTravelSpeed(Settings.PILOT.getMaxTravelSpeed() * 0.75);
-		Settings.PILOT.setRotateSpeed(Settings.PILOT.getMaxRotateSpeed() * 0.15);
+		Settings.PILOT.setTravelSpeed(Settings.PILOT.getMaxTravelSpeed() * 0.50);
+		Settings.PILOT.setRotateSpeed(Settings.PILOT.getMaxRotateSpeed() * 0.25);
 
 		new LightCalibrate(true, false, false, true, false);
 
@@ -41,7 +41,7 @@ public class TapeMain implements ButtonListener {
 		Behavior tf6 = new MotorAStall();
 		// Behavior tf7 = new PilotStall();
 
-		Behavior[] tapeFollow = { tf1, tf2, tf3, tf4, tf5, tf6 };
+		Behavior[] tapeFollow = { tf1, tf2, tf4, tf5, tf6 };
 		CustomArbitrator tapeFollowArbitrator = new CustomArbitrator(tapeFollow);
 		Thread t = new Thread(tapeFollowArbitrator);
 		t.start();
