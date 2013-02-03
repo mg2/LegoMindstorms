@@ -24,22 +24,23 @@ public class ArbitratorManager {
 	private RobotState curState;
 
 	/**
-	 * Test behavior
+	 * Start behavior
 	 */
-	private Behavior test1 = new DriveForward();
-	private Behavior test2 = new ReadCodes();
-	private Behavior test3 = new SensorHeadPosition();
-	private Behavior test4 = new MotorAStall();
-	private Behavior[] testBehavior = { test1, test2, test3, test4 };
-	
+	private Behavior s1 = new DriveForward();
+	private Behavior s2 = new ReadCodes();
+	private Behavior s3 = new SensorHeadPosition();
+	private Behavior s4 = new MotorAStall();
+	private Behavior[] startBehavior = { s1, s2, s3, s4 };
+
 	/**
 	 * Race behavior and arbitrator
 	 */
 	private Behavior r1 = new RaceDrive();
 	private Behavior r2 = new Race();
-	private Behavior r3 = new SensorHeadPosition();
-	private Behavior r4 = new MotorAStall();
-	private Behavior[] raceBehavior = { r1, r2, r3, r4 };
+	private Behavior r3 = new ReadCodes();
+	private Behavior r4 = new SensorHeadPosition();
+	private Behavior r5 = new MotorAStall();
+	private Behavior[] raceBehavior = { r1, r2, r3, r4, r5 };
 
 	/**
 	 * Bridge behavior and arbitrator
@@ -48,9 +49,10 @@ public class ArbitratorManager {
 	private Behavior b1 = new DriveUntilAbyss();
 	private Behavior b2 = new AbyssDetected();
 	private Behavior b3 = new ReachedEndOfBridge();
-	private Behavior b4 = new SensorHeadPosition();
-	private Behavior b5 = new MotorAStall();
-	private Behavior[] bridgeBehavior = { b0, b1, b2, b3, b4, b5 };
+	private Behavior b4 = new ReadCodes();
+	private Behavior b5 = new SensorHeadPosition();
+	private Behavior b6 = new MotorAStall();
+	private Behavior[] bridgeBehavior = { b0, b1, b2, b3, b4, b5, b6 };
 
 	/**
 	 * Maze behavior and arbitrator
@@ -63,17 +65,19 @@ public class ArbitratorManager {
 	private Behavior m6 = new SwampDetected();
 	private Behavior m7 = new SwampLeft();
 	private Behavior m8 = new FoundEndLine();
-	private Behavior m9 = new MotorAStall();
-	private Behavior[] mazeBehavior = { m1, m2, m3, m4, m5, m6, m7, m8, m9 };
+	private Behavior m9 = new ReadCodes();
+	private Behavior m10 = new MotorAStall();
+	private Behavior[] mazeBehavior = { m1, m2, m3, m4, m5, m6, m7, m8, m9, m10 };
 
 	/**
 	 * Gate behavior and arbitrator
 	 */
 	private Behavior g1 = new DriveForward();
 	private Behavior g2 = new RollFloor();
-	private Behavior g3 = new SensorHeadPosition();
-	private Behavior g4 = new MotorAStall();
-	private Behavior[] gateBehavior = { g1, g2, g3, g4 };
+	private Behavior g3 = new ReadCodes();
+	private Behavior g4 = new SensorHeadPosition();
+	private Behavior g5 = new MotorAStall();
+	private Behavior[] gateBehavior = { g1, g2, g3, g4, g5 };
 
 	/**
 	 * Tape behavior and arbitrator
@@ -82,9 +86,10 @@ public class ArbitratorManager {
 	private Behavior t2 = new TapeLost();
 	private Behavior t3 = new GapFound(); // >130
 	private Behavior t4 = new ObstacleFound();
-	private Behavior t5 = new SensorHeadPosition();
-	private Behavior t6 = new MotorAStall();
-	private Behavior[] tapeBehavior = { t1, t2, t3, t4, t5, t6 };
+	private Behavior t5 = new ReadCodes();
+	private Behavior t6 = new SensorHeadPosition();
+	private Behavior t7 = new MotorAStall();
+	private Behavior[] tapeBehavior = { t1, t2, t3, t4, t5, t6, t7 };
 
 	/**
 	 * Instantiate an {@code ArbitratorManager}
@@ -142,16 +147,19 @@ public class ArbitratorManager {
 	 *            given {@code RobotState} to change the arbitrator to
 	 */
 	private void updateArbitrator(RobotState state) {
+		if (state != null && state != RobotState.START) {
+			this.arbitrator.stop();
+			System.out.println(state.toString() + " mode selected");
+		}
+
 		switch (state) {
-			case TEST:
-				System.out.println("Test mode started");
+			case START:
 				Settings.PILOT.setTravelSpeed(Settings.PILOT.getMaxTravelSpeed());
 				Settings.PILOT.setRotateSpeed(Settings.PILOT.getMaxRotateSpeed() / 4);
 				Settings.motorAAngle = 90;
-				this.arbitrator = new CustomArbitrator(testBehavior);
+				this.arbitrator = new CustomArbitrator(startBehavior);
 				break;
 			case RACE:
-				System.out.println("Race arbitrator selected");
 				Settings.PILOT.setTravelSpeed(Settings.PILOT.getMaxTravelSpeed());
 				Settings.PILOT.setRotateSpeed(Settings.PILOT.getMaxRotateSpeed() / 4);
 				Motor.A.setSpeed(Motor.A.getMaxSpeed() / 5);
@@ -168,10 +176,6 @@ public class ArbitratorManager {
 				this.arbitrator = new CustomArbitrator(raceBehavior);
 				break;
 			case BRIDGE:
-				this.arbitrator.stop();
-				System.out.println("Bridge arbitrator selected");
-				System.out.println("bridgeLight: " + Settings.light_bridge);
-				System.out.println("blackLight: " + Settings.light_black);
 				Settings.LIGHT.setHigh(Settings.light_bridge);
 				Settings.LIGHT.setLow(Settings.light_black);
 				Motor.A.setSpeed(Motor.A.getMaxSpeed() / 5);
@@ -181,7 +185,6 @@ public class ArbitratorManager {
 				this.arbitrator = new CustomArbitrator(this.bridgeBehavior);
 				break;
 			case MAZE:
-				System.out.println("Maze arbitrator selected");
 				Settings.PILOT.setTravelSpeed(Settings.PILOT.getMaxTravelSpeed() / 2);
 				Settings.PILOT.setRotateSpeed(Settings.PILOT.getMaxRotateSpeed() / 4);
 				Motor.A.setSpeed(Motor.A.getMaxSpeed() / 5);
@@ -190,7 +193,6 @@ public class ArbitratorManager {
 				this.arbitrator = new CustomArbitrator(mazeBehavior);
 				break;
 			case TAPE:
-				System.out.println("Tape arbitrator selected");
 				Motor.A.setSpeed(Motor.A.getMaxSpeed() / 5);
 				Settings.PILOT.setTravelSpeed(Settings.PILOT.getMaxTravelSpeed() * 0.75);
 				Settings.PILOT.setRotateSpeed(Settings.PILOT.getMaxRotateSpeed() * 0.15);
@@ -198,7 +200,6 @@ public class ArbitratorManager {
 				this.arbitrator = new CustomArbitrator(tapeBehavior);
 				break;
 			case SLIDER:
-				System.out.println("Gate arbitrator selected");
 				Settings.PILOT.setTravelSpeed(Settings.PILOT.getMaxTravelSpeed() / 1.5);
 				Settings.PILOT.setRotateSpeed(Settings.PILOT.getMaxRotateSpeed() / 4);
 				Motor.A.setSpeed(Motor.A.getMaxSpeed() / 5);
