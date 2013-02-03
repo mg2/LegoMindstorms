@@ -25,6 +25,7 @@ public class ReachedEndOfBridge implements Behavior {
 	 */
 	@Override
 	public void action() {
+		Settings.reachedBridge = false;
 		Settings.PILOT.travel(20);
 		Settings.PILOT.rotate(Settings.whipAndBridgeCounter * (-10));
 		Settings.whipAndBridgeCounter = 0;

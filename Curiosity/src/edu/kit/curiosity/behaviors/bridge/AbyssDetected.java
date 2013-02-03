@@ -31,7 +31,7 @@ public class AbyssDetected implements Behavior {
 	 */
 	@Override
 	public boolean takeControl() {
-		return (lightSensor.getLightValue() < threshold);
+		return (Settings.reachedBridge && lightSensor.getLightValue() < threshold);
 	}
 
 	/**

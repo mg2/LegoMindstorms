@@ -30,7 +30,7 @@ public class DriveUntilAbyss implements Behavior {
 	 */
 	@Override
 	public boolean takeControl() {
-		return true;
+		return (lightSensor.getNormalizedLightValue() > Settings.light_bridge - 50);
 	}
 
 	/**
@@ -39,6 +39,7 @@ public class DriveUntilAbyss implements Behavior {
 	@Override
 	public void action() {
 		suppressed = false;
+		Settings.reachedBridge = true;
 		Settings.whipAndBridgeCounter = 0;
 		pilot.arc(-60, -40, true);
 		while (pilot.isMoving() && !suppressed) {
