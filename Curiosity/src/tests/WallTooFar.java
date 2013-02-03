@@ -1,3 +1,4 @@
+package tests;
 
 
 import edu.kit.curiosity.Settings;

@@ -1,5 +1,9 @@
 package edu.kit.curiosity;
 
+import tests.GapFound;
+import tests.LineFollow;
+import tests.ObstacleFound;
+import tests.TapeLost;
 import lejos.nxt.Button;
 import lejos.nxt.Motor;
 import lejos.robotics.subsumption.Behavior;
@@ -14,7 +18,7 @@ import edu.kit.curiosity.behaviors.bridge.*;
 import edu.kit.curiosity.behaviors.gate.*;
 import edu.kit.curiosity.behaviors.maze.*;
 import edu.kit.curiosity.behaviors.race.*;
-import edu.kit.curiosity.behaviors.tape.*;
+import edu.kit.curiosity.behaviors.tapefollow.*;
 import edu.kit.curiosity.behaviors.turntable.StallMotor;
 
 /**
@@ -94,6 +98,9 @@ public class ArbitratorManager {
 	/**
 	 * Tape behavior and arbitrator
 	 */
+	// TODO
+	// TODO	NEW TAPE FOLLOW
+	// TODO
 	private Behavior t1 = new LineFollow();
 	private Behavior t2 = new TapeLost();
 	private Behavior t3 = new GapFound(); // >130

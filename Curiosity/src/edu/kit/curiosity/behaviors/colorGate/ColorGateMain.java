@@ -1,5 +1,10 @@
 package edu.kit.curiosity.behaviors.colorGate;
 
+import tests.GapFound;
+import tests.LineFollow;
+import tests.ObstacleFound;
+import tests.TapeLost;
+import tests.TapeMain;
 import lejos.nxt.Motor;
 import lejos.robotics.subsumption.Behavior;
 import lejos.robotics.subsumption.CustomArbitrator;
@@ -7,11 +12,6 @@ import edu.kit.curiosity.LightCalibrate;
 import edu.kit.curiosity.Settings;
 import edu.kit.curiosity.behaviors.MotorAStall;
 import edu.kit.curiosity.behaviors.SensorHeadPosition;
-import edu.kit.curiosity.behaviors.tape.GapFound;
-import edu.kit.curiosity.behaviors.tape.LineFollow;
-import edu.kit.curiosity.behaviors.tape.ObstacleFound;
-import edu.kit.curiosity.behaviors.tape.TapeLost;
-import edu.kit.curiosity.behaviors.tape.TapeMain;
 
 public class ColorGateMain {
 

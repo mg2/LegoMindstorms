@@ -1,4 +1,4 @@
-package edu.kit.curiosity.behaviors.tape;
+package tests;
 
 import edu.kit.curiosity.Settings;
 import lejos.nxt.LightSensor;
