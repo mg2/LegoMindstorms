@@ -16,16 +16,16 @@ public class SliderHit implements Behavior {
 	@Override
 	public boolean takeControl() {
 		// TODO Auto-generated method stub
-		return (touch_l.isPressed() || touch_r.isPressed());
+		return (touch_l.isPressed() || touch_r.isPressed()); // slider hit
 	}
 
 	@Override
 	public void action() {
 		pilot.stop();
-		pilot.travel(-20);
-		while (sonic.getDistance() >= 30);
-		while (sonic.getDistance() <= 30);
-		pilot.travel(100);
+		pilot.travel(-20); //go back 20cm
+		while (sonic.getDistance() >= 30); // wait for slider to be there
+		while (sonic.getDistance() <= 30); // wait for slider to be away
+		pilot.travel(100); // drive 1m forward
 	}
 
 	@Override
