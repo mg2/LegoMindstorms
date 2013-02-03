@@ -43,7 +43,7 @@ public class HitWallColor implements Behavior {
 	public void action() {
 		suppressed = false;
 		pilot.travel(-5);
-		pilot.rotate(110);
+		pilot.rotate(135);
 		while( pilot.isMoving() && !suppressed ) {
 			Thread.yield();
 		}

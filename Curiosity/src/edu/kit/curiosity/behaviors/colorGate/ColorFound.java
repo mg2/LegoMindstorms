@@ -19,7 +19,7 @@ public class ColorFound implements Behavior {
 		suppressed = false;
 		
 		pilot.travel(10);
-		pilot.rotate(-110);
+		pilot.rotate(-135);
 		pilot.forward();
 		while (pilot.isMoving() && !suppressed) {
 			Thread.yield();

@@ -61,6 +61,7 @@ public class Settings {
 	public static boolean afterSwamp = false;	
 	public static boolean fromLeft;
 	public static boolean inFirstRow = true;
+	public static boolean atStart = true;
 	public static boolean onColors = false;;
 	public static boolean colorFound = false;
 	public static boolean reachedBridge = false;

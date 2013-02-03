@@ -45,7 +45,7 @@ public class RaceDrive implements Behavior {
 		} else {
 			pilot.arcForward(-200);
 		}
-		while (!suppressed) {
+		while (pilot.isMoving() && !suppressed) {
 			Thread.yield();
 		}
 		pilot.stop();
