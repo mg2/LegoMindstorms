@@ -26,7 +26,7 @@ public class SliderMain {
 		Behavior[] sliderArr = {s1, s2, s5, s6};
 		CustomArbitrator sliderArbitrator = new CustomArbitrator(sliderArr);
 		Thread t = new Thread(sliderArbitrator);
-		t.start();		
+		t.start();
 	}
 
 }

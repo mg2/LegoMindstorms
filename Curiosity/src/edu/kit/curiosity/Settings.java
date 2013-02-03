@@ -69,6 +69,7 @@ public class Settings {
 	 * boolean if in obstacle found mode
 	 */
 	public static boolean obstacle = false;
+	public static boolean gap = false;
 	public static boolean beforeWhip = true;
 	
 	/**

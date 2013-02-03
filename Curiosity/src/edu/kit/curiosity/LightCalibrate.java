@@ -153,15 +153,15 @@ public class LightCalibrate {
 		int min = 1024;
 		int max = -1;
 		int tempSum = 0;
-		for (int j = 0; j < 100; j++) {
+		for (int j = 0; j < 10; j++) {
 			tempSum += lights[j];
 		}
-		min = tempSum / 100;
+		min = tempSum / 10;
 		tempSum = 0;
-		for (int j = lights.length - 100; j < lights.length; j++) {
+		for (int j = lights.length - 10; j < lights.length; j++) {
 			tempSum += lights[j];
 		}
-		max = tempSum / 100;
+		max = tempSum / 10;
 		System.out.println("min: " + min + ", max: " + max);
 		light.setLow(min);
 		light.setHigh(max);
