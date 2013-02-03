@@ -34,7 +34,7 @@ public class SwampDetected implements Behavior {
 	 */
 	@Override
 	public boolean takeControl() {
-		return (light.getNormalizedLightValue() > Settings.swampLight)
+		return (light.getNormalizedLightValue() > Settings.light_swamp)
 				&& !Settings.afterSwamp;
 	}
 

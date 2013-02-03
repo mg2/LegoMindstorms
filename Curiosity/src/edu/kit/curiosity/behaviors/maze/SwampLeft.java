@@ -32,7 +32,7 @@ public class SwampLeft implements Behavior {
 	@Override
 	public boolean takeControl() {
 
-		return (Settings.inSwamp && (light.getNormalizedLightValue() < Settings.blackLight));
+		return (Settings.inSwamp && (light.getNormalizedLightValue() < Settings.light_black));
 	}
 
 	/**

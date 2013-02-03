@@ -28,7 +28,7 @@ public class FoundEndLine implements Behavior {
 	 */
 	@Override
 	public boolean takeControl() {
-		return (!Settings.endOfMaze && Settings.afterSwamp && light.getNormalizedLightValue() > Settings.swampLight);
+		return (!Settings.endOfMaze && Settings.afterSwamp && light.getNormalizedLightValue() > Settings.light_swamp);
 	}
 
 	/**

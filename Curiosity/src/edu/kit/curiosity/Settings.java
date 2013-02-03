@@ -53,12 +53,6 @@ public class Settings {
 	public static int motorAAngle = 0;
 	
 	/**
-	 * Different light settings.
-	 */
-	public static int swampLight = 340;
-	public static int blackLight = 300;
-
-	/**
 	 * Miscellaneous.
 	 */
 	public static boolean atStartOfMaze = true;
@@ -69,6 +63,7 @@ public class Settings {
 	public static boolean inFirstRow = true;
 	public static boolean onColors = false;;
 	public static boolean colorFound = false;
+	public static boolean reachedBridge = false;
 	
 	/**
 	 * boolean if in obstacle found mode
@@ -77,19 +72,17 @@ public class Settings {
 	public static boolean beforeWhip = true;
 	
 	/**
-	 * saved light sensor settings with sample settings
+	 * Saved light sensor settings with sample settings
 	 */
 	public static int light_black = 261;
 	public static int light_bridge = 352; //whip = bridge + 20
-	public static int light_swamp = 400;
+	public static int light_swamp = 340;
 	public static int light_line = 484;
 	public static int color1;
 	public static int color2;
 	public static int color3;
 	public static int searchedColor;
 	
-	
-
 	public static int whipAndBridgeCounter = 0;
 	
 }
