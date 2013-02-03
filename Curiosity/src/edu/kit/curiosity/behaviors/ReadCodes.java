@@ -5,6 +5,7 @@ import lejos.nxt.LCD;
 import lejos.nxt.LightSensor;
 import lejos.robotics.navigation.DifferentialPilot;
 import lejos.robotics.subsumption.Behavior;
+import lejos.util.Delay;
 
 public class ReadCodes implements Behavior {
 	public static boolean readState;
@@ -26,25 +27,26 @@ public class ReadCodes implements Behavior {
 	
 	@Override
 	public boolean takeControl() {
-		return readState;
+		return readState && (light.getLightValue() > 30);
 	}
 
 	@Override
 	public void action() {
-		pilot.setTravelSpeed(Settings.DRIVE_SPEED / 2);
 		suppressed = false;
-		long timer = System.currentTimeMillis();
-		numOfTapes = 0;
+
 		counted = false;
+		numOfTapes = 0;
+		
+//		pilot.travel(-5);
 		pilot.forward();
 		while(!suppressed) {
 			if(!suppressed && !counted 
-					&& light.getLightValue() > 30) {
+					&& light.getLightValue() > 45) {
 				numOfTapes++;
 				System.out.println("TapeCount: " + numOfTapes);
 				counted = true;
 			} else if(!suppressed && counted
-					&& light.getLightValue() < 30) {
+					&& light.getLightValue() < 40) {
 				pilot.forward();	
 				System.out.println("Black Screen.");
 				counted = false;
@@ -57,6 +59,8 @@ public class ReadCodes implements Behavior {
 				suppress();
 			}
 		}
+		
+		pilot.stop();
 		readState = false;
 	}
 
