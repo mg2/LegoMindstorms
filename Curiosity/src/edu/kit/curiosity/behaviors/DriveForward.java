@@ -42,9 +42,9 @@ public class DriveForward implements Behavior {
 		suppressed = false;
 		//pilot.forward();
 		while (!suppressed) {
-			if (!pilot.isMoving()) {
+			//if (!pilot.isMoving()) {
 				pilot.travel(10, true);
-			}
+			//}
 		}
 		pilot.stop();
 	}
