@@ -5,7 +5,6 @@ import lejos.nxt.Motor;
 import lejos.nxt.SensorPort;
 import lejos.nxt.TouchSensor;
 import lejos.nxt.UltrasonicSensor;
-import lejos.robotics.navigation.CustomDifferentialPilot;
 import lejos.robotics.navigation.DifferentialPilot;
 
 /**
