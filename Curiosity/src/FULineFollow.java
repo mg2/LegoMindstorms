@@ -1,58 +1,113 @@
+import lejos.nxt.Button;
+import lejos.nxt.LCD;
 import lejos.nxt.LightSensor;
 import lejos.nxt.Motor;
 import lejos.robotics.navigation.DifferentialPilot;
-import lejos.util.Delay;
-import edu.kit.curiosity.LightCalibrate;
 import edu.kit.curiosity.Settings;
 
 public class FULineFollow {
+	static DifferentialPilot pilot = Settings.PILOT;
+	static LightSensor light = Settings.LIGHT;
 
 	/**
 	 * @param args
 	 */
-	public static int t = 0;
-	public static int lv = 0;
-	public static double m= -1;
-	public static int temp = 0;
-	
-	public static void main(String[] args) {
+	public static void main(String[] args) throws InterruptedException {
 
-		DifferentialPilot dp = Settings.PILOT;
-		dp.setTravelSpeed(dp.getMaxTravelSpeed() * 0.1);
-		dp.setRotateSpeed(dp.getRotateMaxSpeed() * 0.1);
+		pilot.setTravelSpeed(pilot.getMaxTravelSpeed() * 0.15);
+		pilot.setRotateSpeed(pilot.getRotateMaxSpeed());
 		
-//		Button.LEFT.waitForPressAndRelease();
-////		System.out.println(dp.getMinRadius());
-//		dp.steer(-50, -20, true);
-//		Button.ENTER.waitForPressAndRelease();
-//		
-		new LightCalibrate(true, true);
-		LightSensor ls = Settings.LIGHT;
+		final int blackWhiteThreshold = 50;
+		int i = 0;
+		int l = 0;
+		int r = 0;
+		int out = 15;
+		int tr = 90;
+		boolean loop = true;
 
-		while (true) {
-			lv = ls.getLightValue();
-			if (lv < 0) lv = 0;
-			else if (lv > 100) lv = 100;
-			
-			if (t < 20) {
-				t++;
+		betterLightCalibrate();
+		// new LightCalibrate(true, true);
+
+		while (loop) {
+			if (light.getLightValue() > blackWhiteThreshold) {
+				// On white, turn right
+				l = 0;
+				// System.out.print("right ");
+				pilot.steer(-tr, -10, true);
+				r++;
+			} else {
+				// On black, turn left
+				r = 0;
+				// System.out.print("left ");
+				pilot.steer(tr, 10, true);
+				r = 1;
+				l++;
 			}
-			else if (t == 20) {
-				temp = lv;
-				t++;
+			// between out and 2 * out
+			if (i > out && i <= 3 * out) {
+				// last out turns were in same direction
+				if (r > out || l > out) {
+					tr = 150;
+				}
+			} else if (i > 3 * out) { // more than 2 * out
+				System.out.println("*2");
+				if (r > 2 * out || l > 2 * out) {
+					int m = 1;
+					if (r > 2 * out)
+						m = -1;
+					while (i >= out / 2
+							&& light.getLightValue() < blackWhiteThreshold) {
+						pilot.steer(m * tr, m * (-1) * 10, false); // travel back
+						i--;
+						Thread.sleep(100);
+					}
+					System.out.println("GAP");
+					Button.ENTER.waitForPressAndRelease();
+				}
+				// values to default
+				i = 0;
+				l = 0;
+				r = 0;
+				tr = 90;
 			}
-			else if (t < 50) {
-				t++;		
-			}
-			else if (t == 50) {
-				if (temp - lv > 20) m *= -1;
-				t = 0;
-			}
-			//System.out.println(lv - temp + " " + (int) m);
-			//Delay.msDelay(100);
-			dp.steer(m * (100 - lv), m * 1, true);
+			i++;
+			Thread.sleep(100);
 		}
+		Motor.B.flt();
+		Motor.C.flt();
+		LCD.clear();
+		System.out.print("Program stopped");
+		Button.ENTER.waitForPressAndRelease();
 
+	}
+
+	private static void betterLightCalibrate() {
+		System.out.println("Press to calibrate.");
+		Button.ENTER.waitForPressAndRelease();
+		int lights[] = new int[300];
+
+		for (int j = 0; j < lights.length; j++) {
+			pilot.travel(1, true);
+			lights[j] = light.getNormalizedLightValue();
+		}
+		java.util.Arrays.sort(lights);
+		int min = 1024;
+		int max = -1;
+		int tempSum = 0;
+		for (int j = 0; j < 100; j++) {
+			tempSum += lights[j];
+		}
+		min = tempSum / 100;
+		tempSum = 0;
+		for (int j = lights.length - 100; j < lights.length; j++) {
+			tempSum += lights[j];
+		}
+		max = tempSum / 100;
+		System.out.println("min: " + min + ", max: " + max);
+		light.setLow(min);
+		light.setHigh(max);
+		System.out.println("Press ENTER to continue.");
+		Button.ENTER.waitForPressAndRelease();
 	}
 
 }
