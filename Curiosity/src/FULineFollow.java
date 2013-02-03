@@ -1,7 +1,4 @@
-import lejos.nxt.Button;
-import lejos.nxt.LCD;
 import lejos.nxt.LightSensor;
-import lejos.nxt.Motor;
 import lejos.robotics.navigation.DifferentialPilot;
 import edu.kit.curiosity.LightCalibrate;
 import edu.kit.curiosity.Settings;
@@ -14,22 +11,24 @@ public class FULineFollow {
 	 * @param args
 	 */
 	public static void main(String[] args) throws InterruptedException {
+		double speed = pilot.getMaxTravelSpeed() * 0.3; //Linie-Suche = 15, Haengebruecke = ab 40
+		int sleep = 10;
 
-		pilot.setTravelSpeed(pilot.getMaxTravelSpeed() * 0.15);
+		pilot.setTravelSpeed(speed);
 		pilot.setRotateSpeed(pilot.getRotateMaxSpeed());
 		
 		final int blackWhiteThreshold = 20;
 		int i = 0;
 		int l = 0;
 		int r = 0;
-		int out = 150;
-		int tr = 50;
+		int out = 100;
+		int tr = 90; //Linie-Suche = 90, Haengebruecke = 
 		boolean loop = true;
 
 		new LightCalibrate(true, true);
-		//new LightCalibrate(true, false, false, true, false);
-
+		
 		while (loop) {
+			System.out.print(light.getLightValue() + " ");
 			if (light.getLightValue() > blackWhiteThreshold) {
 				// On white, turn right
 				l = 0;
@@ -60,9 +59,9 @@ public class FULineFollow {
 							&& light.getLightValue() < blackWhiteThreshold) {
 						pilot.steer(m * tr, m * (-1) * 10, true); // travel back
 						i--;
-						Thread.sleep(100);
+						Thread.sleep(sleep);
 					}
-					pilot.setTravelSpeed(pilot.getMaxTravelSpeed() * 0.2);
+					pilot.setTravelSpeed(speed);
 					System.out.println("GAP");
 					//Button.ENTER.waitForPressAndRelease();
 				}
@@ -73,13 +72,7 @@ public class FULineFollow {
 				tr = 90;
 			}
 			i++;
-			Thread.sleep(10);
+			Thread.sleep(sleep);
 		}
-		Motor.B.flt();
-		Motor.C.flt();
-		LCD.clear();
-		System.out.print("Program stopped");
-		Button.ENTER.waitForPressAndRelease();
-
 	}
 }
