@@ -1,11 +1,11 @@
 package edu.kit.curiosity.behaviors;
 
-import edu.kit.curiosity.Settings;
 import lejos.nxt.LCD;
 import lejos.nxt.LightSensor;
 import lejos.robotics.navigation.DifferentialPilot;
 import lejos.robotics.subsumption.Behavior;
-import lejos.util.Delay;
+import edu.kit.curiosity.RobotState;
+import edu.kit.curiosity.Settings;
 
 public class ReadCodes implements Behavior {
 	public static boolean readState;
@@ -20,7 +20,7 @@ public class ReadCodes implements Behavior {
 	public ReadCodes() {
 		numOfTapes = 0;
 		counted = false;
-		readState = false;
+		readState = true;
 		pilot = Settings.PILOT;
 		light = Settings.LIGHT;
 	}
@@ -33,11 +33,11 @@ public class ReadCodes implements Behavior {
 	@Override
 	public void action() {
 		suppressed = false;
+		readState = false;
 
 		counted = false;
 		numOfTapes = 0;
 		
-//		pilot.travel(-5);
 		pilot.forward();
 		while(!suppressed) {
 			if(!suppressed && !counted 
@@ -61,7 +61,42 @@ public class ReadCodes implements Behavior {
 		}
 		
 		pilot.stop();
-		readState = false;
+		
+		switch(numOfTapes) {
+			case 1:
+				Settings.arbiMgr.changeState(RobotState.RACE);
+				break;
+			case 2:
+				Settings.arbiMgr.changeState(RobotState.BRIDGE);
+				break;
+			case 3:
+				Settings.arbiMgr.changeState(RobotState.MAZE);
+				break;
+			case 4:
+				Settings.arbiMgr.changeState(RobotState.BT_GATE);
+				break;
+			case 5:
+				Settings.arbiMgr.changeState(RobotState.TURNTABLE);
+				break;
+			case 6:
+				Settings.arbiMgr.changeState(RobotState.SLIDER);
+				break;
+			case 7:
+				Settings.arbiMgr.changeState(RobotState.SEESAW);
+				break;
+			case 8:
+				Settings.arbiMgr.changeState(RobotState.SUSPENSION_BRIDGE);
+				break;
+			case 9:
+				Settings.arbiMgr.changeState(RobotState.LINE_OBSTACLE);
+				break;
+			case 10:
+				Settings.arbiMgr.changeState(RobotState.COLOR_GATE);
+				break;
+			default:
+				System.out.println("No codes read!");
+				break;
+		}
 	}
 
 	@Override
