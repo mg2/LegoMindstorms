@@ -3,6 +3,7 @@ import lejos.nxt.LCD;
 import lejos.nxt.LightSensor;
 import lejos.nxt.Motor;
 import lejos.robotics.navigation.DifferentialPilot;
+import edu.kit.curiosity.LightCalibrate;
 import edu.kit.curiosity.Settings;
 
 public class FULineFollow {
@@ -17,16 +18,16 @@ public class FULineFollow {
 		pilot.setTravelSpeed(pilot.getMaxTravelSpeed() * 0.15);
 		pilot.setRotateSpeed(pilot.getRotateMaxSpeed());
 		
-		final int blackWhiteThreshold = 50;
+		final int blackWhiteThreshold = 20;
 		int i = 0;
 		int l = 0;
 		int r = 0;
-		int out = 15;
-		int tr = 90;
+		int out = 150;
+		int tr = 50;
 		boolean loop = true;
 
-		betterLightCalibrate();
-		// new LightCalibrate(true, true);
+		new LightCalibrate(true, true);
+		//new LightCalibrate(true, false, false, true, false);
 
 		while (loop) {
 			if (light.getLightValue() > blackWhiteThreshold) {
@@ -44,25 +45,26 @@ public class FULineFollow {
 				l++;
 			}
 			// between out and 2 * out
-			if (i > out && i <= 3 * out) {
+			if (i > out && i <= 2 * out) {
 				// last out turns were in same direction
 				if (r > out || l > out) {
 					tr = 150;
 				}
-			} else if (i > 3 * out) { // more than 2 * out
-				System.out.println("*2");
+			} else if (i > 2 * out) { // more than 2 * out
 				if (r > 2 * out || l > 2 * out) {
 					int m = 1;
 					if (r > 2 * out)
 						m = -1;
-					while (i >= out / 2
+					pilot.setTravelSpeed(pilot.getMaxTravelSpeed());
+					while (i >= out
 							&& light.getLightValue() < blackWhiteThreshold) {
-						pilot.steer(m * tr, m * (-1) * 10, false); // travel back
+						pilot.steer(m * tr, m * (-1) * 10, true); // travel back
 						i--;
 						Thread.sleep(100);
 					}
+					pilot.setTravelSpeed(pilot.getMaxTravelSpeed() * 0.2);
 					System.out.println("GAP");
-					Button.ENTER.waitForPressAndRelease();
+					//Button.ENTER.waitForPressAndRelease();
 				}
 				// values to default
 				i = 0;
@@ -71,7 +73,7 @@ public class FULineFollow {
 				tr = 90;
 			}
 			i++;
-			Thread.sleep(100);
+			Thread.sleep(10);
 		}
 		Motor.B.flt();
 		Motor.C.flt();
@@ -80,34 +82,4 @@ public class FULineFollow {
 		Button.ENTER.waitForPressAndRelease();
 
 	}
-
-	private static void betterLightCalibrate() {
-		System.out.println("Press to calibrate.");
-		Button.ENTER.waitForPressAndRelease();
-		int lights[] = new int[300];
-
-		for (int j = 0; j < lights.length; j++) {
-			pilot.travel(1, true);
-			lights[j] = light.getNormalizedLightValue();
-		}
-		java.util.Arrays.sort(lights);
-		int min = 1024;
-		int max = -1;
-		int tempSum = 0;
-		for (int j = 0; j < 100; j++) {
-			tempSum += lights[j];
-		}
-		min = tempSum / 100;
-		tempSum = 0;
-		for (int j = lights.length - 100; j < lights.length; j++) {
-			tempSum += lights[j];
-		}
-		max = tempSum / 100;
-		System.out.println("min: " + min + ", max: " + max);
-		light.setLow(min);
-		light.setHigh(max);
-		System.out.println("Press ENTER to continue.");
-		Button.ENTER.waitForPressAndRelease();
-	}
-
 }

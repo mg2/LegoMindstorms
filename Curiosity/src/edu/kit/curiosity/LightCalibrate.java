@@ -139,6 +139,8 @@ public class LightCalibrate {
 	 * Test purposes only. Set light for high and low.
 	 */
 	public LightCalibrate(boolean black, boolean white) {
+		double speed = Settings.PILOT.getTravelSpeed();
+		Settings.PILOT.setTravelSpeed(Settings.PILOT.getMaxTravelSpeed() * 0.1);
 		System.out.println("Calibrate light.");
 		Button.ENTER.waitForPressAndRelease();
 		int lights[] = new int[300];
@@ -165,6 +167,7 @@ public class LightCalibrate {
 		light.setHigh(max);
 		System.out.println("\nPress ENTER to continue.");
 		Button.ENTER.waitForPressAndRelease();
+		Settings.PILOT.setTravelSpeed(speed);
 		LCD.clear();
 	}
 }
