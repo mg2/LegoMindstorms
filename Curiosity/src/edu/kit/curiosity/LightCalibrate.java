@@ -166,8 +166,9 @@ public class LightCalibrate {
 		light.setLow(min);
 		light.setHigh(max);
 		System.out.println("\nPress ENTER to continue.");
-		Button.ENTER.waitForPressAndRelease();
+		//Button.ENTER.waitForPressAndRelease();
 		Settings.PILOT.setTravelSpeed(speed);
+		Settings.PILOT.rotate(150);
 		LCD.clear();
 	}
 }
