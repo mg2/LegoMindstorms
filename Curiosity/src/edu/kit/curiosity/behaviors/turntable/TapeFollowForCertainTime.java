@@ -28,11 +28,6 @@ public class TapeFollowForCertainTime implements Behavior {
 	static final int out = 100;
 
 	/**
-	 * Number of steps.
-	 */
-	private static int i = 0;
-
-	/**
 	 * Number of consecutive left turns.
 	 */
 	private static int l = 0;
@@ -80,70 +75,6 @@ public class TapeFollowForCertainTime implements Behavior {
 				r = 1;
 				l++;
 			}
-			// between out and 2 * out
-			if (i > out && i <= 2 * out) {
-				// last out turns were in same direction
-				if (r > out || l > out) {
-					// make turn steeper
-					tr = 150;
-				}
-			} else if (i > 2 * out) { // more than 2 * out
-				if (r > 2 * out || l > 2 * out) {
-
-					// multiplier
-					int m = 1;
-
-					if (r > 2 * out)
-						m = -1;
-					// pilot.setTravelSpeed(pilot.getMaxTravelSpeed());
-
-					// travel back until line found
-					while (i >= 0 && light.getLightValue() < blackWhiteThreshold) {
-						pilot.steer(m * tr, m * (-1) * 10, true); // travel back
-						i--;
-						try {
-							Thread.sleep(sleep);
-						} catch (InterruptedException e) {
-							e.printStackTrace();
-						}
-					}
-					System.out.println("GAP?");
-
-					// Invert multiplier
-					pilot.stop();
-					m *= -1;
-					// Travels forward arc in the other direction
-					while (i < 2 * out && light.getLightValue() < blackWhiteThreshold) {
-						pilot.steer(m * tr, m * 10, true); // travel back
-						i++;
-						try {
-							Thread.sleep(sleep);
-						} catch (InterruptedException e) {
-							e.printStackTrace();
-						}
-					}
-					pilot.stop();
-
-					// Travels backward arc in the other direction
-					while (i >= 0 && light.getLightValue() < blackWhiteThreshold) {
-						pilot.steer(m * tr, (-1) * m * 10, true); // travel back
-						i--;
-						try {
-							Thread.sleep(sleep);
-						} catch (InterruptedException e) {
-							e.printStackTrace();
-						}
-					}
-					if (!suppressed && light.getLightValue() < blackWhiteThreshold)
-						Settings.gap = true;
-				}
-				// Set values to defaults.
-				i = 0;
-				l = 0;
-				r = 0;
-				tr = 90;
-			}
-			i++;
 			try {
 				Thread.sleep(sleep);
 			} catch (InterruptedException e) {
