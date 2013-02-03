@@ -42,23 +42,4 @@ public class LabyrinthGate implements Behavior {
 	public void suppress() {
 		suppressed = true;
 	}
-
-	// /**
-	// * Connects to the Gate
-	// * @return true if successful else false
-	// */
-	// public boolean connect() {
-	// if(!gateControl.connectionToGateSuccessful(GateCommon.GATE_1)) {
-	// return true;
-	// }
-	// return false;
-	// }
-	/**
-	 * Disconnect from the Gate
-	 * 
-	 * @return true if successful else false
-	 */
-	public boolean disconnect() {
-		return gateControl.disconnectFromGate();
-	}
 }
