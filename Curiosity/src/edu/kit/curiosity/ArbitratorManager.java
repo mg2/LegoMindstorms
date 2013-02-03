@@ -5,9 +5,7 @@ import lejos.nxt.ButtonListener;
 import lejos.nxt.Motor;
 import lejos.robotics.subsumption.Behavior;
 import lejos.robotics.subsumption.CustomArbitrator;
-import lejos.util.Delay;
-import lejos.util.Timer;
-import lejos.util.TimerListener;
+import edu.kit.curiosity.behaviors.DriveBackward;
 import edu.kit.curiosity.behaviors.DriveForward;
 import edu.kit.curiosity.behaviors.MotorAStall;
 import edu.kit.curiosity.behaviors.ReadCodes;
@@ -17,6 +15,7 @@ import edu.kit.curiosity.behaviors.gate.*;
 import edu.kit.curiosity.behaviors.maze.*;
 import edu.kit.curiosity.behaviors.race.*;
 import edu.kit.curiosity.behaviors.tape.*;
+import edu.kit.curiosity.behaviors.turntable.StallMotor;
 
 /**
  * This class manages the different arbitrators for all the different levels.
@@ -27,6 +26,14 @@ public class ArbitratorManager {
 	private CustomArbitrator arbitrator;
 	private Thread thread = new Thread();
 	private RobotState curState;
+	
+	/**
+	 * Test behavior
+	 */
+	private Behavior test1 = new DriveBackward();
+	private Behavior test2 = new StallMotor();
+	
+	private Behavior[] testBehavior = { test1, test2 };
 
 	/**
 	 * Start behavior
@@ -40,7 +47,6 @@ public class ArbitratorManager {
 	/**
 	 * Race behavior and arbitrator
 	 */
-
 	private Behavior r1 = new RaceDrive();
 	private Behavior r2 = new Race();
 	private Behavior r3 = new ReadCodes();
@@ -97,7 +103,6 @@ public class ArbitratorManager {
 	private Behavior t7 = new MotorAStall();
 	private Behavior[] tapeBehavior = { t1, t2, t3, t4, t5, t6, t7 };
 
-	
 	/**
 	 * Instantiate an {@code ArbitratorManager}
 	 */
@@ -154,24 +159,26 @@ public class ArbitratorManager {
 	 *            given {@code RobotState} to change the arbitrator to
 	 */
 	private void updateArbitrator(RobotState state) {
-		if (state != null && state != RobotState.START) {
+		if (state != null && state != RobotState.START && state != RobotState.TEST) {
 			this.arbitrator.stop();
 			System.out.println(state.toString() + " mode selected");
 		}
 
 		switch (state) {
-		case START:
-			Settings.PILOT.setTravelSpeed(Settings.PILOT.getMaxTravelSpeed() * 0.5);
-			Settings.PILOT
-					.setRotateSpeed(Settings.PILOT.getMaxRotateSpeed() / 4);
-			Settings.motorAAngle = 90;
-			this.arbitrator = new CustomArbitrator(startBehavior);
-			break;
-		case RACE:
-			Settings.PILOT.setTravelSpeed(Settings.PILOT.getMaxTravelSpeed());
-			Settings.PILOT
-					.setRotateSpeed(Settings.PILOT.getMaxRotateSpeed() / 4);
-			Motor.A.setSpeed(Motor.A.getMaxSpeed() / 5);
+			case TEST:
+				Settings.PILOT.setTravelSpeed(10);
+				this.arbitrator = new CustomArbitrator(testBehavior);
+				break;
+			case START:
+				Settings.PILOT.setTravelSpeed(Settings.PILOT.getMaxTravelSpeed());
+				Settings.PILOT.setRotateSpeed(Settings.PILOT.getMaxRotateSpeed() / 4);
+				Settings.motorAAngle = 90;
+				this.arbitrator = new CustomArbitrator(startBehavior);
+				break;
+			case RACE:
+				Settings.PILOT.setTravelSpeed(Settings.PILOT.getMaxTravelSpeed());
+				Settings.PILOT.setRotateSpeed(Settings.PILOT.getMaxRotateSpeed() / 4);
+				Motor.A.setSpeed(Motor.A.getMaxSpeed() / 5);
 
 			Button.ENTER.waitForPressAndRelease();
 			
