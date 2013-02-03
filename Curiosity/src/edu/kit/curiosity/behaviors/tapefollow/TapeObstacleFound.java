@@ -51,11 +51,13 @@ public class TapeObstacleFound implements Behavior {
 		} 
 		// If obstacle LEFT of the line.
 		else if (!Settings.obstacle) {
+			Settings.obstacle = true;
 			pilot.travel(-8);
-			pilot.rotate(-30);
-			while (!suppressed && light.getLightValue() < 50) {
-				pilot.steer(20, 60, true);
+			pilot.rotate(-50);
+			while (!suppressed && light.getLightValue() < 50 && !(touch_l.isPressed() || touch_r.isPressed())) {
+				pilot.steer(40, 60, true);
 			}
+			Settings.obstacle = false;
 		}
 
 		// Steers in arcs until line found.

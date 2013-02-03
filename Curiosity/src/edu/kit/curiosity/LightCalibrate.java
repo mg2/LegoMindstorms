@@ -141,7 +141,7 @@ public class LightCalibrate {
 	public LightCalibrate(boolean black, boolean white) {
 		double speed = Settings.PILOT.getTravelSpeed();
 		Settings.PILOT.setTravelSpeed(Settings.PILOT.getMaxTravelSpeed() * 0.1);
-		System.out.println("Calibrate light.");
+		System.out.println("Calibrate light. \n AUTOMATIC LEFT TURN!");
 		Button.ENTER.waitForPressAndRelease();
 		int lights[] = new int[300];
 
@@ -162,10 +162,10 @@ public class LightCalibrate {
 			tempSum += lights[j];
 		}
 		max = tempSum / 10;
-		System.out.println("min: " + min + ", max: " + max);
+		//System.out.println("min: " + min + ", max: " + max);
 		light.setLow(min);
 		light.setHigh(max);
-		System.out.println("\nPress ENTER to continue.");
+		//System.out.println("\nPress ENTER to continue.");
 		//Button.ENTER.waitForPressAndRelease();
 		Settings.PILOT.setTravelSpeed(speed);
 		Settings.PILOT.rotate(150);
