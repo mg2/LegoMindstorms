@@ -139,27 +139,32 @@ public class LightCalibrate {
 	 * Test purposes only. Set light for high and low.
 	 */
 	public LightCalibrate(boolean black, boolean white) {
-		System.out.println("Calibrating light.");
+		System.out.println("Calibrate light.");
+		Button.ENTER.waitForPressAndRelease();
+		int lights[] = new int[300];
 
-		if (black) {
-			// Calibrate BLACK
-			System.out.print("Black: ");
-			Button.ENTER.waitForPressAndRelease();
-			light.calibrateLow();
-			System.out.println(Settings.LIGHT.getLow());
+		for (int j = 0; j < lights.length; j++) {
+			Settings.PILOT.travel(1, true);
+			lights[j] = light.getNormalizedLightValue();
 		}
-
-		if (white) {
-			// Calibrate BRIDGE
-			System.out.println("White: ");
-			Button.ENTER.waitForPressAndRelease();
-			light.calibrateHigh();
-			System.out.println(Settings.light_bridge);
+		java.util.Arrays.sort(lights);
+		int min = 1024;
+		int max = -1;
+		int tempSum = 0;
+		for (int j = 0; j < 100; j++) {
+			tempSum += lights[j];
 		}
-
-		System.out.println("Press ENTER to continue.");
+		min = tempSum / 100;
+		tempSum = 0;
+		for (int j = lights.length - 100; j < lights.length; j++) {
+			tempSum += lights[j];
+		}
+		max = tempSum / 100;
+		System.out.println("min: " + min + ", max: " + max);
+		light.setLow(min);
+		light.setHigh(max);
+		System.out.println("\nPress ENTER to continue.");
 		Button.ENTER.waitForPressAndRelease();
 		LCD.clear();
-
 	}
 }
