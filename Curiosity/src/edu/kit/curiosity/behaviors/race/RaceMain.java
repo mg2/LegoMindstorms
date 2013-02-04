@@ -6,49 +6,35 @@ import lejos.nxt.Motor;
 import lejos.robotics.subsumption.Behavior;
 import lejos.robotics.subsumption.CustomArbitrator;
 import edu.kit.curiosity.Settings;
-import edu.kit.curiosity.behaviors.MotorAStall;
-import edu.kit.curiosity.behaviors.SensorHeadPosition;
 import edu.kit.curiosity.behaviors.*;
 import edu.kit.curiosity.behaviors.maze.*;
 import edu.kit.curiosity.behaviors.slider.AfterRollFloor;
-import edu.kit.curiosity.behaviors.tape.GapFound;
-import edu.kit.curiosity.behaviors.tape.LineFollow;
-import edu.kit.curiosity.behaviors.tape.TapeLost;
 
-public class Main implements ButtonListener {
+public class RaceMain implements ButtonListener {
 
 
-	public Main() {
+	public RaceMain() {
 		Button.ESCAPE.addButtonListener(this);
 	}
 
 	public static void main(String[] args) throws Exception {
-		new Main();
+		new RaceMain();
 		
 		
 		// Race
-		Settings.PILOT.setTravelSpeed(Settings.PILOT.getMaxTravelSpeed());
+		Settings.PILOT.setTravelSpeed(Settings.PILOT.getMaxTravelSpeed() * 0.55);
 		Settings.PILOT.setRotateSpeed(Settings.PILOT.getMaxRotateSpeed() / 4);
 		Motor.A.setSpeed(Motor.A.getMaxSpeed() / 5);
-		Settings.motorAAngle = 90;
+		Settings.motorAAngle = 0;
 		
 		
 		Behavior b1 = new RaceDrive();
+		Behavior b3 = new RaceFollowWall(15);
 		Behavior b2 = new Race();
+		//Behavior b3 = new ReadCodes();
 		Behavior b6 = new SensorHeadPosition();
 		Behavior b7 = new MotorAStall();
-		
-		// Not in first row
-		if (Settings.SONIC.getDistance() < 40) {
-			Settings.inFirstRow = false;
-			
-		// In first row
-		} else {
-			Settings.inFirstRow = true;
-		}
- 		
-		
-		Behavior[] bArray = { b1, b2, b6, b7};
+		Behavior[] bArray = { b3,b1, b2,  b6, b7};
 
 		CustomArbitrator arbitrator = new CustomArbitrator(bArray);		
 		Thread t = new Thread(arbitrator);
