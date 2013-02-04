@@ -3,23 +3,32 @@ package edu.kit.curiosity.behaviors;
 import edu.kit.curiosity.Settings;
 import lejos.nxt.Motor;
 import lejos.robotics.subsumption.Behavior;
+import lejos.util.Delay;
 
 /**
  * The class {@code SensorHeadPosition} describes the behavior which takes place
  * if the SensorHead is at a wrong position.
+ * 
  * @author Team Curiosity
- *
+ * 
  */
 public class SensorHeadPosition implements Behavior {
 
-	private boolean suppressed = false;
+	private boolean suppressed;
+	
+	public SensorHeadPosition() {
+		suppressed = false;
+		Motor.A.setSpeed((int) (Motor.A.getMaxSpeed() * 0.2));
+		Motor.A.setStallThreshold(10, 100);
+	}
 
 	/**
 	 * The Behavior takes control if the SensorHead is at a wrong position
 	 */
 	@Override
 	public boolean takeControl() {
-		return (Math.abs(Motor.A.getTachoCount() - Settings.motorAAngle) > 5/* && !Settings.TOUCH_R.isPressed()*/); //not sure
+		return (Math.abs(Motor.A.getTachoCount() - Settings.motorAAngle) > 5);
+
 	}
 
 	/**
@@ -28,13 +37,13 @@ public class SensorHeadPosition implements Behavior {
 	@Override
 	public void action() {
 		suppressed = false;
-		Motor.A.flt(true);
-		Motor.A.rotateTo(Settings.motorAAngle, false);
-		while (Motor.A.isMoving() && !suppressed) {
-			Thread.yield();
-		}
+		if (Settings.motorAAngle == -90) Settings.motorAAngle = -95;
+
+		Motor.A.rotateTo(Settings.motorAAngle, true);
+
+		while (Motor.A.isMoving() && !Motor.A.isStalled() && !suppressed);			
+		
 		Motor.A.stop();
-		//Motor.A.flt(true);
 	}
 
 	/**
@@ -43,7 +52,5 @@ public class SensorHeadPosition implements Behavior {
 	@Override
 	public void suppress() {
 		suppressed = true;
-
 	}
-
 }

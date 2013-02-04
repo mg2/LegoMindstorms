@@ -50,7 +50,7 @@ public class Settings {
 	 * Different angle settings.
 	 */
 	public static int angle = 15;
-	public static int motorAAngle = 0;
+	public static int motorAAngle = 999;
 	
 	/**
 	 * Miscellaneous.
