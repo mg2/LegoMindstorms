@@ -7,10 +7,15 @@ import lejos.robotics.subsumption.CustomArbitrator;
 import edu.kit.curiosity.LightCalibrate;
 import edu.kit.curiosity.SensorHeadCalibrate;
 import edu.kit.curiosity.Settings;
-import edu.kit.curiosity.behaviors.MotorAStall;
 import edu.kit.curiosity.behaviors.SensorHeadPosition;
 import edu.kit.curiosity.behaviors.tapefollow.TapeFollow;
 
+/**
+ * Follow line with 40% of his speed.
+ * Simple line follow without sharper turns.
+ * If wall nearer than 1m for 2 seconds - switch speed to 15% and go in complex mode.
+ * Wall being far than 1m or touch sensors triggered (opponent hit) resets the timer.
+ */
 public class HanginBridgeMain {
 	static DifferentialPilot pilot = Settings.PILOT;
 	static LightSensor light = Settings.LIGHT;
@@ -19,9 +24,9 @@ public class HanginBridgeMain {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		double speed = pilot.getMaxTravelSpeed() * 0.15;
+
 		pilot = Settings.PILOT;
-		pilot.setTravelSpeed(speed);
+
 		pilot.setRotateSpeed(pilot.getRotateMaxSpeed());
 		new SensorHeadCalibrate();
 
@@ -29,13 +34,11 @@ public class HanginBridgeMain {
 
 		new LightCalibrate(false, false);
 
-		Behavior hb0 = new TapeFollow();
-		Behavior hb1 = new FollowBridgeBack();
-		Behavior hb2 = new FollowBridgeGas();
-		Behavior hb5 = new SensorHeadPosition();
-		Behavior hb6 = new MotorAStall();
+		Behavior hb1 = new TapeFollow();
+		Behavior hb0 = new FollowBridgeFast();
+		Behavior hb3 = new SensorHeadPosition();
 
-		Behavior[] hangingBridgeArray = {hb0, hb2, hb5, hb6 };
+		Behavior[] hangingBridgeArray = {hb1, hb0, hb3};
 
 		CustomArbitrator hangingBridgeArbitrator = new CustomArbitrator(hangingBridgeArray);
 		Thread t = new Thread(hangingBridgeArbitrator);

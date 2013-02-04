@@ -1,4 +1,4 @@
-package edu.kit.curiosity.behaviors.hangingBridge;
+package tests;
 
 import lejos.nxt.LightSensor;
 import lejos.robotics.navigation.DifferentialPilot;

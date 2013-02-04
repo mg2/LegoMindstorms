@@ -5,10 +5,9 @@ import lejos.robotics.navigation.DifferentialPilot;
 import lejos.robotics.subsumption.Behavior;
 import edu.kit.curiosity.Settings;
 
-public class FollowBridgeGas implements Behavior {
+public class FollowBridgeFast implements Behavior {
 	
 	private boolean suppressed = false;
-	private boolean timesUp = false;
 	
 	static DifferentialPilot pilot = Settings.PILOT;
 	static LightSensor light = Settings.LIGHT;
@@ -26,12 +25,13 @@ public class FollowBridgeGas implements Behavior {
 	/**
 	 * Turn rate.
 	 */
-	private static int tr = 45; // TODO not tested, previous was 90
+	private static int tr = 45;
+	
+	private int timer = 2000;
 
 	@Override
 	public boolean takeControl() {
-		// TODO Auto-generated method stub
-		return true;
+		return !Settings.endOfHangBridge;
 	}
 
 	@Override
@@ -39,12 +39,21 @@ public class FollowBridgeGas implements Behavior {
 		suppressed = false;
 		
 		long curTime = System.currentTimeMillis();
+		pilot.setTravelSpeed(pilot.getMaxTravelSpeed() * 0.40);
+		pilot.setRotateSpeed(pilot.getRotateMaxSpeed());
 
-		while (!suppressed && !timesUp) {
-			if (System.currentTimeMillis() - curTime > 6000) {
-				timesUp = true;
-				Settings.travelBack = false;
-				Settings.goBack = true;
+		/**
+		 * Follow line with 40% of his speed.
+		 * Simple line follow without sharper turns.
+		 * If wall nearer than 1m for 2 seconds - switch speed to 15% and go in complex mode.
+		 * Wall being far than 1m or touch sensors triggered (opponent hit) resets the timer.
+		 */
+		while (!suppressed && !Settings.endOfHangBridge) {
+			if (System.currentTimeMillis() - curTime > timer) {
+				Settings.endOfHangBridge = true;
+			}
+			if (Settings.SONIC.getDistance() > 100 || Settings.TOUCH_L.isPressed() || Settings.TOUCH_R.isPressed()) {
+				curTime = System.currentTimeMillis();
 			}
 			if (light.getLightValue() > blackWhiteThreshold) {
 				// On white, turn right
@@ -61,12 +70,9 @@ public class FollowBridgeGas implements Behavior {
 				e.printStackTrace();
 			}
 		}
-		if (!suppressed) pilot.setTravelSpeed(pilot.getMaxTravelSpeed());
-		while (!suppressed) {
-			// TODO am Wand am Ende der Bruecke sich orientieren
-			pilot.travel(10, true);
+		if (!suppressed) {
+			pilot.setTravelSpeed(pilot.getMaxTravelSpeed() * 0.15);
 		}
-		if (!suppressed) pilot.setTravelSpeed(pilot.getMaxTravelSpeed() * 0.15);
 	}
 
 	@Override
