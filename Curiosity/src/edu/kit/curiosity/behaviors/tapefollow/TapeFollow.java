@@ -1,7 +1,9 @@
 package edu.kit.curiosity.behaviors.tapefollow;
 
 import edu.kit.curiosity.Settings;
+import lejos.nxt.Button;
 import lejos.nxt.LightSensor;
+import lejos.nxt.Motor;
 import lejos.robotics.navigation.DifferentialPilot;
 import lejos.robotics.subsumption.Behavior;
 
@@ -47,6 +49,8 @@ public class TapeFollow implements Behavior {
 	 */
 	private static int tr = 40;
 
+	private static int tacho = 0;
+
 	@Override
 	public boolean takeControl() {
 		return true;
@@ -56,6 +60,7 @@ public class TapeFollow implements Behavior {
 	public void action() {
 
 		suppressed = false;
+		tacho = Motor.B.getTachoCount();
 
 		while (!suppressed) {
 			if (light.getLightValue() > blackWhiteThreshold) {
@@ -64,6 +69,7 @@ public class TapeFollow implements Behavior {
 				// System.out.print("right ");
 				pilot.steer(-tr, -10, true);
 				r++;
+				tacho = Motor.B.getTachoCount();
 			} else {
 				// On black, turn left
 				r = 0;
@@ -87,21 +93,17 @@ public class TapeFollow implements Behavior {
 
 					if (r > 2 * out)
 						m = -1;
-					//pilot.setTravelSpeed(pilot.getMaxTravelSpeed());
+					// pilot.setTravelSpeed(pilot.getMaxTravelSpeed());
 
 					// travel back until line found
-					while (i >= 0
-							&& light.getLightValue() < blackWhiteThreshold) {
-						pilot.steer(m * tr, m * (-1) * 10, true); // travel back
-						i--;
-						try {
-							Thread.sleep(sleep);
-						} catch (InterruptedException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
-					}
+
+					  while (i >= 0 && light.getLightValue() < blackWhiteThreshold) { // travel back 
+						  i--; try {
+					  Thread.sleep(sleep); } catch (InterruptedException e) {
+					  // TODO Auto-generated catch block e.printStackTrace(); }
+					  }
 					System.out.println("GAP?");
+					Button.waitForAnyPress();
 
 					// Invert multiplier
 					pilot.stop();

@@ -5,6 +5,7 @@ import lejos.robotics.navigation.DifferentialPilot;
 import lejos.robotics.subsumption.Behavior;
 import lejos.robotics.subsumption.CustomArbitrator;
 import edu.kit.curiosity.LightCalibrate;
+import edu.kit.curiosity.SensorHeadCalibrate;
 import edu.kit.curiosity.Settings;
 import edu.kit.curiosity.behaviors.MotorAStall;
 import edu.kit.curiosity.behaviors.SensorHeadPosition;
@@ -22,6 +23,7 @@ public class TurntableMain {
 		pilot = Settings.PILOT;
 		pilot.setTravelSpeed(speed);
 		pilot.setRotateSpeed(pilot.getRotateMaxSpeed());
+		new SensorHeadCalibrate();
 
 		Settings.motorAAngle = 0;
 

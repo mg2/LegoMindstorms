@@ -72,7 +72,7 @@ public class TapeObstacleFound implements Behavior {
 			// too far
 			else if (!pilot.isMoving()
 					&& sensor.getDistance() >= 2 * distanceToWall) {
-				pilot.rotate(5);
+				pilot.rotate(-5);
 			}
 			// not so far
 			else if (!pilot.isMoving()
@@ -82,9 +82,11 @@ public class TapeObstacleFound implements Behavior {
 		}
 		// If line found - leave obstacle mode.
 		if (light.getLightValue() > 50 && Settings.obstacle) {
-			pilot.rotate(120);
+			pilot.rotate(80);
 			Settings.obstacle = false;
 			// pilot.travel(-5); TODO do we need it?
+			//pilot.steer(20, 20, false);
+			pilot.travel(5);
 			Settings.motorAAngle = 0;
 		}
 		pilot.stop();

@@ -26,7 +26,7 @@ public class SensorHeadPosition implements Behavior {
 	 */
 	@Override
 	public boolean takeControl() {
-		return (Math.abs(Motor.A.getTachoCount() - Settings.motorAAngle) > 5);
+		return (Math.abs(Motor.A.getTachoCount() - Settings.motorAAngle) > 5 || (Motor.A.getTachoCount() == 0 && Settings.motorAAngle == -90));
 	}
 
 	/**
@@ -35,7 +35,7 @@ public class SensorHeadPosition implements Behavior {
 	@Override
 	public void action() {
 		suppressed = false;
-		if (Settings.motorAAngle == -90) Settings.motorAAngle = -95;
+		//if (Settings.motorAAngle == -90) Settings.motorAAngle = -95;
 
 		Motor.A.rotateTo(Settings.motorAAngle, true);
 

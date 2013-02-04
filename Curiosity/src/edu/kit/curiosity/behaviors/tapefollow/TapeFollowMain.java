@@ -7,7 +7,6 @@ import lejos.robotics.subsumption.CustomArbitrator;
 import edu.kit.curiosity.LightCalibrate;
 import edu.kit.curiosity.SensorHeadCalibrate;
 import edu.kit.curiosity.Settings;
-import edu.kit.curiosity.behaviors.MotorAStall;
 import edu.kit.curiosity.behaviors.SensorHeadPosition;
 
 public class TapeFollowMain {
@@ -25,7 +24,7 @@ public class TapeFollowMain {
 		 * 
 		 * Geschwindigkeit setzen
 		 */
-		double speed = pilot.getMaxTravelSpeed() * 0.25; //Linie-Suche = 15%, Haengebruecke = ca 40%
+		double speed = pilot.getMaxTravelSpeed() * 0.15; //Linie-Suche = 15%, Haengebruecke = ca 40%
 		pilot.setTravelSpeed(speed);
 		pilot.setRotateSpeed(pilot.getRotateMaxSpeed());
 		new SensorHeadCalibrate();
