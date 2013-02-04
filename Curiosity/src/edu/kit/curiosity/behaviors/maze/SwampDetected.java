@@ -46,9 +46,9 @@ public class SwampDetected implements Behavior {
 	public void action() {
 		suppressed = false;
 		Settings.inSwamp = true;
-		Settings.motorAAngle = 90;
+		Settings.motorAAngle = 0;
 		Motor.A.flt(true);
-		Motor.A.rotateTo(Settings.motorAAngle);
+		Motor.A.rotateTo(Settings.motorAAngle); // TODO warum???
 		Motor.A.flt(true);
 		pilot.forward();
 		while (pilot.isMoving() && !suppressed) {

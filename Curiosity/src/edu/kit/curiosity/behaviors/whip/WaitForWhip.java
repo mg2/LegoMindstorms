@@ -31,7 +31,7 @@ public class WaitForWhip implements Behavior {
 		}
 		if (!suppressed) {
 			pilot.travel(30); // TODO genauere Strecke
-			Settings.motorAAngle = 0;
+			Settings.motorAAngle = -90;
 			Settings.beforeWhip = false;
 		}
 	}

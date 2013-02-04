@@ -190,7 +190,7 @@ public class ArbitratorManager {
 			case START:
 				pilot.setTravelSpeed(pilot.getMaxTravelSpeed());
 				pilot.setRotateSpeed(pilot.getMaxRotateSpeed() / 4);
-				Settings.motorAAngle = 90;
+				Settings.motorAAngle = 0;
 
 				this.arbitrator = new CustomArbitrator(startBehavior);
 				break;
@@ -220,7 +220,7 @@ public class ArbitratorManager {
 				Motor.A.setSpeed(Motor.A.getMaxSpeed() / 5);
 				pilot.setRotateSpeed(pilot.getMaxRotateSpeed() / 5);
 				pilot.setTravelSpeed(30);
-				Settings.motorAAngle = 0;
+				Settings.motorAAngle = -90;
 
 				this.arbitrator = new CustomArbitrator(this.bridgeBehavior);
 				break;
@@ -228,7 +228,7 @@ public class ArbitratorManager {
 				pilot.setTravelSpeed(pilot.getMaxTravelSpeed() / 2);
 				pilot.setRotateSpeed(pilot.getMaxRotateSpeed() / 4);
 				Motor.A.setSpeed(Motor.A.getMaxSpeed() / 5);
-				Settings.motorAAngle = 0;
+				Settings.motorAAngle = -90;
 				Motor.A.setStallThreshold(10, 1000);
 
 				this.arbitrator = new CustomArbitrator(mazeBehavior);
@@ -240,7 +240,7 @@ public class ArbitratorManager {
 																	// = ca 40%
 				pilot.setTravelSpeed(speed);
 				pilot.setRotateSpeed(pilot.getRotateMaxSpeed());
-				Settings.motorAAngle = 97; // TODO auf 90 wieder
+				Settings.motorAAngle = 0; // TODO auf 90 wieder
 
 				this.arbitrator = new CustomArbitrator(tapeBehavior);
 				break;
@@ -248,7 +248,7 @@ public class ArbitratorManager {
 				pilot.setTravelSpeed(pilot.getMaxTravelSpeed() / 1.5);
 				pilot.setRotateSpeed(pilot.getMaxRotateSpeed() / 4);
 				Motor.A.setSpeed(Motor.A.getMaxSpeed() / 5);
-				Settings.motorAAngle = 90;
+				Settings.motorAAngle = 0;
 
 				this.arbitrator = new CustomArbitrator(gateBehavior);
 				break;

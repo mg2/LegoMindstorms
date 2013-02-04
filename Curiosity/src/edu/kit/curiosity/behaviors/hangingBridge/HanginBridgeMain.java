@@ -23,7 +23,7 @@ public class HanginBridgeMain {
 		pilot.setTravelSpeed(speed);
 		pilot.setRotateSpeed(pilot.getRotateMaxSpeed());
 
-		Settings.motorAAngle = 90;
+		Settings.motorAAngle = 0;
 
 		new LightCalibrate(false, false);
 

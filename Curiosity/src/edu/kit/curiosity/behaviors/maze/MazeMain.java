@@ -27,7 +27,7 @@ public class MazeMain implements ButtonListener {
 		Settings.PILOT.setTravelSpeed(Settings.PILOT.getMaxTravelSpeed() / 2);
 		Settings.PILOT.setRotateSpeed(Settings.PILOT.getMaxRotateSpeed() / 4);
 		Motor.A.setSpeed(Motor.A.getMaxSpeed() / 5);
-		Settings.motorAAngle = 0;
+		Settings.motorAAngle = -90;
 		
 		Behavior b1 = new DriveForward();
 		Behavior b2 = new FollowWall(12);

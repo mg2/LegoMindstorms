@@ -18,6 +18,7 @@ public class CuriosityMain implements ButtonListener{
 	 * @param args
 	 */
 	public static void main(String[] args) {
+		new SensorHeadCalibrate();
 		new LightCalibrate();
 		new CuriosityMain();
 

@@ -29,7 +29,7 @@ public class Main implements ButtonListener {
 		Settings.PILOT.setTravelSpeed(Settings.PILOT.getMaxTravelSpeed() / 1.5);
 		Settings.PILOT.setRotateSpeed(Settings.PILOT.getMaxRotateSpeed() / 4);
 		Motor.A.setSpeed(Motor.A.getMaxSpeed() / 5);
-		Settings.motorAAngle = 90;
+		Settings.motorAAngle = 0;
 		
 		//TODO: Behavior zum gerade ausrichten nach Markierung
 		Behavior b1 = new DriveForward();

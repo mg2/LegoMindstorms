@@ -3,7 +3,6 @@ package edu.kit.curiosity.behaviors;
 import edu.kit.curiosity.Settings;
 import lejos.nxt.Motor;
 import lejos.robotics.subsumption.Behavior;
-import lejos.util.Delay;
 
 /**
  * The class {@code SensorHeadPosition} describes the behavior which takes place

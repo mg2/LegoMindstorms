@@ -43,7 +43,7 @@ public class SwampLeft implements Behavior {
 		suppressed = false;
 		Settings.inSwamp = false;
 		Settings.afterSwamp = true;
-		Settings.motorAAngle = 0;
+		Settings.motorAAngle = -90;
 		Motor.A.flt(true);
 		Motor.A.rotateTo(Settings.motorAAngle);
 		Motor.A.flt(true);

@@ -43,7 +43,7 @@ public class TapeObstacleFound implements Behavior {
 			}
 			// If opponent/plant still there.
 			else {
-				Settings.motorAAngle = 0;
+				Settings.motorAAngle = -90;
 				pilot.rotate(80);
 				pilot.travel(10);
 				pilot.stop();
@@ -85,7 +85,7 @@ public class TapeObstacleFound implements Behavior {
 			pilot.rotate(120);
 			Settings.obstacle = false;
 			// pilot.travel(-5); TODO do we need it?
-			Settings.motorAAngle = 90;
+			Settings.motorAAngle = 0;
 		}
 		pilot.stop();
 	}

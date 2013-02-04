@@ -11,7 +11,6 @@ public class TapeFollow implements Behavior {
 	static LightSensor light = Settings.LIGHT;
 
 	private boolean suppressed = false;
-	private boolean endOfBridge = false;
 
 	/**
 	 * Light threshold.
@@ -26,7 +25,7 @@ public class TapeFollow implements Behavior {
 	/**
 	 * Number of steps before making turn steeper.
 	 */
-	static final int out = 100;
+	static final int out = 150;
 
 	/**
 	 * Number of steps.
@@ -50,7 +49,7 @@ public class TapeFollow implements Behavior {
 
 	@Override
 	public boolean takeControl() {
-		return (!endOfBridge);
+		return true;
 	}
 
 	@Override
@@ -59,13 +58,7 @@ public class TapeFollow implements Behavior {
 		suppressed = false;
 
 		while (!suppressed) {
-			if (light.getLightValue() < 20) {
-				pilot.setTravelSpeed(pilot.getMaxTravelSpeed());
-				pilot.travel(10);
-				pilot.setTravelSpeed(pilot.getMaxTravelSpeed() * 0.15);
-				endOfBridge = true;
-			}
-			else if (light.getLightValue() > blackWhiteThreshold) {
+			if (light.getLightValue() > blackWhiteThreshold) {
 				// On white, turn right
 				l = 0;
 				// System.out.print("right ");

@@ -5,6 +5,7 @@ import lejos.robotics.navigation.DifferentialPilot;
 import lejos.robotics.subsumption.Behavior;
 import lejos.robotics.subsumption.CustomArbitrator;
 import edu.kit.curiosity.LightCalibrate;
+import edu.kit.curiosity.SensorHeadCalibrate;
 import edu.kit.curiosity.Settings;
 import edu.kit.curiosity.behaviors.MotorAStall;
 import edu.kit.curiosity.behaviors.SensorHeadPosition;
@@ -24,21 +25,21 @@ public class TapeFollowMain {
 		 * 
 		 * Geschwindigkeit setzen
 		 */
-		double speed = pilot.getMaxTravelSpeed() * 0.15; //Linie-Suche = 15%, Haengebruecke = ca 40%
+		double speed = pilot.getMaxTravelSpeed() * 0.25; //Linie-Suche = 15%, Haengebruecke = ca 40%
 		pilot.setTravelSpeed(speed);
-		pilot.setRotateSpeed(pilot.getRotateMaxSpeed());		
+		pilot.setRotateSpeed(pilot.getRotateMaxSpeed());
+		new SensorHeadCalibrate();
 
-		Settings.motorAAngle = 97; // TODO auf 90 wieder 
+		Settings.motorAAngle = 0;
 		
-		new LightCalibrate(true, true);
+		new LightCalibrate(false, true);
 		
 		Behavior t1 = new TapeFollow();
 		Behavior t2 = new TapeGapFound();
 		Behavior t3 = new TapeObstacleFound();
 		Behavior t5 = new SensorHeadPosition();
-		Behavior t6 = new MotorAStall();
 		
-		Behavior[] tapeFollowArray = {t1, t2, t3, t5, t6};
+		Behavior[] tapeFollowArray = {t1, t2, t3, t5};
 		
 		CustomArbitrator tapeFollowArbitrator = new CustomArbitrator(tapeFollowArray);
 		Thread t = new Thread(tapeFollowArbitrator);

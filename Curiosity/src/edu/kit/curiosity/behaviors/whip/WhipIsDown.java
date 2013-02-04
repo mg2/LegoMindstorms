@@ -12,7 +12,7 @@ public class WhipIsDown implements Behavior {
 
 	@Override
 	public void action() {
-		Settings.motorAAngle = 0;
+		Settings.motorAAngle = -90;
 		Settings.PILOT.travel(20);
 		Settings.beforeWhip = false;
 	}

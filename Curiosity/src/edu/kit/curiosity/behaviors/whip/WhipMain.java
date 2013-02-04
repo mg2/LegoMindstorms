@@ -29,7 +29,7 @@ public class WhipMain {
 		Settings.PILOT.setRotateSpeed(Settings.PILOT.getMaxRotateSpeed() * 0.15);
 		Motor.A.setSpeed(Motor.A.getMaxSpeed() / 5);
 
-		Settings.motorAAngle = 90;
+		Settings.motorAAngle = 0;
 
 		new LightCalibrate(true, true, false, false, false);
 		Settings.LIGHT.setLow(Settings.light_black);

@@ -18,7 +18,7 @@ public class SliderMain {
 		pilot.setAcceleration((int) (pilot.getMaxTravelSpeed() * 10));
 		pilot.setTravelSpeed(pilot.getMaxTravelSpeed() * 0.1);
 
-		Settings.motorAAngle = 90;
+		Settings.motorAAngle = 0;
 		
 		Behavior s1 = new DriveForward();
 		Behavior s2 = new SliderHit();
