@@ -28,15 +28,16 @@ public class ColorGateMain {
 
 		// TODO Something with bluetooth communication
 		// TODO Linie finden
-		Behavior tf1 = new TapeFollow();
+		Behavior tf1 = new ColorTapeFollow();
 		Behavior tf2 = new FirstColor();
 		Behavior tf3 = new FollowWallColor(12);
 		Behavior tf4 = new ColorFound();
-		Behavior tf5 = new HitWallColor();
+		Behavior tf8 = new ButtonPressed();
+		Behavior tf5 = new WallAfterButton();
 		Behavior tf6 = new SensorHeadPosition();
 		Behavior tf7 = new MotorAStall();
 
-		Behavior[] tapeFollow = { tf1, tf2, tf3, tf4, tf5, tf6, tf7 };
+		Behavior[] tapeFollow = { tf1, tf2, tf3, tf4, tf8, tf5, tf6, tf7 };
 		CustomArbitrator tapeFollowArbitrator = new CustomArbitrator(tapeFollow);
 		Thread t = new Thread(tapeFollowArbitrator);
 		t.start();
