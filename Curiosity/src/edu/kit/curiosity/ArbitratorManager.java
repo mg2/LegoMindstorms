@@ -16,6 +16,7 @@ import edu.kit.curiosity.behaviors.bridge.*;
 import edu.kit.curiosity.behaviors.gate.*;
 import edu.kit.curiosity.behaviors.maze.*;
 import edu.kit.curiosity.behaviors.race.*;
+import edu.kit.curiosity.behaviors.slider.AfterRollFloor;
 import edu.kit.curiosity.behaviors.tape.*;
 
 /**
@@ -79,7 +80,7 @@ public class ArbitratorManager {
 	 * Gate behavior and arbitrator
 	 */
 	private Behavior g1 = new DriveForward();
-	private Behavior g2 = new RollFloor();
+	private Behavior g2 = new AfterRollFloor();
 	private Behavior g3 = new ReadCodes();
 	private Behavior g4 = new SensorHeadPosition();
 	private Behavior g5 = new MotorAStall();

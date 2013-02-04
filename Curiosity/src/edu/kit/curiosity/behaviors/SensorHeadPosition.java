@@ -19,7 +19,7 @@ public class SensorHeadPosition implements Behavior {
 	 */
 	@Override
 	public boolean takeControl() {
-		return (Math.abs(Motor.A.getTachoCount() - Settings.motorAAngle) > 5/* && !Settings.TOUCH_R.isPressed()*/); //not sure
+		return (Math.abs(Motor.A.getTachoCount() - Settings.motorAAngle) > 5); //not sure
 	}
 
 	/**

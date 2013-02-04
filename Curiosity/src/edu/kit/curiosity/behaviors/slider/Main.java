@@ -1,4 +1,4 @@
-package edu.kit.curiosity.behaviors.gate;
+package edu.kit.curiosity.behaviors.slider;
 
 import lejos.nxt.Button;
 import lejos.nxt.ButtonListener;
@@ -9,7 +9,6 @@ import lejos.robotics.subsumption.Behavior;
 import lejos.robotics.subsumption.CustomArbitrator;
 import edu.kit.curiosity.Settings;
 import edu.kit.curiosity.behaviors.*;
-import edu.kit.curiosity.behaviors.gate.RollFloor;
 import edu.kit.curiosity.behaviors.maze.*;
 import edu.kit.curiosity.behaviors.tape.GapFound;
 import edu.kit.curiosity.behaviors.tape.LineFollow;
@@ -34,7 +33,7 @@ public class Main implements ButtonListener {
 		
 		//TODO: Behavior zum gerade ausrichten nach Markierung
 		Behavior b1 = new DriveForward();
-		Behavior b3 = new RollFloor();
+		Behavior b3 = new AfterRollFloor();
  		Behavior b6 = new SensorHeadPosition();
 		Behavior b7 = new MotorAStall();
 		
