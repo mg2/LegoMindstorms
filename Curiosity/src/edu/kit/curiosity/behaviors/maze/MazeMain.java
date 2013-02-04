@@ -1,20 +1,10 @@
 package edu.kit.curiosity.behaviors.maze;
 
-import tests.GapFound;
-import tests.LineFollow;
-import tests.TapeLost;
 import lejos.nxt.Button;
 import lejos.nxt.ButtonListener;
-import lejos.nxt.LCD;
-import lejos.nxt.Motor;
-import lejos.robotics.subsumption.Arbitrator;
-import lejos.robotics.subsumption.Behavior;
-import lejos.robotics.subsumption.CustomArbitrator;
 import edu.kit.curiosity.ArbitratorManager;
 import edu.kit.curiosity.RobotState;
 import edu.kit.curiosity.Settings;
-import edu.kit.curiosity.behaviors.*;
-import edu.kit.curiosity.behaviors.maze.*;
 
 public class MazeMain implements ButtonListener {
 

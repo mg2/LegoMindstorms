@@ -3,7 +3,6 @@ package edu.kit.curiosity.behaviors.maze;
 import lejos.robotics.subsumption.Behavior;
 import edu.kit.curiosity.behaviors.bluetooth.GateCommon;
 import edu.kit.curiosity.behaviors.bluetooth.GateControl;
-import edu.kit.curiosity.behaviors.bluetooth.TurnControl;
 
 public class LabyrinthGate implements Behavior {
 
