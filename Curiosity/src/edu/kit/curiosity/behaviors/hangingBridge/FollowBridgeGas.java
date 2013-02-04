@@ -1,17 +1,18 @@
-package edu.kit.curiosity.behaviors.turntable;
+package edu.kit.curiosity.behaviors.hangingBridge;
 
 import edu.kit.curiosity.Settings;
 import lejos.nxt.LightSensor;
 import lejos.robotics.navigation.DifferentialPilot;
 import lejos.robotics.subsumption.Behavior;
 
-public class TapeFollowForCertainTime implements Behavior {
-
-	static DifferentialPilot pilot = Settings.PILOT;
-	static LightSensor light = Settings.LIGHT;
-
+public class FollowBridgeGas implements Behavior {
+	
 	private boolean suppressed = false;
 	private boolean timesUp = false;
+	
+	static DifferentialPilot pilot = Settings.PILOT;
+	static LightSensor light = Settings.LIGHT;
+	
 	/**
 	 * Light threshold.
 	 */
@@ -29,18 +30,18 @@ public class TapeFollowForCertainTime implements Behavior {
 
 	@Override
 	public boolean takeControl() {
-		return Settings.travelBack;
+		// TODO Auto-generated method stub
+		return true;
 	}
 
 	@Override
 	public void action() {
-		System.out.println("Follow line for 4 seconds");
 		suppressed = false;
 		
 		long curTime = System.currentTimeMillis();
 
 		while (!suppressed && !timesUp) {
-			if (System.currentTimeMillis() - curTime > 4000) {
+			if (System.currentTimeMillis() - curTime > 6000) {
 				timesUp = true;
 				Settings.travelBack = false;
 				Settings.goBack = true;
@@ -60,8 +61,12 @@ public class TapeFollowForCertainTime implements Behavior {
 				e.printStackTrace();
 			}
 		}
-
-		pilot.stop();
+		if (!suppressed) pilot.setTravelSpeed(pilot.getMaxTravelSpeed());
+		while (!suppressed) {
+			// TODO am Wand am Ende der Bruecke sich orientieren
+			pilot.travel(10, true);
+		}
+		if (!suppressed) pilot.setTravelSpeed(pilot.getMaxTravelSpeed() * 0.15);
 	}
 
 	@Override
@@ -69,4 +74,5 @@ public class TapeFollowForCertainTime implements Behavior {
 		suppressed = true;
 
 	}
+
 }

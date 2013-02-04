@@ -137,11 +137,20 @@ public class LightCalibrate {
 
 	/**
 	 * Test purposes only. Set light for high and low.
+	 * 
+	 * @param turnAfterCalibrate - should he turn
 	 */
-	public LightCalibrate(boolean black, boolean white) {
+	public LightCalibrate(boolean turnAfterCalibrate, boolean left) {
 		double speed = Settings.PILOT.getTravelSpeed();
 		Settings.PILOT.setTravelSpeed(Settings.PILOT.getMaxTravelSpeed() * 0.1);
-		System.out.println("Calibrate light. \n AUTOMATIC LEFT TURN!");
+		
+		if (turnAfterCalibrate)	{
+			System.out.println("Calibrate light.\nAUTOMATIC ");
+			if (left) System.out.print("LEFT TURN!");
+			else System.out.print("RIGHT TURN!");
+		}
+		else System.out.println("Calibrate light.");
+		
 		Button.ENTER.waitForPressAndRelease();
 		int lights[] = new int[300];
 
@@ -162,13 +171,16 @@ public class LightCalibrate {
 			tempSum += lights[j];
 		}
 		max = tempSum / 10;
-		//System.out.println("min: " + min + ", max: " + max);
+		System.out.println("min: " + min + ", max: " + max);
 		light.setLow(min);
 		light.setHigh(max);
-		//System.out.println("\nPress ENTER to continue.");
-		//Button.ENTER.waitForPressAndRelease();
+		System.out.println("\nPress ENTER to continue.");
+		if (!turnAfterCalibrate) Button.ENTER.waitForPressAndRelease();
 		Settings.PILOT.setTravelSpeed(speed);
-		Settings.PILOT.rotate(150);
+		if (turnAfterCalibrate) {
+			if (left) Settings.PILOT.rotate(150);
+			else Settings.PILOT.rotate(-150);
+		}
 		LCD.clear();
 	}
 }
