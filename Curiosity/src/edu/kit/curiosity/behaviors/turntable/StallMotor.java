@@ -11,6 +11,8 @@ public class StallMotor implements Behavior {
 	// make sure he doesn't stall at the beginning
 	private int tachoCountA = -1;
 	private int tachoCountB = -1;
+	private int currentCountA;
+	private int currentCountB;
 
 	@Override
 	public boolean takeControl() {
@@ -18,14 +20,16 @@ public class StallMotor implements Behavior {
 		long timePassed = System.currentTimeMillis() - lastTime;
 
 		if (timePassed > DELAY) {
-			int currentCountA = Motor.B.getTachoCount();
-			int currentCountB = Motor.C.getTachoCount();
+			currentCountA = Motor.B.getTachoCount();
+			currentCountB = Motor.C.getTachoCount();
+			System.out.println("Tachocount: " + Motor.B.getTachoCount());
 
 			if (currentCountA == tachoCountA || currentCountB == tachoCountB) {
 				Settings.motorStalled = true;
-				System.out.println("stalled");
+//				System.out.println("stalled");
 			} else {
-				System.out.println("not stalled");
+				Settings.motorStalled = false;
+//				System.out.println("not stalled");
 			}
 
 			tachoCountA = currentCountA;
@@ -37,7 +41,9 @@ public class StallMotor implements Behavior {
 
 	@Override
 	public void action() {
-		System.out.println("STOP!");
+		Motor.A.resetTachoCount();
+		Motor.B.resetTachoCount();
+//		System.out.println("STOP!");
 		Settings.PILOT.stop();
 	}
 
