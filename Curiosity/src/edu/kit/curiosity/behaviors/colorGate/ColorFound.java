@@ -1,8 +1,8 @@
 package edu.kit.curiosity.behaviors.colorGate;
 
-import edu.kit.curiosity.Settings;
 import lejos.robotics.navigation.DifferentialPilot;
 import lejos.robotics.subsumption.Behavior;
+import edu.kit.curiosity.Settings;
 
 public class ColorFound implements Behavior {
 

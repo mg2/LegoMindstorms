@@ -5,8 +5,6 @@ import lejos.nxt.ButtonListener;
 import lejos.nxt.Motor;
 import lejos.robotics.subsumption.Behavior;
 import lejos.robotics.subsumption.CustomArbitrator;
-import edu.kit.curiosity.ArbitratorManager;
-import edu.kit.curiosity.RobotState;
 import edu.kit.curiosity.Settings;
 import edu.kit.curiosity.behaviors.DriveForward;
 import edu.kit.curiosity.behaviors.MotorAStall;

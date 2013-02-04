@@ -11,10 +11,6 @@ import edu.kit.curiosity.behaviors.DriveForward;
 import edu.kit.curiosity.behaviors.MotorAStall;
 import edu.kit.curiosity.behaviors.ReadCodes;
 import edu.kit.curiosity.behaviors.SensorHeadPosition;
-import edu.kit.curiosity.behaviors.bridge.*;
-import edu.kit.curiosity.behaviors.maze.*;
-import edu.kit.curiosity.behaviors.race.*;
-import edu.kit.curiosity.behaviors.tapefollow.*;
 import edu.kit.curiosity.behaviors.bridge.AbyssDetected;
 import edu.kit.curiosity.behaviors.bridge.DriveUntilAbyss;
 import edu.kit.curiosity.behaviors.bridge.ReachedEndOfBridge;
@@ -31,8 +27,6 @@ import edu.kit.curiosity.behaviors.tapefollow.TapeFollow;
 import edu.kit.curiosity.behaviors.tapefollow.TapeGapFound;
 import edu.kit.curiosity.behaviors.tapefollow.TapeObstacleFound;
 import edu.kit.curiosity.behaviors.turntable.StallMotor;
-import edu.kit.curiosity.behaviors.slider.AfterRollFloor;
-import edu.kit.curiosity.behaviors.tapefollow.*;
 
 /**
  * This class manages the different arbitrators for all the different levels.

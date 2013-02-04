@@ -1,11 +1,11 @@
 package tests;
 
-import edu.kit.curiosity.Settings;
 import lejos.nxt.LightSensor;
 import lejos.nxt.TouchSensor;
 import lejos.nxt.UltrasonicSensor;
 import lejos.robotics.navigation.DifferentialPilot;
 import lejos.robotics.subsumption.Behavior;
+import edu.kit.curiosity.Settings;
 
 public class ObstacleFound implements Behavior {
 

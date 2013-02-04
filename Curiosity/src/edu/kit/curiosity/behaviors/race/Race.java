@@ -1,9 +1,9 @@
 package edu.kit.curiosity.behaviors.race;
 
-import edu.kit.curiosity.Settings;
 import lejos.nxt.TouchSensor;
 import lejos.robotics.navigation.DifferentialPilot;
 import lejos.robotics.subsumption.Behavior;
+import edu.kit.curiosity.Settings;
 
 /**
  * The class {@code Race} describes the Behavior which takes place,

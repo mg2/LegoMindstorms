@@ -1,8 +1,8 @@
 package edu.kit.curiosity.behaviors.race;
 
-import edu.kit.curiosity.Settings;
 import lejos.robotics.navigation.DifferentialPilot;
-import lejos.robotics.subsumption.*;
+import lejos.robotics.subsumption.Behavior;
+import edu.kit.curiosity.Settings;
 
 /**
  * This class describes the Behavior to drive forward.

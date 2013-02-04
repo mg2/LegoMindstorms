@@ -1,10 +1,10 @@
 package tests;
 
 
-import edu.kit.curiosity.Settings;
 import lejos.nxt.UltrasonicSensor;
 import lejos.robotics.navigation.DifferentialPilot;
 import lejos.robotics.subsumption.Behavior;
+import edu.kit.curiosity.Settings;
 
 /**
  * This class describes the Behavior when a wall comes to close

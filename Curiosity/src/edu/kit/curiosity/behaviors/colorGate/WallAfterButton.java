@@ -1,9 +1,9 @@
 package edu.kit.curiosity.behaviors.colorGate;
 
-import edu.kit.curiosity.Settings;
 import lejos.nxt.TouchSensor;
 import lejos.robotics.navigation.DifferentialPilot;
 import lejos.robotics.subsumption.Behavior;
+import edu.kit.curiosity.Settings;
 
 /**
  * This class describes the Behavior when hitting a Wall

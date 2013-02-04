@@ -1,9 +1,9 @@
 package edu.kit.curiosity.behaviors.colorGate;
 
-import edu.kit.curiosity.Settings;
 import lejos.nxt.UltrasonicSensor;
 import lejos.robotics.navigation.DifferentialPilot;
 import lejos.robotics.subsumption.Behavior;
+import edu.kit.curiosity.Settings;
 
 /**
  * The class {@code FollowWall} describes the behavior to follow a wall.

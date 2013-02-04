@@ -1,7 +1,7 @@
 package tests;
 
-import edu.kit.curiosity.Settings;
 import lejos.robotics.subsumption.Behavior;
+import edu.kit.curiosity.Settings;
 
 public class LineFollow implements Behavior {
 	//Auf dem schwarzen Planner entsprechen 90 Grad 136.5 CodeGrad

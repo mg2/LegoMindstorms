@@ -1,8 +1,8 @@
 package edu.kit.curiosity.behaviors.tapefollow;
 
-import edu.kit.curiosity.Settings;
 import lejos.nxt.Button;
 import lejos.robotics.subsumption.Behavior;
+import edu.kit.curiosity.Settings;
 
 public class TapeGapFound implements Behavior {
 

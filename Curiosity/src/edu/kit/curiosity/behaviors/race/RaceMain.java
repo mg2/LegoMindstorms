@@ -6,9 +6,8 @@ import lejos.nxt.Motor;
 import lejos.robotics.subsumption.Behavior;
 import lejos.robotics.subsumption.CustomArbitrator;
 import edu.kit.curiosity.Settings;
-import edu.kit.curiosity.behaviors.*;
-import edu.kit.curiosity.behaviors.maze.*;
-import edu.kit.curiosity.behaviors.slider.AfterRollFloor;
+import edu.kit.curiosity.behaviors.MotorAStall;
+import edu.kit.curiosity.behaviors.SensorHeadPosition;
 
 public class RaceMain implements ButtonListener {
 

@@ -1,9 +1,9 @@
 package edu.kit.curiosity.behaviors.bridge;
 
-import edu.kit.curiosity.Settings;
 import lejos.nxt.LightSensor;
 import lejos.robotics.navigation.DifferentialPilot;
 import lejos.robotics.subsumption.Behavior;
+import edu.kit.curiosity.Settings;
 
 /**
  * This class detects an abyss to the right of the robot.

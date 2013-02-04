@@ -1,10 +1,10 @@
 package edu.kit.curiosity.behaviors.slider;
 
-import edu.kit.curiosity.Settings;
 import lejos.nxt.TouchSensor;
 import lejos.robotics.navigation.DifferentialPilot;
 import lejos.robotics.subsumption.Behavior;
 import lejos.util.Delay;
+import edu.kit.curiosity.Settings;
 
 /**
  * The class {@code RollFloor} describes the reaction to hits during the RollFloor.

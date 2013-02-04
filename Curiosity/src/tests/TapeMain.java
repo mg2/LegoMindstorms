@@ -7,7 +7,8 @@ import lejos.robotics.subsumption.Behavior;
 import lejos.robotics.subsumption.CustomArbitrator;
 import edu.kit.curiosity.LightCalibrate;
 import edu.kit.curiosity.Settings;
-import edu.kit.curiosity.behaviors.*;
+import edu.kit.curiosity.behaviors.MotorAStall;
+import edu.kit.curiosity.behaviors.SensorHeadPosition;
 
 /**
  * This class is responsible for all the settings needed to run the robot.

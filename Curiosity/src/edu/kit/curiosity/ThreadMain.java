@@ -6,7 +6,7 @@ import lejos.nxt.ButtonListener;
 import lejos.nxt.MotorPort;
 import lejos.robotics.subsumption.Behavior;
 import lejos.robotics.subsumption.CustomArbitrator;
-import edu.kit.curiosity.behaviors.*;
+import edu.kit.curiosity.behaviors.DriveForward;
 import edu.kit.curiosity.behaviors.maze.HitWall;
 
 public class ThreadMain implements ButtonListener {

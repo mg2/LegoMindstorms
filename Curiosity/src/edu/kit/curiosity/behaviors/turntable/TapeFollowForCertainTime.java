@@ -1,9 +1,9 @@
 package edu.kit.curiosity.behaviors.turntable;
 
-import edu.kit.curiosity.Settings;
 import lejos.nxt.LightSensor;
 import lejos.robotics.navigation.DifferentialPilot;
 import lejos.robotics.subsumption.Behavior;
+import edu.kit.curiosity.Settings;
 
 public class TapeFollowForCertainTime implements Behavior {
 

@@ -1,7 +1,7 @@
 package edu.kit.curiosity.behaviors;
-import edu.kit.curiosity.Settings;
 import lejos.nxt.Motor;
-import lejos.robotics.subsumption.*;
+import lejos.robotics.subsumption.Behavior;
+import edu.kit.curiosity.Settings;
 
 /**
  * This class describes the Behavior when Motor A is stalled.

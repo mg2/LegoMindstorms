@@ -1,9 +1,9 @@
 package edu.kit.curiosity.behaviors.whip;
 
-import edu.kit.curiosity.Settings;
 import lejos.nxt.LightSensor;
 import lejos.robotics.navigation.DifferentialPilot;
 import lejos.robotics.subsumption.Behavior;
+import edu.kit.curiosity.Settings;
 
 /**
  * This class is responsible for all the settings needed to run the robot.

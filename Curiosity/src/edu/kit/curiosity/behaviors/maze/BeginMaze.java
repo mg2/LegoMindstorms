@@ -1,8 +1,8 @@
 package edu.kit.curiosity.behaviors.maze;
 
-import edu.kit.curiosity.Settings;
 import lejos.robotics.navigation.DifferentialPilot;
 import lejos.robotics.subsumption.Behavior;
+import edu.kit.curiosity.Settings;
 
 /**
  * The class {@code BeginMaze} describes the Behavior which takes place, if the

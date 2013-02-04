@@ -7,7 +7,6 @@ import edu.kit.curiosity.LightCalibrate;
 import edu.kit.curiosity.Settings;
 import edu.kit.curiosity.behaviors.MotorAStall;
 import edu.kit.curiosity.behaviors.SensorHeadPosition;
-import edu.kit.curiosity.behaviors.tapefollow.TapeFollow;
 
 public class ColorGateMain {
 

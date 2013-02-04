@@ -1,9 +1,9 @@
 package tests;
 
-import edu.kit.curiosity.Settings;
 import lejos.nxt.LightSensor;
 import lejos.robotics.navigation.DifferentialPilot;
 import lejos.robotics.subsumption.Behavior;
+import edu.kit.curiosity.Settings;
 
 public class TapeLost implements Behavior {
 	// Auf dem schwarzen Planner entsprechen 90 Grad 136.5 CodeGrad

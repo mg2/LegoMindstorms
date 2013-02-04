@@ -1,10 +1,10 @@
 package edu.kit.curiosity.behaviors.slider;
 
-import edu.kit.curiosity.Settings;
 import lejos.nxt.TouchSensor;
 import lejos.nxt.UltrasonicSensor;
 import lejos.robotics.navigation.DifferentialPilot;
 import lejos.robotics.subsumption.Behavior;
+import edu.kit.curiosity.Settings;
 
 public class SliderHit implements Behavior {
 	
