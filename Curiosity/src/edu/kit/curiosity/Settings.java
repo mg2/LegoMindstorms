@@ -89,5 +89,6 @@ public class Settings {
 	public static int whipAndBridgeCounter = 0;
 	public static boolean travelBack = false;
 	public static boolean goBack = false;
+	public static boolean buttonPressed = false;
 	
 }

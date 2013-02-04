@@ -39,19 +39,31 @@ public class Race implements Behavior {
 	@Override
 	public void action() {
 		suppressed = false;
-		Settings.inFirstRow = true;
-		if (Settings.TOUCH_L.isPressed() && Settings.TOUCH_R.isPressed()) {
-			pilot.travel(-5);
-			pilot.rotate(110);
-		} else if (Settings.TOUCH_R.isPressed()) {
-			pilot.rotate(70);
-		} else if (Settings.TOUCH_L.isPressed()) {
-			pilot.rotate(-70);
-		}
-		while (pilot.isMoving() && !suppressed) {
+		Settings.atStart = false;
+		Settings.motorAAngle = -90;
+		pilot.travel(-5);
+		pilot.rotate(100);
+		while( pilot.isMoving() && !suppressed ) {
 			Thread.yield();
 		}
 		pilot.stop();
+		
+//		suppressed = false;
+//		Settings.inFirstRow = true;
+//		if (Settings.TOUCH_L.isPressed() && Settings.TOUCH_R.isPressed()) {
+//			pilot.travel(-5);
+//			pilot.rotate(110);
+//		} else if (Settings.TOUCH_R.isPressed()) {
+//			pilot.travel(-5);
+//			pilot.rotate(70);
+//		} else if (Settings.TOUCH_L.isPressed()) {
+//			pilot.travel(-5);
+//			pilot.rotate(-70);
+//		}
+//		while (pilot.isMoving() && !suppressed) {
+//			Thread.yield();
+//		}
+//		pilot.stop();
 	}
 
 	/**

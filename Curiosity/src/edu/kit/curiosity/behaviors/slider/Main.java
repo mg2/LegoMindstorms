@@ -1,4 +1,4 @@
-package edu.kit.curiosity.behaviors.race;
+package edu.kit.curiosity.behaviors.slider;
 
 import tests.GapFound;
 import tests.LineFollow;
@@ -12,7 +12,6 @@ import lejos.robotics.subsumption.Behavior;
 import lejos.robotics.subsumption.CustomArbitrator;
 import edu.kit.curiosity.Settings;
 import edu.kit.curiosity.behaviors.*;
-import edu.kit.curiosity.behaviors.gate.RollFloor;
 import edu.kit.curiosity.behaviors.maze.*;
 
 public class Main implements ButtonListener {
@@ -26,29 +25,19 @@ public class Main implements ButtonListener {
 		new Main();
 		
 		
-		// Race
-		Settings.PILOT.setTravelSpeed(Settings.PILOT.getMaxTravelSpeed());
+		// Rollfloor
+		Settings.PILOT.setTravelSpeed(Settings.PILOT.getMaxTravelSpeed() / 1.5);
 		Settings.PILOT.setRotateSpeed(Settings.PILOT.getMaxRotateSpeed() / 4);
 		Motor.A.setSpeed(Motor.A.getMaxSpeed() / 5);
 		Settings.motorAAngle = 90;
 		
-		
-		Behavior b1 = new RaceDrive();
-		Behavior b2 = new Race();
-		Behavior b6 = new SensorHeadPosition();
+		//TODO: Behavior zum gerade ausrichten nach Markierung
+		Behavior b1 = new DriveForward();
+		Behavior b3 = new AfterRollFloor();
+ 		Behavior b6 = new SensorHeadPosition();
 		Behavior b7 = new MotorAStall();
 		
-		// Not in first row
-		if (Settings.SONIC.getDistance() < 40) {
-			Settings.inFirstRow = false;
-			
-		// In first row
-		} else {
-			Settings.inFirstRow = true;
-		}
- 		
-		
-		Behavior[] bArray = { b1, b2, b6, b7};
+		Behavior[] bArray = { b1, b3, b6, b7};
 
 		CustomArbitrator arbitrator = new CustomArbitrator(bArray);		
 		Thread t = new Thread(arbitrator);

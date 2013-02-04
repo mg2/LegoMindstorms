@@ -15,16 +15,18 @@ public class TurnAround implements Behavior {
 	public void action() {
 		suppressed = false;
 
-		if (!Settings.goBack) {
-			System.out.println("Turn around");
-			Settings.PILOT.setRotateSpeed(Settings.PILOT.getRotateMaxSpeed() * 0.1);
-			while (Settings.LIGHT.getNormalizedLightValue() < 350) {
-				Settings.PILOT.rotate(-20, true);
-				Settings.travelBack = true;
+		while (!suppressed) {
+			if (!Settings.goBack) {
+				System.out.println("Turn around");
+				Settings.PILOT.setRotateSpeed(Settings.PILOT.getRotateMaxSpeed() * 0.1);
+				while (Settings.LIGHT.getNormalizedLightValue() < 350) {
+					Settings.PILOT.rotate(-20, true);
+					Settings.travelBack = true;
+				}
+			} else if (Settings.goBack) {
+				System.out.println("Go back, stupid!");
+				Settings.PILOT.backward();
 			}
-		} else if (Settings.goBack) {
-			System.out.println("Go back, stupid!");
-			Settings.PILOT.backward();
 		}
 	}
 

@@ -6,13 +6,14 @@ import lejos.robotics.subsumption.*;
 
 /**
  * This class describes the Behavior to drive forward.
+ * 
  * @author Team Curiosity
- *
+ * 
  */
 public class RaceDrive implements Behavior {
 	private DifferentialPilot pilot;
 	private boolean suppressed = false;
-	
+
 	/**
 	 * Constructs a new DriveForward Behavior
 	 */
@@ -21,11 +22,10 @@ public class RaceDrive implements Behavior {
 	}
 
 	/**
-	 * Takes always Control.
-	 * returns true
+	 * Takes always Control. returns true
 	 */
 	public boolean takeControl() {
-		return true;
+		return Settings.atStart;
 	}
 
 	/**
@@ -40,13 +40,14 @@ public class RaceDrive implements Behavior {
 	 */
 	public void action() {
 		suppressed = false;
-		if (Settings.inFirstRow) {
-			pilot.forward();
-		} else {
-			pilot.arcForward(-200);
-		}
-		while (pilot.isMoving() && !suppressed) {
-			Thread.yield();
+		while (!suppressed) {
+			pilot.steer(-20, -100, true);
+			
+			/*if (Settings.inFirstRow) {
+				pilot.travel(30, true);
+			} else {
+				pilot.steer(-200, -100, true);
+			}*/
 		}
 		pilot.stop();
 	}

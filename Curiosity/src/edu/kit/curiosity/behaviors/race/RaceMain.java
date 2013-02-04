@@ -1,44 +1,40 @@
-package edu.kit.curiosity.behaviors.gate;
+package edu.kit.curiosity.behaviors.race;
 
-import tests.GapFound;
-import tests.LineFollow;
-import tests.TapeLost;
 import lejos.nxt.Button;
 import lejos.nxt.ButtonListener;
-import lejos.nxt.LCD;
 import lejos.nxt.Motor;
-import lejos.robotics.subsumption.Arbitrator;
 import lejos.robotics.subsumption.Behavior;
 import lejos.robotics.subsumption.CustomArbitrator;
 import edu.kit.curiosity.Settings;
 import edu.kit.curiosity.behaviors.*;
-import edu.kit.curiosity.behaviors.gate.RollFloor;
 import edu.kit.curiosity.behaviors.maze.*;
+import edu.kit.curiosity.behaviors.slider.AfterRollFloor;
 
-public class Main implements ButtonListener {
+public class RaceMain implements ButtonListener {
 
 
-	public Main() {
+	public RaceMain() {
 		Button.ESCAPE.addButtonListener(this);
 	}
 
 	public static void main(String[] args) throws Exception {
-		new Main();
+		new RaceMain();
 		
 		
-		// Rollfloor
-		Settings.PILOT.setTravelSpeed(Settings.PILOT.getMaxTravelSpeed() / 1.5);
+		// Race
+		Settings.PILOT.setTravelSpeed(Settings.PILOT.getMaxTravelSpeed() * 0.55);
 		Settings.PILOT.setRotateSpeed(Settings.PILOT.getMaxRotateSpeed() / 4);
 		Motor.A.setSpeed(Motor.A.getMaxSpeed() / 5);
-		Settings.motorAAngle = 90;
+		Settings.motorAAngle = 0;
 		
-		//TODO: Behavior zum gerade ausrichten nach Markierung
-		Behavior b1 = new DriveForward();
-		Behavior b3 = new RollFloor();
- 		Behavior b6 = new SensorHeadPosition();
+		
+		Behavior b1 = new RaceDrive();
+		Behavior b3 = new RaceFollowWall(15);
+		Behavior b2 = new Race();
+		//Behavior b3 = new ReadCodes();
+		Behavior b6 = new SensorHeadPosition();
 		Behavior b7 = new MotorAStall();
-		
-		Behavior[] bArray = { b1, b3, b6, b7};
+		Behavior[] bArray = { b3,b1, b2,  b6, b7};
 
 		CustomArbitrator arbitrator = new CustomArbitrator(bArray);		
 		Thread t = new Thread(arbitrator);
