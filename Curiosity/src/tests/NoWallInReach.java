@@ -1,53 +1,54 @@
+package tests;
 
 
 import edu.kit.curiosity.Settings;
-import lejos.nxt.TouchSensor;
 import lejos.nxt.UltrasonicSensor;
 import lejos.robotics.navigation.DifferentialPilot;
 import lejos.robotics.subsumption.Behavior;
 
-public class HitLeft implements Behavior {
+public class NoWallInReach implements Behavior {
 
 	private boolean suppressed = false;
 	
-	private TouchSensor touch_r;
-	private TouchSensor touch_l;
 	private DifferentialPilot pilot;
-
 	private UltrasonicSensor sonic;
-	
-	
+
 	/**
-	 * Constructs a new HitWall Behavior
+	 * Constructs new NoWallInReach Behavior.
 	 */
-	public HitLeft() {
-		touch_r = Settings.TOUCH_R;
-		touch_l = Settings.TOUCH_L;
+	public NoWallInReach()
+	{
 		pilot = Settings.PILOT;
 		sonic = Settings.SONIC;
 	}
+	
+	/**
+	 * This Behavior takes control if the Distance is higher than 40
+	 */
 	@Override
 	public boolean takeControl() {
-		return (touch_l.isPressed() && !touch_r.isPressed() && sonic.getDistance() < 40);
+		return (sonic.getDistance() > 40);
 	}
 
+	/**
+	 * Moves to the right.
+	 */
 	@Override
 	public void action() {
 		suppressed = false;
-		Settings.atStartOfMaze = false;
-		pilot.travel(-7);
-		pilot.rotate(100);
-		while( pilot.isMoving() && !suppressed ) {
+		pilot.travel(15);
+		pilot.arc(-10, -100, true);
+		while(pilot.isMoving() && !suppressed) {
 			Thread.yield();
 		}
 		pilot.stop();
-
 	}
 
+	/**
+	 * Initiates the cleanup when this Behavior is suppressed
+	 */
 	@Override
 	public void suppress() {
 		suppressed = true;
-
 	}
-
 }

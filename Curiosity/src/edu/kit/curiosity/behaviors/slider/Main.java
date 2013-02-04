@@ -1,5 +1,8 @@
 package edu.kit.curiosity.behaviors.slider;
 
+import tests.GapFound;
+import tests.LineFollow;
+import tests.TapeLost;
 import lejos.nxt.Button;
 import lejos.nxt.ButtonListener;
 import lejos.nxt.LCD;
@@ -10,9 +13,6 @@ import lejos.robotics.subsumption.CustomArbitrator;
 import edu.kit.curiosity.Settings;
 import edu.kit.curiosity.behaviors.*;
 import edu.kit.curiosity.behaviors.maze.*;
-import edu.kit.curiosity.behaviors.tape.GapFound;
-import edu.kit.curiosity.behaviors.tape.LineFollow;
-import edu.kit.curiosity.behaviors.tape.TapeLost;
 
 public class Main implements ButtonListener {
 

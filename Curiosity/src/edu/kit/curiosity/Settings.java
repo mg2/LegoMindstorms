@@ -28,7 +28,7 @@ public class Settings {
 	public final static double TRACK_WIDTH = 14.5;
 	public final static double WHEEL_WIDTH = 8;
 
-	public final static DifferentialPilot PILOT = new DifferentialPilot(WHEEL_WIDTH, TRACK_WIDTH, Motor.C, Motor.B);
+	public static DifferentialPilot PILOT = new DifferentialPilot(WHEEL_WIDTH, TRACK_WIDTH, Motor.C, Motor.B);
 
 	/**
 	 * Defining ports for sensors.
@@ -65,7 +65,7 @@ public class Settings {
 	public static boolean onColors = false;;
 	public static boolean colorFound = false;
 	public static boolean reachedBridge = false;
-	public static boolean motorStall = false;
+	public static boolean motorStalled = false;
 	
 	/**
 	 * boolean if in obstacle found mode
@@ -87,5 +87,7 @@ public class Settings {
 	public static int searchedColor;
 	
 	public static int whipAndBridgeCounter = 0;
+	public static boolean travelBack = false;
+	public static boolean goBack = false;
 	
 }

@@ -1,3 +1,4 @@
+package tests;
 import lejos.nxt.LightSensor;
 import lejos.robotics.navigation.DifferentialPilot;
 import edu.kit.curiosity.LightCalibrate;

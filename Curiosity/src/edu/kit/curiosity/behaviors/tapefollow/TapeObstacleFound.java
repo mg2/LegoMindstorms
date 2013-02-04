@@ -6,6 +6,7 @@ import lejos.nxt.TouchSensor;
 import lejos.nxt.UltrasonicSensor;
 import lejos.robotics.navigation.DifferentialPilot;
 import lejos.robotics.subsumption.Behavior;
+import lejos.util.Delay;
 
 public class TapeObstacleFound implements Behavior {
 
@@ -17,7 +18,7 @@ public class TapeObstacleFound implements Behavior {
 	LightSensor light = Settings.LIGHT;
 
 	private final int distanceToWall = 10;
-	//private int angle = 50;
+
 
 	@Override
 	public boolean takeControl() {
@@ -27,36 +28,63 @@ public class TapeObstacleFound implements Behavior {
 	@Override
 	public void action() {
 		suppressed = false;
-		if (!Settings.obstacle) { // If not in obstacle mode - initialize
-									// obstacle mode
+		//If not in obstacle mode - initialize.		
+		//If obstacle ON the line.
+		if (!Settings.obstacle && Settings.SONIC.getDistance() < 20) {
+			// Goes into obstacle mode.
 			Settings.obstacle = true;
-			Settings.motorAAngle = 0;
+
+			pilot.steer(-50, 30, false);
+			Delay.msDelay(1000);
+
+			// If opponent and not a plant.
+			if (Settings.SONIC.getDistance() > 40) {
+				Settings.obstacle = false;
+			}
+			// If opponent/plant still there.
+			else {
+				Settings.motorAAngle = 0;
+				pilot.rotate(80);
+				pilot.travel(10);
+				pilot.stop();
+			}
+		} 
+		// If obstacle LEFT of the line.
+		else if (!Settings.obstacle) {
+			Settings.obstacle = true;
 			pilot.travel(-8);
-			pilot.rotate(100);
+			pilot.rotate(-50);
+			while (!suppressed && light.getLightValue() < 50 && !(touch_l.isPressed() || touch_r.isPressed())) {
+				pilot.steer(40, 60, true);
+			}
+			Settings.obstacle = false;
 		}
-		while (!suppressed && light.getLightValue() < 50) { // arcs until line
-															// found
+
+		// Steers in arcs until line found.
+		while (!suppressed && Settings.obstacle && light.getLightValue() < 50) {
 			if (touch_l.isPressed() || touch_r.isPressed())
 				pilot.rotate(50); // TODO wert genauer
-						
-			//too close
-			else if (!pilot.isMoving()
-					&& sensor.getDistance() < distanceToWall) {
-				//pilot.arc(0, 20, true);
+
+			// too close
+			else if (!pilot.isMoving() && sensor.getDistance() < distanceToWall) {
 				pilot.steer(25, 10, true);
-			} 
-			
-			//not so far
+			}
+			// too far
+			else if (!pilot.isMoving()
+					&& sensor.getDistance() >= 2 * distanceToWall) {
+				pilot.rotate(5);
+			}
+			// not so far
 			else if (!pilot.isMoving()
 					&& sensor.getDistance() >= distanceToWall) {
-				//pilot.arc(0, -20, true);
 				pilot.steer(-40, -20, true);
 			}
 		}
-		if (light.getLightValue() > 50) { // if line found - leave obstacle mode
+		// If line found - leave obstacle mode.
+		if (light.getLightValue() > 50 && Settings.obstacle) {
 			pilot.rotate(120);
 			Settings.obstacle = false;
-			//pilot.travel(-5); TODO do we need it?
+			// pilot.travel(-5); TODO do we need it?
 			Settings.motorAAngle = 90;
 		}
 		pilot.stop();

@@ -1,3 +1,4 @@
+package tests;
 //package edu.kit.curiosity;
 
 import lejos.nxt.Motor;

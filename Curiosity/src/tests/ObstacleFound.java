@@ -1,4 +1,4 @@
-package edu.kit.curiosity.behaviors.tape;
+package tests;
 
 import edu.kit.curiosity.Settings;
 import lejos.nxt.LightSensor;
@@ -33,6 +33,7 @@ public class ObstacleFound implements Behavior {
 			Settings.motorAAngle = 0;
 			pilot.travel(-8);
 			pilot.rotate(100);
+			pilot.travel(10);
 		}
 		while (!suppressed && light.getLightValue() < 50) { // arcs until line
 															// found

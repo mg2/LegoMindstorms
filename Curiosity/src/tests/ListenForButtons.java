@@ -1,3 +1,4 @@
+package tests;
 import lejos.nxt.Button;
 import lejos.nxt.ButtonListener;
 import lejos.nxt.LCD;

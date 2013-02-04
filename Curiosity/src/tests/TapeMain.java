@@ -1,4 +1,4 @@
-package edu.kit.curiosity.behaviors.tape;
+package tests;
 
 import lejos.nxt.Button;
 import lejos.nxt.ButtonListener;
