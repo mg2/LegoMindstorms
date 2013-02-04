@@ -1,5 +1,6 @@
 package edu.kit.curiosity.behaviors.tapefollow;
 
+import lejos.nxt.Button;
 import lejos.nxt.LightSensor;
 import lejos.nxt.Motor;
 import lejos.robotics.navigation.DifferentialPilot;
