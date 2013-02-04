@@ -97,11 +97,17 @@ public class TapeFollow implements Behavior {
 
 					// travel back until line found
 
-					  while (i >= 0 && light.getLightValue() < blackWhiteThreshold) { // travel back 
-						  i--; try {
-					  Thread.sleep(sleep); } catch (InterruptedException e) {
-					  // TODO Auto-generated catch block e.printStackTrace(); }
-					  }
+					while (i >= 0
+							&& light.getLightValue() < blackWhiteThreshold) { // travel
+																				// back
+						i--;
+						try {
+							Thread.sleep(sleep);
+						} catch (InterruptedException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					}
 					System.out.println("GAP?");
 					Button.waitForAnyPress();
 
@@ -125,7 +131,8 @@ public class TapeFollow implements Behavior {
 					// Travels backward arc in the other direction
 					while (i >= 0
 							&& light.getLightValue() < blackWhiteThreshold) {
-						pilot.steer(m * tr, (-1) * m * 10, true); // travel back
+						pilot.steer(m * tr, (-1) * m * 10, true); // travel
+																	// back
 						i--;
 						try {
 							Thread.sleep(sleep);
@@ -154,6 +161,7 @@ public class TapeFollow implements Behavior {
 		}
 
 		pilot.stop();
+
 	}
 
 	@Override
