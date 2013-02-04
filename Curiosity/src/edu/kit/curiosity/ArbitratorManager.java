@@ -15,6 +15,21 @@ import edu.kit.curiosity.behaviors.bridge.*;
 import edu.kit.curiosity.behaviors.maze.*;
 import edu.kit.curiosity.behaviors.race.*;
 import edu.kit.curiosity.behaviors.tapefollow.*;
+import edu.kit.curiosity.behaviors.bridge.AbyssDetected;
+import edu.kit.curiosity.behaviors.bridge.DriveUntilAbyss;
+import edu.kit.curiosity.behaviors.bridge.ReachedEndOfBridge;
+import edu.kit.curiosity.behaviors.maze.BeginMaze;
+import edu.kit.curiosity.behaviors.maze.FollowWall;
+import edu.kit.curiosity.behaviors.maze.FoundEndLine;
+import edu.kit.curiosity.behaviors.maze.HitWall;
+import edu.kit.curiosity.behaviors.maze.SwampDetected;
+import edu.kit.curiosity.behaviors.maze.SwampLeft;
+import edu.kit.curiosity.behaviors.race.Race;
+import edu.kit.curiosity.behaviors.race.RaceDrive;
+import edu.kit.curiosity.behaviors.slider.AfterRollFloor;
+import edu.kit.curiosity.behaviors.tapefollow.TapeFollow;
+import edu.kit.curiosity.behaviors.tapefollow.TapeGapFound;
+import edu.kit.curiosity.behaviors.tapefollow.TapeObstacleFound;
 import edu.kit.curiosity.behaviors.turntable.StallMotor;
 import edu.kit.curiosity.behaviors.slider.AfterRollFloor;
 import edu.kit.curiosity.behaviors.tapefollow.*;
@@ -169,14 +184,14 @@ public class ArbitratorManager {
 		switch (state) {
 			case TEST:
 				pilot.setTravelSpeed(10);
-				
+
 				this.arbitrator = new CustomArbitrator(testBehavior);
 				break;
 			case START:
 				pilot.setTravelSpeed(pilot.getMaxTravelSpeed());
 				pilot.setRotateSpeed(pilot.getMaxRotateSpeed() / 4);
 				Settings.motorAAngle = 90;
-				
+
 				this.arbitrator = new CustomArbitrator(startBehavior);
 				break;
 			case RACE:
@@ -192,11 +207,11 @@ public class ArbitratorManager {
 				} else {
 					Settings.inFirstRow = true;
 				}
-				
+
 				Button.ENTER.waitForPressAndRelease();
 				// wait 10 seconds before starting the race
 				Delay.msDelay(10000);
-				
+
 				this.arbitrator = new CustomArbitrator(raceBehavior);
 				break;
 			case BRIDGE:
@@ -206,7 +221,7 @@ public class ArbitratorManager {
 				pilot.setRotateSpeed(pilot.getMaxRotateSpeed() / 5);
 				pilot.setTravelSpeed(30);
 				Settings.motorAAngle = 0;
-				
+
 				this.arbitrator = new CustomArbitrator(this.bridgeBehavior);
 				break;
 			case MAZE:
@@ -215,15 +230,18 @@ public class ArbitratorManager {
 				Motor.A.setSpeed(Motor.A.getMaxSpeed() / 5);
 				Settings.motorAAngle = 0;
 				Motor.A.setStallThreshold(10, 1000);
-				
+
 				this.arbitrator = new CustomArbitrator(mazeBehavior);
 				break;
 			case TAPE:
-				double speed = pilot.getMaxTravelSpeed() * 0.15; //Linie-Suche = 15%, Haengebruecke = ca 40%
+				double speed = pilot.getMaxTravelSpeed() * 0.15; // Linie-Suche
+																	// = 15%,
+																	// Haengebruecke
+																	// = ca 40%
 				pilot.setTravelSpeed(speed);
-				pilot.setRotateSpeed(pilot.getRotateMaxSpeed());		
-				Settings.motorAAngle = 97; // TODO auf 90 wieder 
-				
+				pilot.setRotateSpeed(pilot.getRotateMaxSpeed());
+				Settings.motorAAngle = 97; // TODO auf 90 wieder
+
 				this.arbitrator = new CustomArbitrator(tapeBehavior);
 				break;
 			case SLIDER:
@@ -231,7 +249,7 @@ public class ArbitratorManager {
 				pilot.setRotateSpeed(pilot.getMaxRotateSpeed() / 4);
 				Motor.A.setSpeed(Motor.A.getMaxSpeed() / 5);
 				Settings.motorAAngle = 90;
-				
+
 				this.arbitrator = new CustomArbitrator(gateBehavior);
 				break;
 			default:
