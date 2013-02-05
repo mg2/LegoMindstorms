@@ -1,4 +1,5 @@
 package tests;
+import edu.kit.curiosity.Settings;
 import lejos.nxt.Button;
 import lejos.nxt.ButtonListener;
 import lejos.nxt.LCD;
@@ -6,6 +7,7 @@ import lejos.nxt.LightSensor;
 import lejos.nxt.Motor;
 import lejos.nxt.NXTRegulatedMotor;
 import lejos.nxt.SensorPort;
+import lejos.nxt.UltrasonicSensor;
 import lejos.robotics.navigation.DifferentialPilot;
 
 public class MitkoTest {
@@ -15,6 +17,7 @@ public class MitkoTest {
 	static int tresh = 40;
 	
 	static LightSensor light = new LightSensor(SensorPort.S2);
+	static UltrasonicSensor sonic = Settings.SONIC;
 	
 
 	/**
