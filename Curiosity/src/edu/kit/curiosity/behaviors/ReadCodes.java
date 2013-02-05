@@ -34,6 +34,7 @@ public class ReadCodes implements Behavior {
 
 	@Override
 	public void action() {
+		System.out.println("READ");
 		suppressed = false;
 		//readState = false;
 		reading = false;

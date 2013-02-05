@@ -10,6 +10,7 @@ import edu.kit.curiosity.behaviors.DriveForward;
 import edu.kit.curiosity.behaviors.MotorAStall;
 import edu.kit.curiosity.behaviors.ReadCodes;
 import edu.kit.curiosity.behaviors.SensorHeadPosition;
+import edu.kit.curiosity.behaviors.bluetooth.LabyrinthGate;
 import edu.kit.curiosity.behaviors.bridge.AbyssDetected;
 import edu.kit.curiosity.behaviors.bridge.DriveUntilAbyss;
 import edu.kit.curiosity.behaviors.bridge.HitWallBeforeBridge;
@@ -24,6 +25,7 @@ import edu.kit.curiosity.behaviors.slider.DetectTape;
 import edu.kit.curiosity.behaviors.slider.SliderFollowWall;
 import edu.kit.curiosity.behaviors.slider.SliderHitWall;
 import edu.kit.curiosity.behaviors.slider.StartSlider;
+import edu.kit.curiosity.behaviors.swamp.SwampForward;
 import edu.kit.curiosity.behaviors.tapefollow.TapeFollow;
 import edu.kit.curiosity.behaviors.tapefollow.TapeGapFound;
 import edu.kit.curiosity.behaviors.tapefollow.TapeObstacleFound;
@@ -78,19 +80,26 @@ public class ArbitratorManager {
 	private Behavior m2 = new FollowWall(12);
 	private Behavior m3 = new BeginMaze();
 	private Behavior m4 = new HitWall();
-	private Behavior m5 = new SensorHeadPosition();
 	private Behavior m9 = new ReadCodes();
-	private Behavior m10 = new MotorAStall();
-	private Behavior[] mazeBehavior = { m1, m2, m3, m4, m5, m9, m10 };
+	private Behavior m5 = new SensorHeadPosition();
+	
+	private Behavior[] mazeBehavior = { m1, m2, m3, m4, m9, m5};
 
 	/**
 	 * Swamp behavior and arbitrator
 	 */
-	private Behavior sw1 = new DriveForward();
+	private Behavior sw1 = new SwampForward();
 	private Behavior sw2 = new ReadCodes();
 	private Behavior sw3 = new SensorHeadPosition();
 	private Behavior[] swampBehavior = { sw1, sw2, sw3 };
 
+	/**
+	 * Bluetooth Gate behavior and arbitrator
+	 */
+	private Behavior bt1 = new LabyrinthGate();
+	private Behavior bt2 = new ReadCodes();
+	private Behavior bt3 = new SensorHeadPosition();
+	private Behavior[] btgateBehavior = {bt1, bt2, bt3 };
 	/**
 	 * Slider behavior and arbitrator
 	 */
@@ -204,6 +213,7 @@ public class ArbitratorManager {
 				this.arbitrator = new CustomArbitrator(raceBehavior);
 				break;
 			case BRIDGE:
+				Settings.readState = false;
 				Settings.LIGHT.setHigh(Settings.light_bridge);
 				Settings.LIGHT.setLow(Settings.light_black);
 				Motor.A.setSpeed(Motor.A.getMaxSpeed() / 5);
@@ -223,6 +233,7 @@ public class ArbitratorManager {
 				this.arbitrator = new CustomArbitrator(mazeBehavior);
 				break;
 			case SWAMP:
+				Settings.readState = false;
 				pilot.setTravelSpeed(pilot.getMaxTravelSpeed() / 2);
 				pilot.setRotateSpeed(pilot.getMaxRotateSpeed() / 4);
 				Motor.A.setSpeed(Motor.A.getMaxSpeed() / 5);
@@ -230,6 +241,14 @@ public class ArbitratorManager {
 				Motor.A.setStallThreshold(10, 1000);
 
 				this.arbitrator = new CustomArbitrator(swampBehavior);
+				break;
+			case BT_GATE:
+				pilot.setTravelSpeed(pilot.getMaxTravelSpeed() / 2);
+				pilot.setRotateSpeed(pilot.getMaxRotateSpeed() / 4);
+				Motor.A.setSpeed(Motor.A.getMaxSpeed() / 5);
+				Settings.motorAAngle = Settings.SENSOR_FRONT;
+				
+				this.arbitrator = new CustomArbitrator(btgateBehavior);
 				break;
 			case TAPE:
 				double speed = pilot.getMaxTravelSpeed() * Settings.tapeFollowSpeed;

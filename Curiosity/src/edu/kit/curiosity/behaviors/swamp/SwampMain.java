@@ -26,7 +26,7 @@ public class SwampMain implements ButtonListener {
 		new SensorHeadCalibrate();
 		Settings.motorAAngle = 0;
 
-		Behavior b1 = new DriveForward();
+		Behavior b1 = new SwampForward();
 		Behavior b5 = new SensorHeadPosition();
 
 		Behavior[] bArray = { b1, b5};
