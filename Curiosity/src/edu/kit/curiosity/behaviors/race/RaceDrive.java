@@ -39,6 +39,7 @@ public class RaceDrive implements Behavior {
 	 * Moves forward as long as this Behavior is active
 	 */
 	public void action() {
+		Settings.readState = false;
 		System.out.println("Drive");
 		Settings.atStart = false;
 		suppressed = false;

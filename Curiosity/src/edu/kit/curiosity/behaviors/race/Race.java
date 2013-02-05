@@ -39,6 +39,7 @@ public class Race implements Behavior {
 	@Override
 	public void action() {
 		System.out.println("Race");
+		Settings.readState = true;
 		suppressed = false;
 		Settings.atStart = false;
 		Settings.motorAAngle = Settings.SENSOR_RIGHT;

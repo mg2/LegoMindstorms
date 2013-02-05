@@ -46,6 +46,7 @@ public class RaceFollowWall implements Behavior {
 	@Override
 	public void action() {
 		suppressed = false;
+		Settings.readState = false;
 		System.out.println("Follow");
 		while (!suppressed && !((Settings.TOUCH_L.isPressed() || Settings.TOUCH_R.isPressed()))) {
 			if (sonic.getDistance() > (distanceToWall + 20)) {
