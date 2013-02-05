@@ -107,6 +107,7 @@ public class Settings {
 	public static int whipAndBridgeCounter = 0;
 	public static boolean buttonPressed = false;
 	public static boolean endOfHangBridge = false;
+	public static boolean atStartofSlider = true;
 	public static boolean parkCompleted = false;
 	public static boolean bluetooth = false;
 
