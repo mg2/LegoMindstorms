@@ -1,6 +1,5 @@
 package edu.kit.curiosity.behaviors;
 
-import lejos.nxt.Button;
 import lejos.nxt.LCD;
 import lejos.nxt.LightSensor;
 import lejos.robotics.navigation.DifferentialPilot;
@@ -9,7 +8,6 @@ import edu.kit.curiosity.RobotState;
 import edu.kit.curiosity.Settings;
 
 public class ReadCodes implements Behavior {
-	public static boolean readState;
 	private boolean suppressed;
 	private boolean reading;
 	private boolean counted;
@@ -24,14 +22,14 @@ public class ReadCodes implements Behavior {
 		counted = false;
 		suppressed = false;
 		reading = false;
-		readState = true;
+		Settings.readState = true;
 		pilot = Settings.PILOT;
 		light = Settings.LIGHT;
 	}
 	
 	@Override
 	public boolean takeControl() {
-		return readState && (light.getLightValue() > 30);
+		return Settings.readState && (light.getLightValue() > 30);
 	}
 
 	@Override
@@ -61,6 +59,7 @@ public class ReadCodes implements Behavior {
 				// set States..
 				System.out.println("CodeNumber: " + numOfTapes);
 				// self-suppress (finished job)
+				Settings.readState = false;
 				suppressed = true;
 			}
 		}
