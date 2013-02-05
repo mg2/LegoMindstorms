@@ -16,7 +16,7 @@ public class SliderMain {
 		DifferentialPilot pilot = Settings.PILOT;
 		Motor.A.setStallThreshold(10, 100);
 		pilot.setAcceleration((int) (pilot.getMaxTravelSpeed() * 10));
-		pilot.setTravelSpeed(pilot.getMaxTravelSpeed() * 0.1);
+		pilot.setTravelSpeed(pilot.getMaxTravelSpeed());
 
 		Settings.motorAAngle = 0;
 		

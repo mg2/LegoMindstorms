@@ -7,7 +7,6 @@ import lejos.robotics.subsumption.CustomArbitrator;
 import edu.kit.curiosity.LightCalibrate;
 import edu.kit.curiosity.SensorHeadCalibrate;
 import edu.kit.curiosity.Settings;
-import edu.kit.curiosity.behaviors.MotorAStall;
 import edu.kit.curiosity.behaviors.SensorHeadPosition;
 import edu.kit.curiosity.behaviors.tapefollow.TapeFollow;
 
@@ -16,27 +15,22 @@ public class TurntableMain {
 	static LightSensor light = Settings.LIGHT;
 
 	public static void main(String[] args) {
-		/**
-		 * !!!!!!MARTIN!!!!!!!!! !!!!!!WICHTIG!!!!!!!! Geschwindigkeit setzen
-		 */
-		double speed = pilot.getMaxTravelSpeed() * Settings.tapeFollowSpeed;
+
 		pilot = Settings.PILOT;
-		pilot.setTravelSpeed(speed);
-		pilot.setRotateSpeed(pilot.getRotateMaxSpeed());
+		Settings.bluetooth = false;
+		
 		new SensorHeadCalibrate();
 
 		Settings.motorAAngle = 0;
 
-		new LightCalibrate(true, true);
-
+		new LightCalibrate(false, false);
 		Behavior t1 = new TapeFollow();
-		Behavior t2 = new TurnAround();
-		Behavior t3 = new TapeFollowForCertainTime();
-		//Behavior t4 = new StallMotor();
+		Behavior t2 = new TurntablePark();
+		Behavior t3 = new TurntableRotate();
+		Behavior t4 = new TurntableConnect();
 		Behavior t5 = new SensorHeadPosition();
-		Behavior t6 = new MotorAStall();
 
-		Behavior[] tapeFollowArray = { t1, t2, t3, t5, t6 };
+		Behavior[] tapeFollowArray = { t1, t2, t3, t4, t5 };
 
 		CustomArbitrator tapeFollowArbitrator = new CustomArbitrator(tapeFollowArray);
 		Thread t = new Thread(tapeFollowArbitrator);
