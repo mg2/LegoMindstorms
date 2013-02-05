@@ -61,7 +61,7 @@ public class ColorTapeFollow implements Behavior {
 			if (light.getLightValue() < 20) {
 				pilot.setTravelSpeed(pilot.getMaxTravelSpeed());
 				pilot.travel(10);
-				pilot.setTravelSpeed(pilot.getMaxTravelSpeed() * 0.15);
+				pilot.setTravelSpeed(pilot.getMaxTravelSpeed() * Settings.tapeFollowSpeed);
 			}
 			else if (light.getLightValue() > blackWhiteThreshold) {
 				// On white, turn right

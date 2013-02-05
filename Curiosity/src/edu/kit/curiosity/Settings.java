@@ -92,4 +92,6 @@ public class Settings {
 	public static boolean buttonPressed = false;
 	public static boolean endOfHangBridge = false;
 	
+	public final static double tapeFollowSpeed = 0.25;
+	
 }

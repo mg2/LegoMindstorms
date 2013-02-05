@@ -19,7 +19,7 @@ public class TurntableMain {
 		/**
 		 * !!!!!!MARTIN!!!!!!!!! !!!!!!WICHTIG!!!!!!!! Geschwindigkeit setzen
 		 */
-		double speed = pilot.getMaxTravelSpeed() * 0.15;
+		double speed = pilot.getMaxTravelSpeed() * Settings.tapeFollowSpeed;
 		pilot = Settings.PILOT;
 		pilot.setTravelSpeed(speed);
 		pilot.setRotateSpeed(pilot.getRotateMaxSpeed());

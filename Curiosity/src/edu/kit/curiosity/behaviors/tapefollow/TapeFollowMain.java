@@ -24,7 +24,7 @@ public class TapeFollowMain {
 		 * 
 		 * Geschwindigkeit setzen
 		 */
-		double speed = pilot.getMaxTravelSpeed() * 0.15; //Linie-Suche = 15%, Haengebruecke = ca 40%
+		double speed = pilot.getMaxTravelSpeed() * Settings.tapeFollowSpeed; //Linie-Suche = 15%, Haengebruecke = ca 40%
 		pilot.setTravelSpeed(speed);
 		pilot.setRotateSpeed(pilot.getRotateMaxSpeed());
 		new SensorHeadCalibrate();
