@@ -28,17 +28,17 @@ public class CuriosityMain implements ButtonListener {
 
 	@Override
 	public void buttonPressed(Button b) {
-		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public void buttonReleased(Button b) {
-		if (!Settings.relocate) {
-			Settings.arbiMgr.changeState(RobotState.START);
-		} else if (Settings.relocate) {
-			Settings.arbiMgr.changeState(RobotState.READCODE);
-		}
+//		if (!Settings.relocate) {
+//			Settings.relocate = true;
+//			Settings.arbiMgr.changeState(RobotState.START);
+//		} else if (Settings.relocate) {
+//			Settings.arbiMgr.changeState(RobotState.READCODE);
+//		}
 
 	}
 
