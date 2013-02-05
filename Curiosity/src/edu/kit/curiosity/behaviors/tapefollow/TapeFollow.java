@@ -67,10 +67,12 @@ public class TapeFollow implements Behavior {
 				// On black, turn left
 				r = 0;
 				// System.out.print("left ");
-				pilot.steer(tr * 0.75, 10, true);
+				// TODO turnRate anpassen
+				pilot.steer(tr, 5, true);
 				r = 1;
 				l++;
 			}
+			
 			// between out and 2 * out
 			if (i > out && i <= 1.5 * out) {
 				// last out turns were in same direction
@@ -88,10 +90,13 @@ public class TapeFollow implements Behavior {
 					// pilot.setTravelSpeed(pilot.getMaxTravelSpeed());
 
 					// travel back until line found
+					//TODO
+					//
+					System.out.println("gap?");
+					Button.waitForAnyPress();
 
 					while (i >= 0
-							&& light.getLightValue() < blackWhiteThreshold) { // travel
-																				// back
+							&& light.getLightValue() < blackWhiteThreshold) {
 						i--;
 						try {
 							Thread.sleep(sleep);
@@ -100,8 +105,6 @@ public class TapeFollow implements Behavior {
 							e.printStackTrace();
 						}
 					}
-					System.out.println("GAP?");
-					Button.waitForAnyPress();
 
 					// Invert multiplier
 					pilot.stop();
@@ -144,6 +147,7 @@ public class TapeFollow implements Behavior {
 				tr = 90;
 			}
 			i++;
+			System.out.print(l + " ");
 			try {
 				Thread.sleep(sleep);
 			} catch (InterruptedException e) {
