@@ -1,10 +1,10 @@
 package tests;
 
-import edu.kit.curiosity.Settings;
 import lejos.nxt.Button;
 import lejos.nxt.LightSensor;
 import lejos.nxt.UltrasonicSensor;
 import lejos.robotics.navigation.DifferentialPilot;
+import edu.kit.curiosity.Settings;
 
 public class RotationTests {
 	static UltrasonicSensor sonic = Settings.SONIC;

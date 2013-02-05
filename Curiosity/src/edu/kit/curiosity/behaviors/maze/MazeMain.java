@@ -8,10 +8,7 @@ import lejos.robotics.subsumption.CustomArbitrator;
 import edu.kit.curiosity.SensorHeadCalibrate;
 import edu.kit.curiosity.Settings;
 import edu.kit.curiosity.behaviors.DriveForward;
-import edu.kit.curiosity.behaviors.MotorAStall;
 import edu.kit.curiosity.behaviors.SensorHeadPosition;
-import edu.kit.curiosity.behaviors.swamp.SwampDetected;
-import edu.kit.curiosity.behaviors.swamp.SwampLeft;
 
 public class MazeMain implements ButtonListener {
 
