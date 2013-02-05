@@ -37,15 +37,6 @@ public class ArbitratorManager {
 	private DifferentialPilot pilot = Settings.PILOT;
 
 	/**
-	 * Read code behavior
-	 */
-	private Behavior c1 = new ReadCodes();
-	private Behavior c2 = new SensorHeadPosition();
-	private Behavior c3 = new MotorAStall();
-
-	private Behavior[] readCodeBehavior = { c1, c2, c3 };
-
-	/**
 	 * Start behavior
 	 */
 	private Behavior s1 = new DriveForward();
@@ -63,7 +54,7 @@ public class ArbitratorManager {
 	private Behavior r4 = new ReadCodes();
 	private Behavior r5 = new SensorHeadPosition();
 	private Behavior r6 = new MotorAStall();
-	private Behavior[] raceBehavior = { r1, r2, r3, r4, r5, r6};
+	private Behavior[] raceBehavior = { r1, r2, r3, r4, r5, r6 };
 
 	/**
 	 * Bridge behavior and arbitrator
@@ -182,32 +173,27 @@ public class ArbitratorManager {
 	private void updateArbitrator(RobotState state) {
 		if (state != null && state != RobotState.START) {
 			this.arbitrator.stop();
-			System.out.println(state.toString() + " mode selected");
 		}
+		System.out.println(state.toString() + " mode selected");
 
 		switch (state) {
-			case READCODE:
-				pilot.setTravelSpeed(10);
-				Settings.motorAAngle = Settings.SENSOR_FRONT;
-
-				this.arbitrator = new CustomArbitrator(readCodeBehavior);
-				break;
 			case START:
-				pilot.setTravelSpeed(pilot.getMaxTravelSpeed());
+				pilot.setTravelSpeed(pilot.getMaxTravelSpeed() * 0.6);
 				pilot.setRotateSpeed(pilot.getMaxRotateSpeed() / 4);
 				Settings.motorAAngle = Settings.SENSOR_FRONT;
 
-			this.arbitrator = new CustomArbitrator(startBehavior);
-			break;
-		case RACE:
-			Settings.PILOT.setTravelSpeed(Settings.PILOT.getMaxTravelSpeed() * 0.70);
-			Settings.PILOT.setRotateSpeed(Settings.PILOT.getMaxRotateSpeed() / 4);
-			Motor.A.setSpeed(Motor.A.getMaxSpeed() / 5);
-			Settings.motorAAngle = 0;
+				this.arbitrator = new CustomArbitrator(startBehavior);
+				break;
+			case RACE:
+				Settings.PILOT.setTravelSpeed(Settings.PILOT.getMaxTravelSpeed() * 0.70);
+				Settings.PILOT.setRotateSpeed(Settings.PILOT.getMaxRotateSpeed() / 4);
+				Motor.A.setSpeed(Motor.A.getMaxSpeed() / 5);
+				Settings.motorAAngle = Settings.SENSOR_FRONT;
 
-			Button.ENTER.waitForPressAndRelease();
-			// wait 10 seconds before starting the race
-			Delay.msDelay(10000);
+				System.out.println("Press ENTER");
+				Button.ENTER.waitForPressAndRelease();
+				// wait 10 seconds before starting the race
+				Delay.msDelay(10000);
 
 				this.arbitrator = new CustomArbitrator(raceBehavior);
 				break;
