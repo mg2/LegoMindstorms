@@ -5,6 +5,7 @@ import lejos.nxt.ButtonListener;
 import lejos.nxt.Motor;
 import lejos.robotics.subsumption.Behavior;
 import lejos.robotics.subsumption.CustomArbitrator;
+import edu.kit.curiosity.SensorHeadCalibrate;
 import edu.kit.curiosity.Settings;
 import edu.kit.curiosity.behaviors.MotorAStall;
 import edu.kit.curiosity.behaviors.SensorHeadPosition;
@@ -21,19 +22,20 @@ public class RaceMain implements ButtonListener {
 		
 		
 		// Race
-		Settings.PILOT.setTravelSpeed(Settings.PILOT.getMaxTravelSpeed() * 0.55);
+		Settings.PILOT.setTravelSpeed(Settings.PILOT.getMaxTravelSpeed() * 0.70);
 		Settings.PILOT.setRotateSpeed(Settings.PILOT.getMaxRotateSpeed() / 4);
 		Motor.A.setSpeed(Motor.A.getMaxSpeed() / 5);
+		new SensorHeadCalibrate();
 		Settings.motorAAngle = 0;
 		
 		
-		Behavior b1 = new RaceDrive();
-		Behavior b3 = new RaceFollowWall(15);
+		Behavior b1 = new RaceFollowWall(13);
 		Behavior b2 = new Race();
+		Behavior b3 = new RaceDrive();
 		//Behavior b3 = new ReadCodes();
 		Behavior b6 = new SensorHeadPosition();
 		Behavior b7 = new MotorAStall();
-		Behavior[] bArray = { b3,b1, b2,  b6, b7};
+		Behavior[] bArray = { b1, b2, b3, b6, b7};
 
 		CustomArbitrator arbitrator = new CustomArbitrator(bArray);		
 		Thread t = new Thread(arbitrator);

@@ -19,6 +19,7 @@ import edu.kit.curiosity.behaviors.maze.FollowWall;
 import edu.kit.curiosity.behaviors.maze.HitWall;
 import edu.kit.curiosity.behaviors.race.Race;
 import edu.kit.curiosity.behaviors.race.RaceDrive;
+import edu.kit.curiosity.behaviors.race.RaceFollowWall;
 import edu.kit.curiosity.behaviors.slider.AfterRollFloor;
 import edu.kit.curiosity.behaviors.tapefollow.TapeFollow;
 import edu.kit.curiosity.behaviors.tapefollow.TapeGapFound;
@@ -56,12 +57,13 @@ public class ArbitratorManager {
 	/**
 	 * Race behavior and arbitrator
 	 */
-	private Behavior r1 = new RaceDrive();
+	private Behavior r1 = new RaceFollowWall(13);
 	private Behavior r2 = new Race();
-	private Behavior r3 = new ReadCodes();
-	private Behavior r4 = new SensorHeadPosition();
-	private Behavior r5 = new MotorAStall();
-	private Behavior[] raceBehavior = { r1, r2, r3, r4, r5 };
+	private Behavior r3 = new RaceDrive();
+	private Behavior r4 = new ReadCodes();
+	private Behavior r5 = new SensorHeadPosition();
+	private Behavior r6 = new MotorAStall();
+	private Behavior[] raceBehavior = { r1, r2, r3, r4, r5, r6};
 
 	/**
 	 * Bridge behavior and arbitrator
@@ -198,18 +200,10 @@ public class ArbitratorManager {
 			this.arbitrator = new CustomArbitrator(startBehavior);
 			break;
 		case RACE:
-			pilot.setTravelSpeed(pilot.getMaxTravelSpeed());
-			pilot.setRotateSpeed(pilot.getMaxRotateSpeed() / 4);
+			Settings.PILOT.setTravelSpeed(Settings.PILOT.getMaxTravelSpeed() * 0.70);
+			Settings.PILOT.setRotateSpeed(Settings.PILOT.getMaxRotateSpeed() / 4);
 			Motor.A.setSpeed(Motor.A.getMaxSpeed() / 5);
-
-			// Not in first row
-			if (Settings.SONIC.getDistance() < 40) {
-				Settings.inFirstRow = false;
-
-				// In first row
-			} else {
-				Settings.inFirstRow = true;
-			}
+			Settings.motorAAngle = 0;
 
 			Button.ENTER.waitForPressAndRelease();
 			// wait 10 seconds before starting the race
@@ -228,7 +222,7 @@ public class ArbitratorManager {
 			this.arbitrator = new CustomArbitrator(this.bridgeBehavior);
 			break;
 		case MAZE:
-			pilot.setTravelSpeed(pilot.getMaxTravelSpeed() / 2);
+			pilot.setTravelSpeed(pilot.getMaxTravelSpeed() * 0.70);
 			pilot.setRotateSpeed(pilot.getMaxRotateSpeed() / 4);
 			Motor.A.setSpeed(Motor.A.getMaxSpeed() / 5);
 			Settings.motorAAngle = -90;
@@ -240,7 +234,7 @@ public class ArbitratorManager {
 			pilot.setTravelSpeed(pilot.getMaxTravelSpeed() / 2);
 			pilot.setRotateSpeed(pilot.getMaxRotateSpeed() / 4);
 			Motor.A.setSpeed(Motor.A.getMaxSpeed() / 5);
-			Settings.motorAAngle = -90;
+			Settings.motorAAngle = 0;
 			Motor.A.setStallThreshold(10, 1000);
 
 			this.arbitrator = new CustomArbitrator(swampBehavior);
