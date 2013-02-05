@@ -40,9 +40,10 @@ public class RaceDrive implements Behavior {
 	 */
 	public void action() {
 		suppressed = false;
-		while (!suppressed) {
+		while (!suppressed && !(Settings.TOUCH_L.isPressed() || Settings.TOUCH_R.isPressed())) {
 			pilot.steer(-20, -100, true);
 		}
+		Settings.atStart = false;
 		pilot.stop();
 	}
 }

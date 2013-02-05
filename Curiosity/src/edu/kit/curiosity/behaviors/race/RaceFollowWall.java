@@ -52,7 +52,7 @@ public class RaceFollowWall implements Behavior {
 				&& !((Settings.TOUCH_L.isPressed() || Settings.TOUCH_R
 						.isPressed()))) {
 			if (sonic.getDistance() > (distanceToWall + 10)) {
-				pilot.arc(-15, -90, true);
+				pilot.arc(-15, -80, true);
 			} else if (sonic.getDistance() <= distanceToWall) {
 				pilot.arc(40, 20, true);
 			} else if (sonic.getDistance() > distanceToWall) {

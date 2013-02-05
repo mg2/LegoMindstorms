@@ -29,13 +29,12 @@ public class RaceMain implements ButtonListener {
 		Settings.motorAAngle = 0;
 		
 		
-		Behavior b1 = new RaceFollowWall(13);
+		Behavior b1 = new RaceFollowWall(14);
 		Behavior b2 = new Race();
 		Behavior b3 = new RaceDrive();
 		//Behavior b3 = new ReadCodes();
 		Behavior b6 = new SensorHeadPosition();
-		Behavior b7 = new MotorAStall();
-		Behavior[] bArray = { b1, b2, b3, b6, b7};
+		Behavior[] bArray = { b1, b2, b3, b6};
 
 		CustomArbitrator arbitrator = new CustomArbitrator(bArray);		
 		Thread t = new Thread(arbitrator);
