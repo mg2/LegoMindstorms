@@ -25,12 +25,12 @@ public class TurntableRotate implements Behavior {
 		
 		while (sonic.getDistance() > 20) {
 			System.out.println("Rotating...");
-			turnControl.turnClockwise(20);
+			turnControl.turnClockwise(-20);
 			Delay.msDelay(2000);
 		}
 		while (sonic.getDistance() < 100) {
 			System.out.println("Rotating 2...");
-			turnControl.turnClockwise(20);
+			turnControl.turnClockwise(-20);
 			Delay.msDelay(2000);
 		}
 		Settings.PILOT.travel(20);
