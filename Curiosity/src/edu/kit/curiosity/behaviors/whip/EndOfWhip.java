@@ -12,11 +12,12 @@ public class EndOfWhip implements Behavior {
 
 	@Override
 	public void action() {
-		Settings.PILOT.travel(20);
+		//Settings.PILOT.travel(20);
 		Settings.PILOT.rotate(Settings.whipAndBridgeCounter * (-10));
 		Settings.PILOT.setTravelSpeed(Settings.PILOT.getMaxTravelSpeed() * Settings.tapeFollowSpeed);
 		Settings.whipAndBridgeCounter = 0;
 		Settings.afterWhip = true;
+		Settings.motorAAngle = Settings.SENSOR_FRONT;
 	}
 
 	@Override

@@ -4,8 +4,8 @@ import lejos.nxt.Motor;
 import lejos.robotics.subsumption.Behavior;
 import lejos.robotics.subsumption.CustomArbitrator;
 import edu.kit.curiosity.LightCalibrate;
+import edu.kit.curiosity.SensorHeadCalibrate;
 import edu.kit.curiosity.Settings;
-import edu.kit.curiosity.behaviors.MotorAStall;
 import edu.kit.curiosity.behaviors.SensorHeadPosition;
 import edu.kit.curiosity.behaviors.tapefollow.TapeFollow;
 
@@ -29,11 +29,12 @@ public class WhipMain {
 		Settings.PILOT.setRotateSpeed(Settings.PILOT.getMaxRotateSpeed() * 0.15);
 		Motor.A.setSpeed(Motor.A.getMaxSpeed() / 5);
 
-		Settings.motorAAngle = 0;
+		new SensorHeadCalibrate();
+		
+		Settings.motorAAngle = Settings.SENSOR_FRONT;
+		
+		new LightCalibrate(false, false);
 
-		new LightCalibrate(true, true, false, false, false);
-		Settings.LIGHT.setLow(Settings.light_black);
-		Settings.LIGHT.setHigh(Settings.light_bridge + 20);
 
 		Behavior t1 = new TapeFollow();
 		Behavior w0 = new WhipDriveForward();
@@ -43,8 +44,7 @@ public class WhipMain {
 		Behavior w4 = new WaitForWhip();
 		Behavior w5 = new EndOfWhip();
 		Behavior w6 = new SensorHeadPosition();
-		Behavior w7 = new MotorAStall();
-		Behavior[] whipArray = { t1, w0, w1, w2, w3, w4, w5, w6, w7 };
+		Behavior[] whipArray = { t1, w0, w1, w2, w3, w4, w5, w6};
 
 		CustomArbitrator arbitrator = new CustomArbitrator(whipArray);
 		Thread t = new Thread(arbitrator);
