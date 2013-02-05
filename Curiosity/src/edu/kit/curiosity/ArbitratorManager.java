@@ -20,7 +20,7 @@ import edu.kit.curiosity.behaviors.maze.HitWall;
 import edu.kit.curiosity.behaviors.race.Race;
 import edu.kit.curiosity.behaviors.race.RaceDrive;
 import edu.kit.curiosity.behaviors.race.RaceFollowWall;
-import edu.kit.curiosity.behaviors.slider.LineFound;
+import edu.kit.curiosity.behaviors.slider.DetectTape;
 import edu.kit.curiosity.behaviors.slider.SliderFollowWall;
 import edu.kit.curiosity.behaviors.slider.SliderHitWall;
 import edu.kit.curiosity.behaviors.slider.StartSlider;
@@ -94,12 +94,13 @@ public class ArbitratorManager {
 	/**
 	 * Slider behavior and arbitrator
 	 */
+	private Behavior g0 = new TapeFollow();
 	private Behavior g1 = new SliderFollowWall(10);
 	private Behavior g2 = new SliderHitWall();
-	private Behavior g3 = new LineFound();
-	private Behavior g4 = new StartSlider();
+	private Behavior g3 = new StartSlider();
+	private Behavior g4 = new DetectTape();
 	private Behavior g5 = new SensorHeadPosition();
-	private Behavior[] gateBehavior = { g1, g2, g3, g4, g5 };
+	private Behavior[] gateBehavior = { g0, g1, g2, g3, g4, g5 };
 
 	/**
 	 * Tape behavior and arbitrator
