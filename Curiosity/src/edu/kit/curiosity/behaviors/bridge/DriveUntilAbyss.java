@@ -30,7 +30,7 @@ public class DriveUntilAbyss implements Behavior {
 	 */
 	@Override
 	public boolean takeControl() {
-		return (lightSensor.getNormalizedLightValue() > Settings.light_bridge - 50);
+		return (lightSensor.getNormalizedLightValue() > Settings.light_bridge - 50) || Settings.reachedBridge;
 	}
 
 	/**
