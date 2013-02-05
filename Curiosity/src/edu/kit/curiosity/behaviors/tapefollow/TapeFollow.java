@@ -4,6 +4,7 @@ import lejos.nxt.Button;
 import lejos.nxt.LightSensor;
 import lejos.robotics.navigation.DifferentialPilot;
 import lejos.robotics.subsumption.Behavior;
+import lejos.util.Delay;
 import edu.kit.curiosity.Settings;
 
 public class TapeFollow implements Behavior {
@@ -81,7 +82,7 @@ public class TapeFollow implements Behavior {
 					tr = 150;
 				}
 			} else if (i > 1.5 * out) { // more than 2 * out
-				if (r > 2 * out || l > 2 * out) {
+				if (r > 1.5 * out || l > 1.5 * out) {
 					// multiplier
 					int m = 1;
 
@@ -98,12 +99,7 @@ public class TapeFollow implements Behavior {
 					while (i >= 0
 							&& light.getLightValue() < blackWhiteThreshold) {
 						i--;
-						try {
-							Thread.sleep(sleep);
-						} catch (InterruptedException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
+						Delay.msDelay(sleep);
 					}
 
 					// Invert multiplier
@@ -114,12 +110,7 @@ public class TapeFollow implements Behavior {
 							&& light.getLightValue() < blackWhiteThreshold) {
 						pilot.steer(m * tr, m * 10, true); // travel back
 						i++;
-						try {
-							Thread.sleep(sleep);
-						} catch (InterruptedException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
+						Delay.msDelay(sleep);
 					}
 					pilot.stop();
 
@@ -129,12 +120,7 @@ public class TapeFollow implements Behavior {
 						pilot.steer(m * tr, (-1) * m * 10, true); // travel
 																	// back
 						i--;
-						try {
-							Thread.sleep(sleep);
-						} catch (InterruptedException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
+						Delay.msDelay(sleep);
 					}
 					if (!suppressed
 							&& light.getLightValue() < blackWhiteThreshold)
@@ -148,12 +134,7 @@ public class TapeFollow implements Behavior {
 			}
 			i++;
 			System.out.print(l + " ");
-			try {
-				Thread.sleep(sleep);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			Delay.msDelay(sleep);
 		}
 
 		pilot.stop();
