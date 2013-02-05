@@ -68,7 +68,6 @@ public class TurntablePark implements Behavior {
 		// Mode 1
 		// Turn Around
 		while (!suppressed && mode == 1 && light.getLightValue() < 90) {
-			//pilot.rotate(5, true);
 			pilot.steer(200, 5, true);
 			Delay.msDelay(sleep);
 		}
@@ -139,7 +138,6 @@ public class TurntablePark implements Behavior {
 
 	@Override
 	public void suppress() {
-		pilot.stop();
 		suppressed = true;
 
 	}
