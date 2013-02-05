@@ -3,6 +3,7 @@ package edu.kit.curiosity.behaviors.hangingBridge;
 import lejos.nxt.LightSensor;
 import lejos.robotics.navigation.DifferentialPilot;
 import lejos.robotics.subsumption.Behavior;
+import lejos.util.Delay;
 import edu.kit.curiosity.Settings;
 
 public class FollowBridgeFast implements Behavior {
@@ -64,11 +65,7 @@ public class FollowBridgeFast implements Behavior {
 				// System.out.print("left ");
 				pilot.steer(tr, 10, true);
 			}
-			try {
-				Thread.sleep(sleep);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
+			Delay.msDelay(sleep);
 		}
 		if (!suppressed) {
 			pilot.setTravelSpeed(pilot.getMaxTravelSpeed() * 0.15);

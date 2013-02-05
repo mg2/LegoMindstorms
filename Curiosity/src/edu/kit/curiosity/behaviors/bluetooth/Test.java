@@ -14,20 +14,20 @@ public class Test {
 		TurnControl turnControl = new TurnControl();
 		ColorGateControl cgc = new ColorGateControl();
 
-		System.out.println("Press button to open gate");
-		Button.waitForAnyPress();
-
-		while (!gateControl.connectionToGateSuccessful())
-			;
-		// Öffnet eine gewisse Zeit (10s)
-		gateControl.openGate();
-		gateControl.disconnectFromGate();
-
-		System.out.println("Gate opened");
-		Button.waitForAnyPress();
-		LCD.clear();
-		System.out.println("Press button to test turntable");
-		Button.waitForAnyPress();
+//		System.out.println("Press button to open gate");
+//		Button.waitForAnyPress();
+//
+//		while (!gateControl.connectionToGateSuccessful())
+//			;
+//		// Öffnet eine gewisse Zeit (10s)
+//		gateControl.openGate();
+//		gateControl.disconnectFromGate();
+//
+//		System.out.println("Gate opened");
+//		Button.waitForAnyPress();
+//		LCD.clear();
+//		System.out.println("Press button to test turntable");
+//		Button.waitForAnyPress();
 
 		while (!turnControl.connectionToTurntableSuccessful())
 			;

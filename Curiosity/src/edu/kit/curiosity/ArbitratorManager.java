@@ -20,7 +20,10 @@ import edu.kit.curiosity.behaviors.maze.HitWall;
 import edu.kit.curiosity.behaviors.race.Race;
 import edu.kit.curiosity.behaviors.race.RaceDrive;
 import edu.kit.curiosity.behaviors.race.RaceFollowWall;
-import edu.kit.curiosity.behaviors.slider.AfterRollFloor;
+import edu.kit.curiosity.behaviors.slider.LineFound;
+import edu.kit.curiosity.behaviors.slider.SliderFollowWall;
+import edu.kit.curiosity.behaviors.slider.SliderHitWall;
+import edu.kit.curiosity.behaviors.slider.StartSlider;
 import edu.kit.curiosity.behaviors.tapefollow.TapeFollow;
 import edu.kit.curiosity.behaviors.tapefollow.TapeGapFound;
 import edu.kit.curiosity.behaviors.tapefollow.TapeObstacleFound;
@@ -89,13 +92,13 @@ public class ArbitratorManager {
 	private Behavior[] swampBehavior = { sw1, sw2, sw3 };
 
 	/**
-	 * Gate behavior and arbitrator
+	 * Slider behavior and arbitrator
 	 */
-	private Behavior g1 = new DriveForward();
-	private Behavior g2 = new AfterRollFloor();
-	private Behavior g3 = new ReadCodes();
-	private Behavior g4 = new SensorHeadPosition();
-	private Behavior g5 = new MotorAStall();
+	private Behavior g1 = new SliderFollowWall(10);
+	private Behavior g2 = new SliderHitWall();
+	private Behavior g3 = new LineFound();
+	private Behavior g4 = new StartSlider();
+	private Behavior g5 = new SensorHeadPosition();
 	private Behavior[] gateBehavior = { g1, g2, g3, g4, g5 };
 
 	/**
@@ -236,7 +239,7 @@ public class ArbitratorManager {
 				this.arbitrator = new CustomArbitrator(tapeBehavior);
 				break;
 			case SLIDER:
-				pilot.setTravelSpeed(pilot.getMaxTravelSpeed() / 1.5);
+				pilot.setTravelSpeed(pilot.getMaxTravelSpeed() / 2);
 				pilot.setRotateSpeed(pilot.getMaxRotateSpeed() / 4);
 				Motor.A.setSpeed(Motor.A.getMaxSpeed() / 5);
 				Settings.motorAAngle = Settings.SENSOR_FRONT;
