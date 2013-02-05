@@ -225,7 +225,7 @@ public class ArbitratorManager {
 				pilot.setTravelSpeed(pilot.getMaxTravelSpeed() / 2);
 				pilot.setRotateSpeed(pilot.getMaxRotateSpeed() / 4);
 				Motor.A.setSpeed(Motor.A.getMaxSpeed() / 5);
-				Settings.motorAAngle = Settings.SENSOR_RIGHT;
+				Settings.motorAAngle = Settings.SENSOR_FRONT;
 				Motor.A.setStallThreshold(10, 1000);
 
 				this.arbitrator = new CustomArbitrator(swampBehavior);
