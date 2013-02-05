@@ -1,6 +1,5 @@
 package edu.kit.curiosity.behaviors.bluetooth;
 
-import lejos.nxt.Button;
 import lejos.nxt.TouchSensor;
 import lejos.robotics.navigation.DifferentialPilot;
 import lejos.robotics.subsumption.Behavior;

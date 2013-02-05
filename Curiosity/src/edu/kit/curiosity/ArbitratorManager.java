@@ -21,8 +21,6 @@ import edu.kit.curiosity.behaviors.race.Race;
 import edu.kit.curiosity.behaviors.race.RaceDrive;
 import edu.kit.curiosity.behaviors.race.RaceFollowWall;
 import edu.kit.curiosity.behaviors.slider.AfterRollFloor;
-import edu.kit.curiosity.behaviors.swamp.SwampDetected;
-import edu.kit.curiosity.behaviors.swamp.SwampLeft;
 import edu.kit.curiosity.behaviors.tapefollow.TapeFollow;
 import edu.kit.curiosity.behaviors.tapefollow.TapeGapFound;
 import edu.kit.curiosity.behaviors.tapefollow.TapeObstacleFound;

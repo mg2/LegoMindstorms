@@ -1,5 +1,4 @@
 package tests;
-import edu.kit.curiosity.Settings;
 import lejos.nxt.Button;
 import lejos.nxt.ButtonListener;
 import lejos.nxt.LCD;
@@ -9,6 +8,7 @@ import lejos.nxt.NXTRegulatedMotor;
 import lejos.nxt.SensorPort;
 import lejos.nxt.UltrasonicSensor;
 import lejos.robotics.navigation.DifferentialPilot;
+import edu.kit.curiosity.Settings;
 
 public class MitkoTest {
 	private static DifferentialPilot diffPilot;
