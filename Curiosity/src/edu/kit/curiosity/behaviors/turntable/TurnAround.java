@@ -8,7 +8,7 @@ public class TurnAround implements Behavior {
 
 	@Override
 	public boolean takeControl() {
-		return Settings.SONIC.getDistance() < 36 || Settings.goBack;
+		return Settings.SONIC.getDistance() < 40 || Settings.goBack;
 	}
 
 	@Override
