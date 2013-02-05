@@ -77,14 +77,21 @@ public class Settings {
 	/**
 	 * Saved light sensor settings with sample settings
 	 */
-	public static int light_black = 261;
-	public static int light_bridge = 352; //whip = bridge + 20
-	public static int light_swamp = 340;
-	public static int light_line = 484;
-	public static int color1;
-	public static int color2;
-	public static int color3;
+	public static int light_black = 300;
+	public static int light_bridge = 434;
+	public static int light_line = 500;
+	public static int light_yellow = 480;
+	public static int light_red = 460;
+	public static int light_green = 415;
 	public static int searchedColor;
+	
+	/**
+	 * Relative light percents.
+	 */
+	public final int light_bridge_rel = 66;
+	public final int light_yellow_rel = 90;
+	public final int light_red_rel = 80;
+	public final int light_green_rel = 57;
 	
 	public static int whipAndBridgeCounter = 0;
 	public static boolean travelBack = false;
