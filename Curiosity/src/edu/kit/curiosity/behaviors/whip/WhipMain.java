@@ -5,9 +5,9 @@ import lejos.robotics.subsumption.Behavior;
 import lejos.robotics.subsumption.CustomArbitrator;
 import edu.kit.curiosity.LightCalibrate;
 import edu.kit.curiosity.Settings;
-import edu.kit.curiosity.behaviors.DriveForward;
 import edu.kit.curiosity.behaviors.MotorAStall;
 import edu.kit.curiosity.behaviors.SensorHeadPosition;
+import edu.kit.curiosity.behaviors.tapefollow.TapeFollow;
 
 /**
  * This class is responsible for all the settings needed to run the robot.
@@ -35,7 +35,8 @@ public class WhipMain {
 		Settings.LIGHT.setLow(Settings.light_black);
 		Settings.LIGHT.setHigh(Settings.light_bridge + 20);
 
-		Behavior w0 = new DriveForward();
+		Behavior t1 = new TapeFollow();
+		Behavior w0 = new WhipDriveForward();
 		Behavior w1 = new WhipIsDown();
 		Behavior w2 = new DriveUntilWhipAbyss();
 		Behavior w3 = new WhipAbyssDetected();
@@ -43,7 +44,7 @@ public class WhipMain {
 		Behavior w5 = new EndOfWhip();
 		Behavior w6 = new SensorHeadPosition();
 		Behavior w7 = new MotorAStall();
-		Behavior[] whipArray = { w0, w1, w2, w3, w4, w5, w6, w7 };
+		Behavior[] whipArray = { t1, w0, w1, w2, w3, w4, w5, w6, w7 };
 
 		CustomArbitrator arbitrator = new CustomArbitrator(whipArray);
 		Thread t = new Thread(arbitrator);

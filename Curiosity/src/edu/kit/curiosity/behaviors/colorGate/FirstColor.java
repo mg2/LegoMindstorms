@@ -19,7 +19,7 @@ public class FirstColor implements Behavior {
 		if (Math.abs(Settings.LIGHT.getNormalizedLightValue() - Settings.searchedColor) < 20) {
 			Settings.colorFound = true;
 		}
-		Settings.motorAAngle = -90;
+		Settings.motorAAngle = Settings.SENSOR_RIGHT;
 		
 		
 

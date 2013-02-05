@@ -31,7 +31,7 @@ public class WhipAbyssDetected implements Behavior {
 	 */
 	@Override
 	public boolean takeControl() {
-		return (!Settings.beforeWhip && lightSensor.getLightValue() < threshold);
+		return (!Settings.beforeWhip && !Settings.afterWhip && lightSensor.getLightValue() < threshold);
 	}
 
 	/**

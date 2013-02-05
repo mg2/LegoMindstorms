@@ -7,16 +7,16 @@ public class EndOfWhip implements Behavior {
 
 	@Override
 	public boolean takeControl() {
-		return (Settings.whipAndBridgeCounter >= 10);
+		return (Settings.whipAndBridgeCounter >= 10 && !Settings.afterWhip);
 	}
 
 	@Override
 	public void action() {
 		Settings.PILOT.travel(20);
 		Settings.PILOT.rotate(Settings.whipAndBridgeCounter * (-10));
+		Settings.PILOT.setTravelSpeed(Settings.PILOT.getMaxTravelSpeed() * Settings.tapeFollowSpeed);
 		Settings.whipAndBridgeCounter = 0;
-		System.exit(0); // TODO WEG!!!
-		//TODO danach???
+		Settings.afterWhip = true;
 	}
 
 	@Override

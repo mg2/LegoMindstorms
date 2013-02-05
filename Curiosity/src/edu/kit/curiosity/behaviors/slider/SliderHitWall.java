@@ -33,7 +33,7 @@ public class SliderHitWall implements Behavior {
 	 */
 	@Override
 	public boolean takeControl() {
-		return (touch_r.isPressed() || touch_l.isPressed());
+		return (touch_r.isPressed() || touch_l.isPressed()) && !Settings.afterSlider;
 	}
 
 	/**
