@@ -2,7 +2,6 @@ package edu.kit.curiosity.behaviors.tapefollow;
 
 import lejos.nxt.Button;
 import lejos.nxt.LightSensor;
-import lejos.nxt.Motor;
 import lejos.robotics.navigation.DifferentialPilot;
 import lejos.robotics.subsumption.Behavior;
 import edu.kit.curiosity.Settings;
@@ -17,7 +16,7 @@ public class TapeFollow implements Behavior {
 	/**
 	 * Light threshold.
 	 */
-	static final int blackWhiteThreshold = 50;
+	static final int blackWhiteThreshold = 20;
 
 	/**
 	 * Thread sleep time.
@@ -47,9 +46,7 @@ public class TapeFollow implements Behavior {
 	/**
 	 * Turn rate.
 	 */
-	private static int tr = 40;
-
-	private static int tacho = 0;
+	private static int tr = 90;
 
 	@Override
 	public boolean takeControl() {
@@ -58,10 +55,7 @@ public class TapeFollow implements Behavior {
 
 	@Override
 	public void action() {
-
 		suppressed = false;
-		tacho = Motor.B.getTachoCount();
-
 		while (!suppressed) {
 			if (light.getLightValue() > blackWhiteThreshold) {
 				// On white, turn right
@@ -69,25 +63,23 @@ public class TapeFollow implements Behavior {
 				// System.out.print("right ");
 				pilot.steer(-tr, -10, true);
 				r++;
-				tacho = Motor.B.getTachoCount();
 			} else {
 				// On black, turn left
 				r = 0;
 				// System.out.print("left ");
-				pilot.steer(tr, 10, true);
+				pilot.steer(tr * 0.75, 10, true);
 				r = 1;
 				l++;
 			}
 			// between out and 2 * out
-			if (i > out && i <= 2 * out) {
+			if (i > out && i <= 1.5 * out) {
 				// last out turns were in same direction
 				if (r > out || l > out) {
 					// make turn steeper
 					tr = 150;
 				}
-			} else if (i > 2 * out) { // more than 2 * out
+			} else if (i > 1.5 * out) { // more than 2 * out
 				if (r > 2 * out || l > 2 * out) {
-
 					// multiplier
 					int m = 1;
 
