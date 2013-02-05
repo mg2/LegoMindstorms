@@ -1,22 +1,19 @@
 package edu.kit.curiosity.behaviors.bluetooth;
+
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
 import javax.bluetooth.RemoteDevice;
 
-import lejos.nxt.Sound;
 import lejos.nxt.comm.BTConnection;
 import lejos.nxt.comm.Bluetooth;
 
 /**
- * Use this class to communicate with the gates.
- * The gates stay open for a predefined time and automatically close afterwards.
+ * Use this class to communicate with the turntable.
  * The connection will be terminated automatically after some time, but please always disconnect 
- * manually as soon as possible so the gates aren't blocked longer than necessary (the NXTs can't handle
+ * manually as soon as possible so the turntable isn't blocked longer than necessary (the NXTs can't handle
  * more than one incoming Bluetooth connection at once).
- * @author Sebastian
- * @version 11.12.2011, 17:00
  */
 public class TurnControl {
 	private RemoteDevice remoteDevice;
@@ -25,30 +22,27 @@ public class TurnControl {
 	private DataOutputStream outputStream;
 
 	/**
-	 * Connects to the brick that controls the gates. Required before calling any other method.
-	 * @param gateID the gate you want to control, see the GateCommon.GATE_* constants
-	 * @return true if the connection to the gate was successful, false otherwise (brick not found, connection failed, ...)
+	 * Connects to the brick that controls the turntable.
+	 * Required before calling any other method.
+	 * 
+	 * @return true if the connection to the turntable was successful, false otherwise (brick not found, connection failed, ...)
 	 */
 	public boolean connectionToTurntableSuccessful() {
-		String turntableBrickName;
-		turntableBrickName = TurnCommon.TURNTABLE_BRICK_NAME;
+		String turntableBrickName = Variables.TURNTABLE_BRICK_NAME;
 		
 		remoteDevice = Bluetooth.getKnownDevice(turntableBrickName);
 		if (remoteDevice == null) {
-			Sound.beep();
+//			System.out.println("Device not found.");
 			return false;
-		}
-			
-		
-		
+		}		
 
 		connection = Bluetooth.connect(remoteDevice);
 		if (connection == null) {
-			Sound.beepSequenceUp();
+//			System.out.println("Connection failed.");
 			return false;
 		}
-		
-		Sound.beep();
+
+//		System.out.println("Connected.");
 
 		inputStream = connection.openDataInputStream();
 		outputStream = connection.openDataOutputStream();
@@ -62,7 +56,7 @@ public class TurnControl {
 	 * @return true if the command to close the connection was sent, false otherwise
 	 */
 	public boolean disconnectFromTurntable() {
-		boolean successful = sendCommand(TurnCommon.COMMAND_CLOSE_CONNECTION);
+		boolean successful = sendCommand(Variables.COMMAND_CLOSE_CONNECTION);
 		if (successful)
 			connection.close();
 		return successful;
