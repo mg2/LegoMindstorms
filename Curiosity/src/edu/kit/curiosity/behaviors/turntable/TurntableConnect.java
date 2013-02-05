@@ -6,7 +6,7 @@ import lejos.robotics.subsumption.Behavior;
 
 public class TurntableConnect implements Behavior {
 	
-	TurnControl turnControl = new TurnControl();
+	public static TurnControl turnControl = new TurnControl();
 	
 	private static boolean suppressed = false; 
 

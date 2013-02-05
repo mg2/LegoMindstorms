@@ -115,11 +115,12 @@ public class TurntablePark implements Behavior {
 		// Drive backwards until wall <10 for 1 sec
 		curTime = System.currentTimeMillis();
 
-		while (!suppressed && !Settings.parkCompleted && mode == 4) {
+		while (!suppressed && !Settings.parkCompleted && mode == 4 && !timesUp) {
 			if (System.currentTimeMillis() - curTime > 500) {
 				System.out.println("Parked.");
 				Delay.msDelay(1000);
 				parked = true;
+				timesUp = true;
 				Settings.motorAAngle = Settings.SENSOR_FRONT;
 				Delay.msDelay(1000);
 				Settings.parkCompleted = true;

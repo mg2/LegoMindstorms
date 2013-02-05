@@ -7,8 +7,9 @@ import lejos.robotics.subsumption.Behavior;
 import lejos.util.Delay;
 
 public class TurntableRotate implements Behavior {
+	
+	TurnControl turnControl = TurntableConnect.turnControl;
 	UltrasonicSensor sonic = Settings.SONIC;
-	TurnControl turnControl = new TurnControl();
 
 	private static boolean suppressed = false;
 
@@ -21,8 +22,8 @@ public class TurntableRotate implements Behavior {
 	public void action() {
 		suppressed = false;
 		
-		/*
-		while (sonic.getDistance() > 8) {
+		
+		while (sonic.getDistance() > 20) {
 			System.out.println("Rotating...");
 			turnControl.turnClockwise(20);
 			Delay.msDelay(2000);
@@ -38,19 +39,20 @@ public class TurntableRotate implements Behavior {
 			Settings.PILOT.steer(45, 10, true);
 			Delay.msDelay(10);
 		}
-		*/
+		
 		System.out.println("Rotating...");
 		Delay.msDelay(2000);
-//		turnControl.turnClockwise(180);
-//
+		turnControl.turnClockwise(180);
+
 //		while (sonic.getDistance() > 10 && !suppressed);
 //		while (sonic.getDistance() < 100 && !suppressed);
-//		if (!suppressed) {
-//			Settings.PILOT.travel(50);
+		if (!suppressed) {
+			Settings.PILOT.travel(50);
 			turnControl.disconnectFromTurntable();
 			Settings.bluetooth = false;
-//		}
+		}
 	}
+
 
 	@Override
 	public void suppress() {
