@@ -92,6 +92,7 @@ public class Settings {
 	public static int light_red = 460;
 	public static int light_green = 415;
 	public static int searchedColor;
+	public static int color1;
 	
 	/**
 	 * Relative light percents.
