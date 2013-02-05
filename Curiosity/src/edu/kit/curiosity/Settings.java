@@ -108,6 +108,7 @@ public class Settings {
 	public static boolean goBack = false;
 	public static boolean buttonPressed = false;
 	public static boolean endOfHangBridge = false;
+	public static boolean atStartofSlider = true;
 
 	public final static double tapeFollowSpeed = 0.25;
 
