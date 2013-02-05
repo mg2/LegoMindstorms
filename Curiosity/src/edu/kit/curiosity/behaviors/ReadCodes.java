@@ -9,7 +9,8 @@ import edu.kit.curiosity.Settings;
 
 public class ReadCodes implements Behavior {
 	public static boolean readState;
-	private boolean suppressed = false;
+	private boolean suppressed;
+	private boolean reading;
 	private boolean counted;
 	
 	private DifferentialPilot pilot;
@@ -20,6 +21,8 @@ public class ReadCodes implements Behavior {
 	public ReadCodes() {
 		numOfTapes = 0;
 		counted = false;
+		suppressed = false;
+		reading = false;
 		readState = true;
 		pilot = Settings.PILOT;
 		light = Settings.LIGHT;
@@ -34,6 +37,7 @@ public class ReadCodes implements Behavior {
 	public void action() {
 		suppressed = false;
 		readState = false;
+		reading = false;
 
 		counted = false;
 		numOfTapes = 0;
@@ -41,22 +45,24 @@ public class ReadCodes implements Behavior {
 		pilot.forward();
 		while(!suppressed) {
 			if(!suppressed && !counted 
-					&& light.getLightValue() > 45) {
+					&& light.getLightValue() > 50) {
 				numOfTapes++;
-				System.out.println("TapeCount: " + numOfTapes);
+//				System.out.println("TapeCount: " + numOfTapes);
 				counted = true;
+				reading = true;
+				pilot.forward();
 			} else if(!suppressed && counted
 					&& light.getLightValue() < 40) {
 				pilot.forward();	
-				System.out.println("Black Screen.");
+//				System.out.println("Black Screen.");
 				counted = false;
 			} 
-			if(pilot.getMovementIncrement() > 10) {
+			if(reading && pilot.getMovementIncrement() > 10) {
 				LCD.clear();
 				// set States..
 				System.out.println("CodeNumber: " + numOfTapes);
 				// self-suppress (finished job)
-				suppress();
+				suppressed = true;
 			}
 		}
 		
