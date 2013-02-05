@@ -43,7 +43,7 @@ public class RaceDrive implements Behavior {
 		Settings.atStart = false;
 		suppressed = false;
 		while (!suppressed) {
-			pilot.steer(-20, -100, true);
+			pilot.steer(-50, -10, true);
 		}
 //		pilot.stop();
 	}

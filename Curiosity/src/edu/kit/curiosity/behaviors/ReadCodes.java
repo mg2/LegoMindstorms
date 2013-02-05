@@ -1,5 +1,6 @@
 package edu.kit.curiosity.behaviors;
 
+import lejos.nxt.Button;
 import lejos.nxt.LCD;
 import lejos.nxt.LightSensor;
 import lejos.robotics.navigation.DifferentialPilot;
@@ -36,7 +37,7 @@ public class ReadCodes implements Behavior {
 	@Override
 	public void action() {
 		suppressed = false;
-		readState = false;
+		//readState = false;
 		reading = false;
 
 		counted = false;
@@ -47,14 +48,12 @@ public class ReadCodes implements Behavior {
 			if(!suppressed && !counted 
 					&& light.getLightValue() > 50) {
 				numOfTapes++;
-//				System.out.println("TapeCount: " + numOfTapes);
 				counted = true;
 				reading = true;
 				pilot.forward();
 			} else if(!suppressed && counted
 					&& light.getLightValue() < 40) {
 				pilot.forward();	
-//				System.out.println("Black Screen.");
 				counted = false;
 			} 
 			if(reading && pilot.getMovementIncrement() > 10) {

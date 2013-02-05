@@ -50,8 +50,8 @@ public class ArbitratorManager {
 	 */
 	private Behavior r1 = new RaceFollowWall(13);
 	private Behavior r2 = new Race();
-	private Behavior r3 = new RaceDrive();
-	private Behavior r4 = new ReadCodes();
+	private Behavior r3 = new ReadCodes();
+	private Behavior r4 = new RaceDrive();
 	private Behavior r5 = new SensorHeadPosition();
 	private Behavior r6 = new MotorAStall();
 	private Behavior[] raceBehavior = { r1, r2, r3, r4, r5, r6 };
@@ -188,7 +188,9 @@ public class ArbitratorManager {
 				Settings.PILOT.setTravelSpeed(Settings.PILOT.getMaxTravelSpeed() * 0.70);
 				Settings.PILOT.setRotateSpeed(Settings.PILOT.getMaxRotateSpeed() / 4);
 				Motor.A.setSpeed(Motor.A.getMaxSpeed() / 5);
-				Settings.motorAAngle = Settings.SENSOR_FRONT;
+				new SensorHeadCalibrate();
+				Settings.motorAAngle = Settings.SENSOR_RIGHT;
+				Settings.atStart = false;
 
 				System.out.println("Press ENTER");
 				Button.ENTER.waitForPressAndRelease();
