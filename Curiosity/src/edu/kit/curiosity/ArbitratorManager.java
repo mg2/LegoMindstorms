@@ -228,13 +228,10 @@ public class ArbitratorManager {
 				this.arbitrator = new CustomArbitrator(mazeBehavior);
 				break;
 			case TAPE:
-				double speed = pilot.getMaxTravelSpeed() * Settings.tapeFollowSpeed; // Linie-Suche
-																	// = 15%,
-																	// Haengebruecke
-																	// = ca 40%
+				double speed = pilot.getMaxTravelSpeed() * Settings.tapeFollowSpeed;
 				pilot.setTravelSpeed(speed);
 				pilot.setRotateSpeed(pilot.getRotateMaxSpeed());
-				Settings.motorAAngle = 0; // TODO auf 90 wieder
+				Settings.motorAAngle = 0;
 
 				this.arbitrator = new CustomArbitrator(tapeBehavior);
 				break;
