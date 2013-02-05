@@ -20,16 +20,18 @@ public class LabyrinthGate implements Behavior {
 
 	@Override
 	public boolean takeControl() {
-		return false;
+		return true;
 	}
 
 	@Override
 	public void action() {
 		suppressed = false;
+		Settings.readState = true;
 		while (!suppressed
 				&& !gateControl.connectionToGateSuccessful());
 		if(!suppressed) {
 			if(gateControl.openGate()) {
+
 				while(!suppressed) {
 					if(touchL.isPressed()) {
 						pilot.steer(50, -10);
