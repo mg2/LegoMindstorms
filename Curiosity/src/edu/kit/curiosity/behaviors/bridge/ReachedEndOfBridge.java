@@ -16,7 +16,7 @@ public class ReachedEndOfBridge implements Behavior {
 	 */
 	@Override
 	public boolean takeControl() {
-		return (Settings.whipAndBridgeCounter >= 10);
+		return (Settings.whipAndBridgeCounter >= 12);
 	}
 
 	/**
@@ -26,9 +26,11 @@ public class ReachedEndOfBridge implements Behavior {
 	@Override
 	public void action() {
 		Settings.reachedBridge = false;
+		Settings.readState = true;
 		Settings.PILOT.travel(20);
 		Settings.PILOT.rotate(Settings.whipAndBridgeCounter * (-10));
 		Settings.whipAndBridgeCounter = 0;
+		
 		// TODO What happens when end of bridge is reached.
 	}
 

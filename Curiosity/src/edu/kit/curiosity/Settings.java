@@ -82,6 +82,7 @@ public class Settings {
 	public static boolean obstacle = false;
 	public static boolean gap = false;
 	public static boolean beforeWhip = true;
+	public static boolean afterWhip = false;
 
 	/**
 	 * Saved light sensor settings with sample settings
@@ -108,6 +109,7 @@ public class Settings {
 	public static boolean buttonPressed = false;
 	public static boolean endOfHangBridge = false;
 	public static boolean atStartofSlider = true;
+	public static boolean afterSlider = false;
 	public static boolean parkCompleted = false;
 	public static boolean bluetooth = false;
 

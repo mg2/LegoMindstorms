@@ -27,7 +27,7 @@ public class DriveUntilWhipAbyss implements Behavior {
 	 */
 	@Override
 	public boolean takeControl() {
-		return (!Settings.beforeWhip);
+		return !(Settings.beforeWhip) && !Settings.afterWhip;
 	}
 
 	/**

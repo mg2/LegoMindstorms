@@ -28,6 +28,7 @@ public class BridgeMain implements ButtonListener {
 		/**
 		 * Bridge behavior and arbitrator
 		 */
+		Settings.readState = false;
 		Behavior b0 = new DriveForward();
 		Behavior b1 = new HitWallBeforeBridge();
 		Behavior b2 = new DriveUntilAbyss();
