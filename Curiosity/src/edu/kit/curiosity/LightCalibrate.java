@@ -33,12 +33,6 @@ public class LightCalibrate {
 		Settings.light_bridge = light.getNormalizedLightValue();
 		System.out.println(Settings.light_bridge);
 
-		// Calibrate SWAMP
-		System.out.println("Swamp: ");
-		Button.ENTER.waitForPressAndRelease();
-		Settings.light_bridge = light.getNormalizedLightValue();
-		System.out.println(Settings.light_swamp);
-
 		// Calibrate LINE
 		System.out.println("Line: ");
 		Button.ENTER.waitForPressAndRelease();
@@ -47,20 +41,20 @@ public class LightCalibrate {
 		System.out.println(Settings.LIGHT.getHigh());
 
 		// Calibrate Color1
-		System.out.println("Color1: ");
+		System.out.println("Yellow: ");
 		Button.ENTER.waitForPressAndRelease();
-		Settings.color1 = light.getNormalizedLightValue();
-		System.out.println(Settings.color1);
+		Settings.light_yellow = light.getNormalizedLightValue();
+		System.out.println(Settings.light_yellow);
 		// Calibrate Color2
-		System.out.println("Color2: ");
+		System.out.println("Red: ");
 		Button.ENTER.waitForPressAndRelease();
-		Settings.color2 = light.getNormalizedLightValue();
-		System.out.println(Settings.color2);
+		Settings.light_red = light.getNormalizedLightValue();
+		System.out.println(Settings.light_red);
 		// Calibrate Color3
-		System.out.println("Color3: ");
+		System.out.println("Green: ");
 		Button.ENTER.waitForPressAndRelease();
-		Settings.color3 = light.getNormalizedLightValue();
-		System.out.println(Settings.color3);
+		Settings.light_green = light.getNormalizedLightValue();
+		System.out.println(Settings.light_green);
 
 		System.out.println("Press ENTER to continue.");
 		Button.ENTER.waitForPressAndRelease();
@@ -95,14 +89,6 @@ public class LightCalibrate {
 			System.out.println(Settings.light_bridge);
 		}
 
-		if (swamp) {
-			// Calibrate SWAMP
-			System.out.println("Swamp: ");
-			Button.ENTER.waitForPressAndRelease();
-			Settings.light_bridge = light.getNormalizedLightValue();
-			System.out.println(Settings.light_swamp);
-		}
-
 		if (line) {
 			// Calibrate LINE
 			System.out.println("Line: ");
@@ -114,20 +100,20 @@ public class LightCalibrate {
 
 		if (colorGate) {
 			// Calibrate Color1
-			System.out.println("Color1: ");
+			System.out.println("Yellow: ");
 			Button.ENTER.waitForPressAndRelease();
-			Settings.color1 = light.getNormalizedLightValue();
-			System.out.println(Settings.color1);
+			Settings.light_yellow = light.getNormalizedLightValue();
+			System.out.println(Settings.light_yellow);
 			// Calibrate Color2
-			System.out.println("Color2: ");
+			System.out.println("Red: ");
 			Button.ENTER.waitForPressAndRelease();
-			Settings.color2 = light.getNormalizedLightValue();
-			System.out.println(Settings.color2);
+			Settings.light_red = light.getNormalizedLightValue();
+			System.out.println(Settings.light_red);
 			// Calibrate Color3
-			System.out.println("Color3: ");
+			System.out.println("Green: ");
 			Button.ENTER.waitForPressAndRelease();
-			Settings.color3 = light.getNormalizedLightValue();
-			System.out.println(Settings.color3);
+			Settings.light_green = light.getNormalizedLightValue();
+			System.out.println(Settings.light_green);
 		}
 
 		System.out.println("Press ENTER to continue.");

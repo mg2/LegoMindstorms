@@ -9,11 +9,12 @@ import lejos.nxt.ButtonListener;
  * 
  * @author martin
  */
-public class CuriosityMain implements ButtonListener{
+public class CuriosityMain implements ButtonListener {
 
-	public CuriosityMain()  {
+	public CuriosityMain() {
 		Button.ENTER.addButtonListener(this);
 	}
+
 	/**
 	 * @param args
 	 */
@@ -28,13 +29,17 @@ public class CuriosityMain implements ButtonListener{
 	@Override
 	public void buttonPressed(Button b) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void buttonReleased(Button b) {
-		Settings.arbiMgr.changeState(RobotState.START);
-		
+		if (!Settings.relocate) {
+			Settings.arbiMgr.changeState(RobotState.START);
+		} else if (Settings.relocate) {
+			Settings.arbiMgr.changeState(RobotState.READCODE);
+		}
+
 	}
 
 }

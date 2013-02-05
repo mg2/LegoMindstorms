@@ -18,7 +18,8 @@ public class Settings {
 	 * ArbitratorManager to change arbitrators depending on the current level.
 	 */
 	public static ArbitratorManager arbiMgr;
-	public final static RobotState FIRST_LEVEL = RobotState.MAZE;
+	public final static RobotState FIRST_LEVEL = RobotState.RACE;
+	public static boolean relocate = false;
 
 	/**
 	 * General settings for the robot.
@@ -29,6 +30,13 @@ public class Settings {
 	public final static double WHEEL_WIDTH = 8;
 
 	public static DifferentialPilot PILOT = new DifferentialPilot(WHEEL_WIDTH, TRACK_WIDTH, Motor.C, Motor.B);
+
+	/**
+	 * Settings for the position of the sensor arm. '0' is front, '-90' is right
+	 * side.
+	 */
+	public static final int SENSOR_FRONT = 0;
+	public static final int SENSOR_RIGHT = -90;
 
 	/**
 	 * Defining ports for sensors.
@@ -51,14 +59,14 @@ public class Settings {
 	 */
 	public static int angle = 15;
 	public static int motorAAngle = 999;
-	
+
 	/**
 	 * Miscellaneous.
 	 */
 	public static boolean atStartOfMaze = true;
 	public static boolean endOfMaze = false;
 	public static boolean inSwamp = false;
-	public static boolean afterSwamp = false;	
+	public static boolean afterSwamp = false;
 	public static boolean fromLeft;
 	public static boolean inFirstRow = true;
 	public static boolean atStart = true;
@@ -66,32 +74,41 @@ public class Settings {
 	public static boolean colorFound = false;
 	public static boolean reachedBridge = false;
 	public static boolean motorStalled = false;
-	
+
 	/**
 	 * boolean if in obstacle found mode
 	 */
 	public static boolean obstacle = false;
 	public static boolean gap = false;
 	public static boolean beforeWhip = true;
-	
+
 	/**
 	 * Saved light sensor settings with sample settings
 	 */
-	public static int light_black = 261;
-	public static int light_bridge = 352; //whip = bridge + 20
-	public static int light_swamp = 340;
-	public static int light_line = 484;
-	public static int color1;
-	public static int color2;
-	public static int color3;
+	public static int light_black = 300;
+	public static int light_bridge = 434;
+	public static int light_line = 500;
+	public static int light_yellow = 480;
+	public static int light_red = 460;
+	public static int light_green = 415;
 	public static int searchedColor;
+	public static int color1;
 	
+	/**
+	 * Relative light percents.
+	 */
+	public final int light_bridge_rel = 66;
+	public final int light_yellow_rel = 90;
+	public final int light_red_rel = 80;
+	public final int light_green_rel = 57;
+	
+
 	public static int whipAndBridgeCounter = 0;
 	public static boolean travelBack = false;
 	public static boolean goBack = false;
 	public static boolean buttonPressed = false;
 	public static boolean endOfHangBridge = false;
-	
+
 	public final static double tapeFollowSpeed = 0.25;
-	
+
 }
