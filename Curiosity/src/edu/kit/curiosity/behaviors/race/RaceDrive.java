@@ -39,10 +39,12 @@ public class RaceDrive implements Behavior {
 	 * Moves forward as long as this Behavior is active
 	 */
 	public void action() {
+		System.out.println("Drive");
+		Settings.atStart = false;
 		suppressed = false;
 		while (!suppressed) {
 			pilot.steer(-20, -100, true);
 		}
-		pilot.stop();
+//		pilot.stop();
 	}
 }

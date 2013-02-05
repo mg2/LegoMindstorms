@@ -9,7 +9,6 @@ import edu.kit.curiosity.Settings;
  * The class {@code FollowWall} describes the behavior to follow a wall.
  * 
  * @author Team Curiosity
- * 
  */
 public class RaceFollowWall implements Behavior {
 
@@ -37,7 +36,6 @@ public class RaceFollowWall implements Behavior {
 	 */
 	@Override
 	public boolean takeControl() {
-
 		return (!Settings.atStart);
 	}
 
@@ -48,18 +46,17 @@ public class RaceFollowWall implements Behavior {
 	@Override
 	public void action() {
 		suppressed = false;
-		while (!suppressed
-				&& !((Settings.TOUCH_L.isPressed() || Settings.TOUCH_R
-						.isPressed()))) {
-			if (sonic.getDistance() > (distanceToWall + 10)) {
+		System.out.println("Follow");
+		while (!suppressed && !((Settings.TOUCH_L.isPressed() || Settings.TOUCH_R.isPressed()))) {
+			if (sonic.getDistance() > (distanceToWall + 20)) {
 				pilot.arc(-15, -90, true);
 			} else if (sonic.getDistance() <= distanceToWall) {
-				pilot.arc(40, 20, true);
+				pilot.arc(100, 20, true);
 			} else if (sonic.getDistance() > distanceToWall) {
-				pilot.arc(-60, -20, true);
+				pilot.arc(-100, -20, true);
 			}
 		}
-		pilot.stop();
+		// pilot.stop();
 	}
 
 	/**

@@ -26,7 +26,7 @@ public class RaceMain implements ButtonListener {
 		Settings.PILOT.setRotateSpeed(Settings.PILOT.getMaxRotateSpeed() / 4);
 		Motor.A.setSpeed(Motor.A.getMaxSpeed() / 5);
 		new SensorHeadCalibrate();
-		Settings.motorAAngle = 0;
+		Settings.motorAAngle = Settings.SENSOR_RIGHT ;
 		
 		
 		Behavior b1 = new RaceFollowWall(13);
