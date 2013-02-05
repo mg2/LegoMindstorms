@@ -74,6 +74,7 @@ public class ReadCodes implements Behavior {
 				break;
 			case 4:
 				Settings.arbiMgr.changeState(RobotState.SWAMP);
+				break;
 			case 3:
 				Settings.arbiMgr.changeState(RobotState.BT_GATE);
 				break;
@@ -97,6 +98,7 @@ public class ReadCodes implements Behavior {
 				break;
 			case 14:
 				Settings.arbiMgr.changeState(RobotState.END_OPPONENT);
+				break;
 			default:
 				System.out.println("No codes read!");
 				break;

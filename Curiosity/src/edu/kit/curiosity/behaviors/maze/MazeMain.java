@@ -8,10 +8,7 @@ import lejos.robotics.subsumption.CustomArbitrator;
 import edu.kit.curiosity.SensorHeadCalibrate;
 import edu.kit.curiosity.Settings;
 import edu.kit.curiosity.behaviors.DriveForward;
-import edu.kit.curiosity.behaviors.MotorAStall;
 import edu.kit.curiosity.behaviors.SensorHeadPosition;
-import edu.kit.curiosity.behaviors.swamp.SwampDetected;
-import edu.kit.curiosity.behaviors.swamp.SwampLeft;
 
 public class MazeMain implements ButtonListener {
 
@@ -25,14 +22,14 @@ public class MazeMain implements ButtonListener {
 		
 		
 		// MAZE
-		Settings.PILOT.setTravelSpeed(Settings.PILOT.getMaxTravelSpeed());
+		Settings.PILOT.setTravelSpeed(Settings.PILOT.getMaxTravelSpeed() * 0.70);
 		Settings.PILOT.setRotateSpeed(Settings.PILOT.getMaxRotateSpeed() / 4);
 		Motor.A.setSpeed(Motor.A.getMaxSpeed() / 5);
 		new SensorHeadCalibrate();
 		Settings.motorAAngle = -90;
 		
 		Behavior b1 = new DriveForward();
-		Behavior b2 = new FollowWall(12);
+		Behavior b2 = new FollowWall(13);
 		Behavior b3 = new BeginMaze();
 		Behavior b4 = new HitWall();
  		Behavior b5 = new SensorHeadPosition();

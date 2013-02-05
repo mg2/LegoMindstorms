@@ -2,10 +2,14 @@ package edu.kit.curiosity.behaviors.bridge;
 
 import lejos.nxt.Button;
 import lejos.nxt.ButtonListener;
-import edu.kit.curiosity.ArbitratorManager;
+import lejos.robotics.subsumption.Arbitrator;
+import lejos.robotics.subsumption.Behavior;
 import edu.kit.curiosity.LightCalibrate;
-import edu.kit.curiosity.RobotState;
+import edu.kit.curiosity.SensorHeadCalibrate;
 import edu.kit.curiosity.Settings;
+import edu.kit.curiosity.behaviors.DriveForward;
+import edu.kit.curiosity.behaviors.ReadCodes;
+import edu.kit.curiosity.behaviors.SensorHeadPosition;
 
 public class BridgeMain implements ButtonListener {
 	public BridgeMain() {
@@ -15,8 +19,27 @@ public class BridgeMain implements ButtonListener {
 	public static void main(String[] args) throws Exception {
 		new BridgeMain();
 
-		new LightCalibrate(true, true);
-		Settings.arbiMgr = new ArbitratorManager(RobotState.BRIDGE);
+		new LightCalibrate();
+		new SensorHeadCalibrate();
+		
+		Settings.PILOT.setTravelSpeed(30);
+
+		Settings.motorAAngle = Settings.SENSOR_RIGHT;
+		/**
+		 * Bridge behavior and arbitrator
+		 */
+		Behavior b0 = new DriveForward();
+		Behavior b1 = new HitWallBeforeBridge();
+		Behavior b2 = new DriveUntilAbyss();
+		Behavior b3 = new AbyssDetected();
+		Behavior b4 = new ReachedEndOfBridge();
+		Behavior b5 = new ReadCodes();
+		Behavior b6 = new SensorHeadPosition();
+		Behavior[] bridgeBehavior = { b0, b1, b2, b3, b4, b5, b6 };
+
+		Arbitrator arb = new Arbitrator(bridgeBehavior);
+		arb.start();
+
 	}
 
 	@Override

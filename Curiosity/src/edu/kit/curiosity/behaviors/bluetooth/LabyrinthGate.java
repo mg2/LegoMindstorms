@@ -1,11 +1,9 @@
-package edu.kit.curiosity.behaviors.maze;
+package edu.kit.curiosity.behaviors.bluetooth;
 
-import lejos.nxt.Button;
 import lejos.nxt.TouchSensor;
 import lejos.robotics.navigation.DifferentialPilot;
 import lejos.robotics.subsumption.Behavior;
 import edu.kit.curiosity.Settings;
-import edu.kit.curiosity.behaviors.bluetooth.GateControl;
 
 public class LabyrinthGate implements Behavior {
 

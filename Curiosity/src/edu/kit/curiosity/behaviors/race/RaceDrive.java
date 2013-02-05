@@ -15,7 +15,7 @@ public class RaceDrive implements Behavior {
 	private boolean suppressed = false;
 
 	/**
-	 * Constructs a new DriveForward Behavior
+	 * Constructs a new RaceDrive Behavior
 	 */
 	public RaceDrive() {
 		this.pilot = Settings.PILOT;
@@ -42,12 +42,6 @@ public class RaceDrive implements Behavior {
 		suppressed = false;
 		while (!suppressed) {
 			pilot.steer(-20, -100, true);
-			
-			/*if (Settings.inFirstRow) {
-				pilot.travel(30, true);
-			} else {
-				pilot.steer(-200, -100, true);
-			}*/
 		}
 		pilot.stop();
 	}
