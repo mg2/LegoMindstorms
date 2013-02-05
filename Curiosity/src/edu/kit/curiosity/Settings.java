@@ -74,6 +74,7 @@ public class Settings {
 	public static boolean colorFound = false;
 	public static boolean reachedBridge = false;
 	public static boolean motorStalled = false;
+	public static boolean readState = true;
 
 	/**
 	 * boolean if in obstacle found mode
@@ -104,11 +105,11 @@ public class Settings {
 	
 
 	public static int whipAndBridgeCounter = 0;
-	public static boolean travelBack = false;
-	public static boolean goBack = false;
 	public static boolean buttonPressed = false;
 	public static boolean endOfHangBridge = false;
 	public static boolean atStartofSlider = true;
+	public static boolean parkCompleted = false;
+	public static boolean bluetooth = false;
 
 	public final static double tapeFollowSpeed = 0.25;
 

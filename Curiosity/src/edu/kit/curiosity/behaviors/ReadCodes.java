@@ -8,8 +8,8 @@ import edu.kit.curiosity.RobotState;
 import edu.kit.curiosity.Settings;
 
 public class ReadCodes implements Behavior {
-	public static boolean readState;
-	private boolean suppressed = false;
+	private boolean suppressed;
+	private boolean reading;
 	private boolean counted;
 	
 	private DifferentialPilot pilot;
@@ -20,20 +20,23 @@ public class ReadCodes implements Behavior {
 	public ReadCodes() {
 		numOfTapes = 0;
 		counted = false;
-		readState = true;
+		suppressed = false;
+		reading = false;
+		Settings.readState = true;
 		pilot = Settings.PILOT;
 		light = Settings.LIGHT;
 	}
 	
 	@Override
 	public boolean takeControl() {
-		return readState && (light.getLightValue() > 30);
+		return Settings.readState && (light.getLightValue() > 30);
 	}
 
 	@Override
 	public void action() {
 		suppressed = false;
-		readState = false;
+		//readState = false;
+		reading = false;
 
 		counted = false;
 		numOfTapes = 0;
@@ -41,22 +44,23 @@ public class ReadCodes implements Behavior {
 		pilot.forward();
 		while(!suppressed) {
 			if(!suppressed && !counted 
-					&& light.getLightValue() > 45) {
+					&& light.getLightValue() > 50) {
 				numOfTapes++;
-				System.out.println("TapeCount: " + numOfTapes);
 				counted = true;
+				reading = true;
+				pilot.forward();
 			} else if(!suppressed && counted
 					&& light.getLightValue() < 40) {
 				pilot.forward();	
-				System.out.println("Black Screen.");
 				counted = false;
 			} 
-			if(pilot.getMovementIncrement() > 10) {
+			if(reading && pilot.getMovementIncrement() > 10) {
 				LCD.clear();
 				// set States..
 				System.out.println("CodeNumber: " + numOfTapes);
 				// self-suppress (finished job)
-				suppress();
+				Settings.readState = false;
+				suppressed = true;
 			}
 		}
 		

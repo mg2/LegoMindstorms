@@ -1,9 +1,9 @@
 package edu.kit.curiosity.behaviors.bridge;
 
-import edu.kit.curiosity.Settings;
 import lejos.nxt.TouchSensor;
 import lejos.robotics.navigation.DifferentialPilot;
 import lejos.robotics.subsumption.Behavior;
+import edu.kit.curiosity.Settings;
 
 public class HitWallBeforeBridge implements Behavior {
 	private boolean suppressed = false;

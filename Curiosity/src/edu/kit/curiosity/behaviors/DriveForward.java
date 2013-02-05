@@ -46,6 +46,6 @@ public class DriveForward implements Behavior {
 				pilot.travel(10, true);
 			//}
 		}
-		pilot.stop();
+		//pilot.stop();
 	}
 }
