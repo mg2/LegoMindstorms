@@ -16,13 +16,12 @@ import edu.kit.curiosity.behaviors.bridge.DriveUntilAbyss;
 import edu.kit.curiosity.behaviors.bridge.ReachedEndOfBridge;
 import edu.kit.curiosity.behaviors.maze.BeginMaze;
 import edu.kit.curiosity.behaviors.maze.FollowWall;
-import edu.kit.curiosity.behaviors.maze.FoundEndLine;
 import edu.kit.curiosity.behaviors.maze.HitWall;
-import edu.kit.curiosity.behaviors.maze.SwampDetected;
-import edu.kit.curiosity.behaviors.maze.SwampLeft;
 import edu.kit.curiosity.behaviors.race.Race;
 import edu.kit.curiosity.behaviors.race.RaceDrive;
 import edu.kit.curiosity.behaviors.slider.AfterRollFloor;
+import edu.kit.curiosity.behaviors.swamp.SwampDetected;
+import edu.kit.curiosity.behaviors.swamp.SwampLeft;
 import edu.kit.curiosity.behaviors.tapefollow.TapeFollow;
 import edu.kit.curiosity.behaviors.tapefollow.TapeGapFound;
 import edu.kit.curiosity.behaviors.tapefollow.TapeObstacleFound;
@@ -86,12 +85,17 @@ public class ArbitratorManager {
 	private Behavior m3 = new BeginMaze();
 	private Behavior m4 = new HitWall();
 	private Behavior m5 = new SensorHeadPosition();
-	private Behavior m6 = new SwampDetected();
-	private Behavior m7 = new SwampLeft();
-	private Behavior m8 = new FoundEndLine();
 	private Behavior m9 = new ReadCodes();
 	private Behavior m10 = new MotorAStall();
-	private Behavior[] mazeBehavior = { m1, m2, m3, m4, m5, m6, m7, m8, m9, m10 };
+	private Behavior[] mazeBehavior = { m1, m2, m3, m4, m5, m9, m10 };
+
+	/**
+	 * Swamp behavior and arbitrator
+	 */
+	private Behavior sw1 = new DriveForward();
+	private Behavior sw2 = new ReadCodes();
+	private Behavior sw3 = new SensorHeadPosition();
+	private Behavior[] swampBehavior = { sw1, sw2, sw3 };
 
 	/**
 	 * Gate behavior and arbitrator
@@ -113,6 +117,12 @@ public class ArbitratorManager {
 	private Behavior t5 = new SensorHeadPosition();
 	private Behavior t6 = new MotorAStall();
 	private Behavior[] tapeBehavior = { t1, t2, t3, t4, t5, t6 };
+
+	/**
+	 * End Opponent behavior and arbitrator
+	 */
+	private Behavior e1 = new DriveForward();
+	private Behavior[] endBehavior = { e1 };
 
 	/**
 	 * Instantiate an {@code ArbitratorManager}
@@ -170,82 +180,92 @@ public class ArbitratorManager {
 	 *            given {@code RobotState} to change the arbitrator to
 	 */
 	private void updateArbitrator(RobotState state) {
-		if (state != null && state != RobotState.START && state != RobotState.TEST) {
+		if (state != null && state != RobotState.START
+				&& state != RobotState.TEST) {
 			this.arbitrator.stop();
 			System.out.println(state.toString() + " mode selected");
 		}
 
 		switch (state) {
-			case TEST:
-				pilot.setTravelSpeed(10);
+		case TEST:
+			pilot.setTravelSpeed(10);
 
-				this.arbitrator = new CustomArbitrator(testBehavior);
-				break;
-			case START:
-				pilot.setTravelSpeed(pilot.getMaxTravelSpeed());
-				pilot.setRotateSpeed(pilot.getMaxRotateSpeed() / 4);
-				Settings.motorAAngle = 0;
+			this.arbitrator = new CustomArbitrator(testBehavior);
+			break;
+		case START:
+			pilot.setTravelSpeed(pilot.getMaxTravelSpeed());
+			pilot.setRotateSpeed(pilot.getMaxRotateSpeed() / 4);
+			Settings.motorAAngle = 0;
 
-				this.arbitrator = new CustomArbitrator(startBehavior);
-				break;
-			case RACE:
-				pilot.setTravelSpeed(pilot.getMaxTravelSpeed());
-				pilot.setRotateSpeed(pilot.getMaxRotateSpeed() / 4);
-				Motor.A.setSpeed(Motor.A.getMaxSpeed() / 5);
+			this.arbitrator = new CustomArbitrator(startBehavior);
+			break;
+		case RACE:
+			pilot.setTravelSpeed(pilot.getMaxTravelSpeed());
+			pilot.setRotateSpeed(pilot.getMaxRotateSpeed() / 4);
+			Motor.A.setSpeed(Motor.A.getMaxSpeed() / 5);
 
-				// Not in first row
-				if (Settings.SONIC.getDistance() < 40) {
-					Settings.inFirstRow = false;
+			// Not in first row
+			if (Settings.SONIC.getDistance() < 40) {
+				Settings.inFirstRow = false;
 
-					// In first row
-				} else {
-					Settings.inFirstRow = true;
-				}
+				// In first row
+			} else {
+				Settings.inFirstRow = true;
+			}
 
-				Button.ENTER.waitForPressAndRelease();
-				// wait 10 seconds before starting the race
-				Delay.msDelay(10000);
+			Button.ENTER.waitForPressAndRelease();
+			// wait 10 seconds before starting the race
+			Delay.msDelay(10000);
 
-				this.arbitrator = new CustomArbitrator(raceBehavior);
-				break;
-			case BRIDGE:
-				Settings.LIGHT.setHigh(Settings.light_bridge);
-				Settings.LIGHT.setLow(Settings.light_black);
-				Motor.A.setSpeed(Motor.A.getMaxSpeed() / 5);
-				pilot.setRotateSpeed(pilot.getMaxRotateSpeed() / 5);
-				pilot.setTravelSpeed(30);
-				Settings.motorAAngle = -90;
+			this.arbitrator = new CustomArbitrator(raceBehavior);
+			break;
+		case BRIDGE:
+			Settings.LIGHT.setHigh(Settings.light_bridge);
+			Settings.LIGHT.setLow(Settings.light_black);
+			Motor.A.setSpeed(Motor.A.getMaxSpeed() / 5);
+			pilot.setRotateSpeed(pilot.getMaxRotateSpeed() / 5);
+			pilot.setTravelSpeed(30);
+			Settings.motorAAngle = -90;
 
-				this.arbitrator = new CustomArbitrator(this.bridgeBehavior);
-				break;
-			case MAZE:
-				pilot.setTravelSpeed(pilot.getMaxTravelSpeed() / 2);
-				pilot.setRotateSpeed(pilot.getMaxRotateSpeed() / 4);
-				Motor.A.setSpeed(Motor.A.getMaxSpeed() / 5);
-				Settings.motorAAngle = -90;
-				Motor.A.setStallThreshold(10, 1000);
+			this.arbitrator = new CustomArbitrator(this.bridgeBehavior);
+			break;
+		case MAZE:
+			pilot.setTravelSpeed(pilot.getMaxTravelSpeed() / 2);
+			pilot.setRotateSpeed(pilot.getMaxRotateSpeed() / 4);
+			Motor.A.setSpeed(Motor.A.getMaxSpeed() / 5);
+			Settings.motorAAngle = -90;
+			Motor.A.setStallThreshold(10, 1000);
 
-				this.arbitrator = new CustomArbitrator(mazeBehavior);
-				break;
-			case TAPE:
-				double speed = pilot.getMaxTravelSpeed() * Settings.tapeFollowSpeed;
-				pilot.setTravelSpeed(speed);
-				pilot.setRotateSpeed(pilot.getRotateMaxSpeed());
-				Settings.motorAAngle = 0;
+			this.arbitrator = new CustomArbitrator(mazeBehavior);
+			break;
+		case SWAMP:
+			pilot.setTravelSpeed(pilot.getMaxTravelSpeed() / 2);
+			pilot.setRotateSpeed(pilot.getMaxRotateSpeed() / 4);
+			Motor.A.setSpeed(Motor.A.getMaxSpeed() / 5);
+			Settings.motorAAngle = -90;
+			Motor.A.setStallThreshold(10, 1000);
 
-				this.arbitrator = new CustomArbitrator(tapeBehavior);
-				break;
-			case SLIDER:
-				pilot.setTravelSpeed(pilot.getMaxTravelSpeed() / 1.5);
-				pilot.setRotateSpeed(pilot.getMaxRotateSpeed() / 4);
-				Motor.A.setSpeed(Motor.A.getMaxSpeed() / 5);
-				Settings.motorAAngle = 0;
+			this.arbitrator = new CustomArbitrator(swampBehavior);
+			break;
+		case TAPE:
+			double speed = pilot.getMaxTravelSpeed() * Settings.tapeFollowSpeed;
+			pilot.setTravelSpeed(speed);
+			pilot.setRotateSpeed(pilot.getRotateMaxSpeed());
+			Settings.motorAAngle = 0;
 
-				this.arbitrator = new CustomArbitrator(gateBehavior);
-				break;
-			default:
-				System.out.println("No arbitrator selected! Error! Error!");
-				break;
+			this.arbitrator = new CustomArbitrator(tapeBehavior);
+			break;
+		case SLIDER:
+			pilot.setTravelSpeed(pilot.getMaxTravelSpeed() / 1.5);
+			pilot.setRotateSpeed(pilot.getMaxRotateSpeed() / 4);
+			Motor.A.setSpeed(Motor.A.getMaxSpeed() / 5);
+			Settings.motorAAngle = 0;
+
+			this.arbitrator = new CustomArbitrator(gateBehavior);
+			break;
+		default:
+			System.out.println("No arbitrator selected! Error! Error!");
+			break;
 		}
 
 		// update the thread to run the selected arbitrator

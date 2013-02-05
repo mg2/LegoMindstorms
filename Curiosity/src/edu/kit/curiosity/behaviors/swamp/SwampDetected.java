@@ -1,4 +1,4 @@
-package edu.kit.curiosity.behaviors.maze;
+package edu.kit.curiosity.behaviors.swamp;
 
 import lejos.nxt.LightSensor;
 import lejos.nxt.Motor;
