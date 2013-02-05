@@ -74,6 +74,7 @@ public class Settings {
 	public static boolean colorFound = false;
 	public static boolean reachedBridge = false;
 	public static boolean motorStalled = false;
+	public static boolean readState = true;
 
 	/**
 	 * boolean if in obstacle found mode
