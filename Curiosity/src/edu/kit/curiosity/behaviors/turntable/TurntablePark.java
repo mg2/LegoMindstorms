@@ -139,6 +139,7 @@ public class TurntablePark implements Behavior {
 
 	@Override
 	public void suppress() {
+		pilot.stop();
 		suppressed = true;
 
 	}
