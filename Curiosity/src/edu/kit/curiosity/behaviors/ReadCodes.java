@@ -63,36 +63,40 @@ public class ReadCodes implements Behavior {
 		pilot.stop();
 		
 		switch(numOfTapes) {
-			case 1:
+			case 13:
 				Settings.arbiMgr.changeState(RobotState.RACE);
 				break;
-			case 2:
+			case 5:
 				Settings.arbiMgr.changeState(RobotState.BRIDGE);
 				break;
-			case 3:
+			case 7:
 				Settings.arbiMgr.changeState(RobotState.MAZE);
 				break;
 			case 4:
+				Settings.arbiMgr.changeState(RobotState.SWAMP);
+			case 3:
 				Settings.arbiMgr.changeState(RobotState.BT_GATE);
 				break;
-			case 5:
+			case 11:
 				Settings.arbiMgr.changeState(RobotState.TURNTABLE);
 				break;
-			case 6:
+			case 12:
 				Settings.arbiMgr.changeState(RobotState.SLIDER);
 				break;
-			case 7:
+			case 10:
 				Settings.arbiMgr.changeState(RobotState.SEESAW);
 				break;
-			case 8:
+			case 6:
 				Settings.arbiMgr.changeState(RobotState.SUSPENSION_BRIDGE);
 				break;
 			case 9:
 				Settings.arbiMgr.changeState(RobotState.LINE_OBSTACLE);
 				break;
-			case 10:
+			case 8:
 				Settings.arbiMgr.changeState(RobotState.COLOR_GATE);
 				break;
+			case 14:
+				Settings.arbiMgr.changeState(RobotState.END_OPPONENT);
 			default:
 				System.out.println("No codes read!");
 				break;

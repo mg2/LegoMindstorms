@@ -5,10 +5,13 @@ import lejos.nxt.ButtonListener;
 import lejos.nxt.Motor;
 import lejos.robotics.subsumption.Behavior;
 import lejos.robotics.subsumption.CustomArbitrator;
+import edu.kit.curiosity.SensorHeadCalibrate;
 import edu.kit.curiosity.Settings;
 import edu.kit.curiosity.behaviors.DriveForward;
 import edu.kit.curiosity.behaviors.MotorAStall;
 import edu.kit.curiosity.behaviors.SensorHeadPosition;
+import edu.kit.curiosity.behaviors.swamp.SwampDetected;
+import edu.kit.curiosity.behaviors.swamp.SwampLeft;
 
 public class MazeMain implements ButtonListener {
 
@@ -25,6 +28,7 @@ public class MazeMain implements ButtonListener {
 		Settings.PILOT.setTravelSpeed(Settings.PILOT.getMaxTravelSpeed() / 2);
 		Settings.PILOT.setRotateSpeed(Settings.PILOT.getMaxRotateSpeed() / 4);
 		Motor.A.setSpeed(Motor.A.getMaxSpeed() / 5);
+		new SensorHeadCalibrate();
 		Settings.motorAAngle = -90;
 		
 		Behavior b1 = new DriveForward();
@@ -32,12 +36,8 @@ public class MazeMain implements ButtonListener {
 		Behavior b3 = new BeginMaze();
 		Behavior b4 = new HitWall();
  		Behavior b5 = new SensorHeadPosition();
- 		Behavior b6 = new SwampDetected();
- 		Behavior b7 = new SwampLeft();
- 		Behavior b8 = new FoundEndLine();
-		Behavior b9 = new MotorAStall();
 		
-		Behavior[] bArray = { b1, b2, b3, b4, b5, b6, b7, b8, b9};
+		Behavior[] bArray = { b1, b2, b3, b4, b5};
 
 		CustomArbitrator arbitrator = new CustomArbitrator(bArray);		
 		Thread t = new Thread(arbitrator);
