@@ -36,7 +36,7 @@ public class LightCalibrate {
 		// Calibrate SWAMP
 		System.out.println("Swamp: ");
 		Button.ENTER.waitForPressAndRelease();
-		Settings.light_bridge = light.getNormalizedLightValue();
+		Settings.light_swamp = light.getNormalizedLightValue();
 		System.out.println(Settings.light_swamp);
 
 		// Calibrate LINE
@@ -99,7 +99,7 @@ public class LightCalibrate {
 			// Calibrate SWAMP
 			System.out.println("Swamp: ");
 			Button.ENTER.waitForPressAndRelease();
-			Settings.light_bridge = light.getNormalizedLightValue();
+			Settings.light_swamp = light.getNormalizedLightValue();
 			System.out.println(Settings.light_swamp);
 		}
 
