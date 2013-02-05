@@ -25,7 +25,7 @@ public class MazeMain implements ButtonListener {
 		
 		
 		// MAZE
-		Settings.PILOT.setTravelSpeed(Settings.PILOT.getMaxTravelSpeed() / 2);
+		Settings.PILOT.setTravelSpeed(Settings.PILOT.getMaxTravelSpeed());
 		Settings.PILOT.setRotateSpeed(Settings.PILOT.getMaxRotateSpeed() / 4);
 		Motor.A.setSpeed(Motor.A.getMaxSpeed() / 5);
 		new SensorHeadCalibrate();

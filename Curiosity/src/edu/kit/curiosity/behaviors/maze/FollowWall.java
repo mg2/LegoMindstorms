@@ -38,7 +38,7 @@ public class FollowWall implements Behavior {
 	@Override
 	public boolean takeControl() {
 
-		return (!Settings.inSwamp);
+		return (!Settings.atStartOfMaze);
 	}
 
 	/**
@@ -48,7 +48,7 @@ public class FollowWall implements Behavior {
 	@Override
 	public void action() {
 		suppressed = false;
-		while (!suppressed) {
+		while (!suppressed && !((Settings.TOUCH_L.isPressed() || Settings.TOUCH_R.isPressed()))) {
 			if (sonic.getDistance() > (distanceToWall + 10)) {
 				pilot.arc(-15, -90, true);
 			} else if (sonic.getDistance() <= distanceToWall) {

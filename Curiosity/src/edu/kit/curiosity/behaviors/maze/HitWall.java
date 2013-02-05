@@ -45,9 +45,7 @@ public class HitWall implements Behavior {
 		Settings.atStartOfMaze = false;
 		pilot.travel(-5);
 		pilot.rotate(100);
-		while( pilot.isMoving() && !suppressed ) {
-			Thread.yield();
-		}
+		while( pilot.isMoving() && !suppressed );
 		pilot.stop();
 	}
 
