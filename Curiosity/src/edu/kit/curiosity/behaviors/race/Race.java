@@ -38,13 +38,11 @@ public class Race implements Behavior {
 	 */
 	@Override
 	public void action() {
-		System.out.println("Race");
-		Settings.readState = true;
 		suppressed = false;
 		Settings.atStart = false;
-		Settings.motorAAngle = Settings.SENSOR_RIGHT;
+		Settings.readState = true;
 		pilot.travel(-5);
-		pilot.rotate(100);
+		pilot.rotate(60);
 		while (pilot.isMoving() && !suppressed)
 			;
 		// pilot.stop();
