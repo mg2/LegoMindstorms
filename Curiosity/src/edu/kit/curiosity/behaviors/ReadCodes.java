@@ -43,6 +43,7 @@ public class ReadCodes implements Behavior {
 		numOfTapes = 0;
 
 		pilot.forward();
+		
 		while (!suppressed) {
 			if (!suppressed && !counted && light.getLightValue() > 60) {
 				numOfTapes++;
