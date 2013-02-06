@@ -319,7 +319,7 @@ public class ArbitratorManager {
 			this.arbitrator = new CustomArbitrator(this.bridgeBehavior);
 			break;
 		case MAZE:
-			pilot.setTravelSpeed(pilot.getMaxTravelSpeed() / 0.7);
+			pilot.setTravelSpeed(pilot.getMaxTravelSpeed() / 0.5);
 			pilot.setRotateSpeed(pilot.getMaxRotateSpeed() / 4);
 			Motor.A.setSpeed(Motor.A.getMaxSpeed() / 5);
 			Settings.motorAAngle = Settings.SENSOR_RIGHT;
