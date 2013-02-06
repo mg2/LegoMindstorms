@@ -5,6 +5,7 @@ import lejos.nxt.LightSensor;
 import lejos.nxt.Motor;
 import lejos.robotics.navigation.DifferentialPilot;
 import lejos.robotics.subsumption.Behavior;
+import lejos.util.Delay;
 import edu.kit.curiosity.Settings;
 
 public class TapeFollow implements Behavior {
@@ -49,8 +50,6 @@ public class TapeFollow implements Behavior {
 	 */
 	private static int tr = 90;
 
-	private static int tacho = 0;
-
 	@Override
 	public boolean takeControl() {
 		return true;
@@ -60,7 +59,6 @@ public class TapeFollow implements Behavior {
 	public void action() {
 
 		suppressed = false;
-		tacho = Motor.B.getTachoCount();
 
 		while (!suppressed) {
 			if (light.getLightValue() > blackWhiteThreshold) {
@@ -69,7 +67,6 @@ public class TapeFollow implements Behavior {
 				// System.out.print("right ");
 				pilot.steer(-tr, -10, true);
 				r++;
-				tacho = Motor.B.getTachoCount();
 			} else {
 				// On black, turn left
 				r = 0;
@@ -83,67 +80,15 @@ public class TapeFollow implements Behavior {
 				// last out turns were in same direction
 				if (r > out || l > out) {
 					// make turn steeper
-					tr = 150;
+					tr = 120;
 				}
 			} else if (i > 2 * out) { // more than 2 * out
 				if (r > 2 * out || l > 2 * out) {
 
-					// multiplier
-					int m = 1;
-
-					if (r > 2 * out)
-						m = -1;
-					// pilot.setTravelSpeed(pilot.getMaxTravelSpeed());
-
 					// travel back until line found
-
-					while (i >= 0
-							&& light.getLightValue() < blackWhiteThreshold) { // travel
-																				// back
-						i--;
-						try {
-							Thread.sleep(sleep);
-						} catch (InterruptedException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
-					}
-					System.out.println("GAP?");
-					Button.waitForAnyPress();
-
-					// Invert multiplier
-					pilot.stop();
-					m *= -1;
-					// Travels forward arc in the other direction
-					while (i < 2 * out
-							&& light.getLightValue() < blackWhiteThreshold) {
-						pilot.steer(m * tr, m * 10, true); // travel back
-						i++;
-						try {
-							Thread.sleep(sleep);
-						} catch (InterruptedException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
-					}
-					pilot.stop();
-
-					// Travels backward arc in the other direction
-					while (i >= 0
-							&& light.getLightValue() < blackWhiteThreshold) {
-						pilot.steer(m * tr, (-1) * m * 10, true); // travel
-																	// back
-						i--;
-						try {
-							Thread.sleep(sleep);
-						} catch (InterruptedException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
-					}
-					if (!suppressed
-							&& light.getLightValue() < blackWhiteThreshold)
-						Settings.gap = true;
+					// TODO
+					pilot.rotate(180);
+					pilot.travel(25);
 				}
 				// Set values to defaults.
 				i = 0;
@@ -152,16 +97,9 @@ public class TapeFollow implements Behavior {
 				tr = 90;
 			}
 			i++;
-			try {
-				Thread.sleep(sleep);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			Delay.msDelay(sleep);
 		}
-
 		pilot.stop();
-
 	}
 
 	@Override

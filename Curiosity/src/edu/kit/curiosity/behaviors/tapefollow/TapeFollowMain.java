@@ -7,6 +7,7 @@ import lejos.robotics.subsumption.CustomArbitrator;
 import edu.kit.curiosity.LightCalibrate;
 import edu.kit.curiosity.SensorHeadCalibrate;
 import edu.kit.curiosity.Settings;
+import edu.kit.curiosity.behaviors.EnterPressed;
 import edu.kit.curiosity.behaviors.SensorHeadPosition;
 
 public class TapeFollowMain {
@@ -35,11 +36,11 @@ public class TapeFollowMain {
 		new LightCalibrate(false, true);
 		
 		Behavior t1 = new TapeFollow();
-		Behavior t2 = new TapeGapFound();
 		Behavior t3 = new TapeObstacleFound();
 		Behavior t5 = new SensorHeadPosition();
+		Behavior t6 = new EnterPressed();
 		
-		Behavior[] tapeFollowArray = {t1, t2, t3, t5};
+		Behavior[] tapeFollowArray = {t1, t3, t5, t6};
 		
 		CustomArbitrator tapeFollowArbitrator = new CustomArbitrator(tapeFollowArray);
 		Thread t = new Thread(tapeFollowArbitrator);
