@@ -35,11 +35,10 @@ public class TapeFollowMain {
 		new LightCalibrate(false, true);
 		
 		Behavior t1 = new TapeFollow();
-		Behavior t2 = new TapeGapFound();
 		Behavior t3 = new TapeObstacleFound();
 		Behavior t5 = new SensorHeadPosition();
 		
-		Behavior[] tapeFollowArray = {t1, t2, t3, t5};
+		Behavior[] tapeFollowArray = {t1, t3, t5};
 		
 		CustomArbitrator tapeFollowArbitrator = new CustomArbitrator(tapeFollowArray);
 		Thread t = new Thread(tapeFollowArbitrator);

@@ -7,7 +7,6 @@ import lejos.robotics.subsumption.Behavior;
 import lejos.robotics.subsumption.CustomArbitrator;
 import lejos.util.Delay;
 import edu.kit.curiosity.behaviors.DriveForward;
-import edu.kit.curiosity.behaviors.MotorAStall;
 import edu.kit.curiosity.behaviors.ReadCodes;
 import edu.kit.curiosity.behaviors.SensorHeadPosition;
 import edu.kit.curiosity.behaviors.bluetooth.LabyrinthGate;
@@ -29,7 +28,6 @@ import edu.kit.curiosity.behaviors.maze.HitWall;
 import edu.kit.curiosity.behaviors.race.Race;
 import edu.kit.curiosity.behaviors.race.RaceDrive;
 import edu.kit.curiosity.behaviors.race.RaceFollowWall;
-import edu.kit.curiosity.behaviors.slider.DetectTape;
 import edu.kit.curiosity.behaviors.slider.SliderFollowWall;
 import edu.kit.curiosity.behaviors.slider.SliderHitWall;
 import edu.kit.curiosity.behaviors.slider.StartSlider;
@@ -60,13 +58,19 @@ public class ArbitratorManager {
 	private DifferentialPilot pilot = Settings.PILOT;
 
 	/**
+	 * Relocate behavior.
+	 */
+	private Behavior relocate = new StopArbitrator();
+	private Behavior[] relocateBehavior = { relocate };
+
+	/**
 	 * Start behavior
 	 */
 	private Behavior s1 = new DriveForward();
 	private Behavior s2 = new ReadCodes();
 	private Behavior s3 = new SensorHeadPosition();
-	private Behavior s4 = new MotorAStall();
-	private Behavior[] startBehavior = { s1, s2, s3, s4 };
+	private Behavior[] startBehavior = { s1, s2, s3 };
+	// private Behavior[] startBehavior = { s1 };
 
 	/**
 	 * Race behavior.
@@ -76,8 +80,7 @@ public class ArbitratorManager {
 	private Behavior r3 = new ReadCodes();
 	private Behavior r4 = new RaceDrive();
 	private Behavior r5 = new SensorHeadPosition();
-	private Behavior r6 = new MotorAStall();
-	private Behavior[] raceBehavior = { r1, r2, r3, r4, r5, r6 };
+	private Behavior[] raceBehavior = { r1, r2, r3, r4, r5 };
 
 	/**
 	 * Bridge behavior.
@@ -122,7 +125,6 @@ public class ArbitratorManager {
 	/**
 	 * Turntable behavior.
 	 */
-
 	private Behavior tt1 = new TapeFollow();
 	private Behavior tt2 = new TurntablePark();
 	private Behavior tt3 = new TurntableRotate();
@@ -254,14 +256,23 @@ public class ArbitratorManager {
 	 *            given {@code RobotState} to change the arbitrator to
 	 */
 	private void updateArbitrator(RobotState state) {
-		if (state != null && state != RobotState.START
-				&& state != RobotState.READCODE) {
+		if (state != null && state != RobotState.START) {
 			this.arbitrator.stop();
 		}
 		System.out.println(state.toString() + " mode selected");
 
 		switch (state) {
+		case RELOCATE:
+			Motor.A.removeListener();
+			Motor.B.removeListener();
+			Motor.C.removeListener();
+			System.out.println("Relocating. Press ENTER to continue.");
+			Button.waitForAnyPress();
+			// updateArbitrator(RobotState.READCODE);
+			this.arbitrator = new CustomArbitrator(this.startBehavior);
+			break;
 		case READCODE:
+			this.arbitrator.stop();
 			pilot.setTravelSpeed(pilot.getMaxTravelSpeed() * 0.6);
 			pilot.setRotateSpeed(pilot.getMaxRotateSpeed() / 4);
 			Settings.motorAAngle = Settings.SENSOR_FRONT;
@@ -372,6 +383,9 @@ public class ArbitratorManager {
 			pilot.setRotateSpeed(pilot.getRotateMaxSpeed());
 			Settings.motorAAngle = Settings.SENSOR_FRONT;
 
+			pilot.rotate(-30);
+			pilot.travel(30, false);
+
 			this.arbitrator = new CustomArbitrator(this.tapeBehavior);
 			break;
 		case COLOR_GATE:
@@ -396,13 +410,19 @@ public class ArbitratorManager {
 			break;
 		}
 
-		// update the thread to run the selected this.arbitrator
-		this.thread = new Thread(this.arbitrator);
-		this.thread.start();
+		// update the thread to run the selected arbitrator
+		System.out.println(state);
+		if (state != RobotState.RELOCATE) {
+			this.thread = new Thread(this.arbitrator);
+			this.thread.start();
+		}
 		Settings.isRunning = true;
 	}
 
 	public void stopArbitrator() {
+		System.out.println("stop");
+		this.pilot.stop();
+		this.thread = new Thread();
 		this.arbitrator.stop();
 	}
 }

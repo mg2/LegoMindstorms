@@ -49,11 +49,12 @@ public class ReadCodes implements Behavior {
 				numOfTapes++;
 				counted = true;
 				reading = true;
-				// pilot.forward();
-				pilot.travel(1, true);
-			} else if (!suppressed && counted && light.getLightValue() < 40) {
-				// pilot.forward();
-				pilot.travel(1, true);
+				pilot.forward();
+				//pilot.travel(1, true);
+			} else if(!suppressed && counted
+					&& light.getLightValue() < 40) {
+				pilot.forward();	
+//				pilot.travel(1, true);
 				counted = false;
 			}
 			if (reading && pilot.getMovementIncrement() > 10) {

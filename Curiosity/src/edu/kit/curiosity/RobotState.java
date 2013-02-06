@@ -5,6 +5,7 @@ package edu.kit.curiosity;
  */
 public enum RobotState {
 	// TODO: Add additional states, when needed
+	RELOCATE,
 	READCODE,
 	START,
 	TAPE,
