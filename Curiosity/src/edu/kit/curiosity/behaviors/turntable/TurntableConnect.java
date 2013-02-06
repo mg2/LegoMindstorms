@@ -24,8 +24,7 @@ public class TurntableConnect implements Behavior {
 		if (!suppressed) {
 			System.out.println("Connected!");
 			Settings.bluetooth = true;
-			Settings.PILOT.rotate(-15);			
-			Settings.PILOT.travel(10);		
+			Settings.PILOT.steer(50, 40, true);		
 		}		
 	}
 
