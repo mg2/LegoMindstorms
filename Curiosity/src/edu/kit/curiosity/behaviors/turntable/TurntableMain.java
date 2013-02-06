@@ -28,9 +28,10 @@ public class TurntableMain {
 		Behavior t2 = new TurntablePark();
 		Behavior t3 = new TurntableRotate();
 		Behavior t4 = new TurntableConnect();
-		Behavior t5 = new SensorHeadPosition();
+		Behavior t5 = new TurntableBegin();
+		Behavior t6 = new SensorHeadPosition();
 
-		Behavior[] tapeFollowArray = { t1, t2, t3, t4, t5 };
+		Behavior[] tapeFollowArray = { t1, t2, t3, t4, t5, t6};
 
 		CustomArbitrator tapeFollowArbitrator = new CustomArbitrator(tapeFollowArray);
 		Thread t = new Thread(tapeFollowArbitrator);

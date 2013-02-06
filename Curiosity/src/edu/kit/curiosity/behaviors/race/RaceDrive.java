@@ -40,12 +40,11 @@ public class RaceDrive implements Behavior {
 	 */
 	public void action() {
 		Settings.readState = false;
-		System.out.println("Drive");
 		Settings.atStart = false;
 		suppressed = false;
-		while (!suppressed) {
-			pilot.steer(-50, -10, true);
+		while (!suppressed && !(Settings.TOUCH_L.isPressed()) && !(Settings.TOUCH_R.isPressed())) {
+			pilot.steer(-5, -200, true);
 		}
-//		pilot.stop();
+		// pilot.stop();
 	}
 }

@@ -38,7 +38,7 @@ public class SliderFollowWall implements Behavior {
 	@Override
 	public boolean takeControl() {
 
-		return (!Settings.atStartofSlider);
+		return (!Settings.atStartofSlider && !Settings.afterSlider);
 	}
 
 	/**
@@ -60,7 +60,13 @@ public class SliderFollowWall implements Behavior {
 				pilot.arc(-60, -20, true);
 			}
 		}
-		pilot.stop();
+		if (Settings.LIGHT.getLightValue() >= 80) {
+			pilot.stop();
+			System.out.println("LINE Detected");
+			Settings.afterSlider = true;
+			Settings.motorAAngle = Settings.SENSOR_FRONT;
+			Settings.PILOT.setTravelSpeed(Settings.PILOT.getMaxTravelSpeed() * 0.15);
+		}
 	}
 
 	/**

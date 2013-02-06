@@ -8,6 +8,7 @@ import lejos.robotics.subsumption.CustomArbitrator;
 import edu.kit.curiosity.SensorHeadCalibrate;
 import edu.kit.curiosity.Settings;
 import edu.kit.curiosity.behaviors.DriveForward;
+import edu.kit.curiosity.behaviors.ReadCodes;
 import edu.kit.curiosity.behaviors.SensorHeadPosition;
 
 public class MazeMain implements ButtonListener {
@@ -32,9 +33,10 @@ public class MazeMain implements ButtonListener {
 		Behavior b2 = new FollowWall(13);
 		Behavior b3 = new BeginMaze();
 		Behavior b4 = new HitWall();
- 		Behavior b5 = new SensorHeadPosition();
+		Behavior b5 = new ReadCodes();
+ 		Behavior b6 = new SensorHeadPosition();
 		
-		Behavior[] bArray = { b1, b2, b3, b4, b5};
+		Behavior[] bArray = { b1, b2, b3, b4, b5, b6};
 
 		CustomArbitrator arbitrator = new CustomArbitrator(bArray);		
 		Thread t = new Thread(arbitrator);

@@ -26,7 +26,7 @@ public class HitWallBeforeBridge implements Behavior {
 	@Override
 	public void action() {
 		suppressed = false;
-		pilot.rotate(-45);
+		pilot.rotate(-60);
 		while (pilot.isMoving() && !suppressed);
 		pilot.stop();
 
