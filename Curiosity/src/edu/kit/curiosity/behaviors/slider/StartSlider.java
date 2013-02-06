@@ -14,7 +14,7 @@ public class StartSlider implements Behavior {
 	@Override
 	public void action() {
 		Settings.PILOT.travel(50);
-		Settings.atStartofSlider =false;
+		Settings.atStartofSlider = false;
 
 	}
 

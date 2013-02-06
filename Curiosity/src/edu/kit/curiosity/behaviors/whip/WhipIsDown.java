@@ -7,13 +7,15 @@ public class WhipIsDown implements Behavior {
 
 	@Override
 	public boolean takeControl() {
-		return (Settings.beforeWhip && Settings.LIGHT.getLightValue() > Settings.light_bridge_rel);
+		return (Settings.beforeWhip && !Settings.afterWhip && Settings.LIGHT.getLightValue() > Settings.light_bridge_rel);
 	}
 
 	@Override
 	public void action() {
+		System.out.println("Whip down");
+		System.out.println("Distance: " + Settings.SONIC.getDistance());
 		Settings.motorAAngle = -90;
-		Settings.PILOT.travel(20);
+		Settings.PILOT.travel(40);
 		Settings.beforeWhip = false;
 	}
 

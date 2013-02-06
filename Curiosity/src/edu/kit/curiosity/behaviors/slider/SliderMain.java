@@ -14,13 +14,14 @@ public class SliderMain {
 
 
 	public static void main(String[] args) {
- new LightCalibrate();
+
+		new SensorHeadCalibrate();
+		new LightCalibrate(false, false);
 		
 		DifferentialPilot pilot = Settings.PILOT;
 		Motor.A.setStallThreshold(10, 100);
 		pilot.setTravelSpeed(pilot.getMaxTravelSpeed() * 0.5);
 
-		new SensorHeadCalibrate();
 		Settings.motorAAngle = 0;
 		
 		Behavior t1 = new TapeFollow();

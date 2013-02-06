@@ -35,6 +35,7 @@ public class DriveUntilWhipAbyss implements Behavior {
 	 */
 	@Override
 	public void action() {
+		System.out.println("Searching abys");
 		suppressed = false;
 		Settings.whipAndBridgeCounter = 0;
 		pilot.arc(-60, -40, true);
