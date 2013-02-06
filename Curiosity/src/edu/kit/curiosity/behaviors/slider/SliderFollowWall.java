@@ -49,7 +49,9 @@ public class SliderFollowWall implements Behavior {
 	public void action() {
 		suppressed = false;
 		Settings.motorAAngle = Settings.SENSOR_RIGHT;
-		while (!suppressed && !((Settings.TOUCH_L.isPressed() || Settings.TOUCH_R.isPressed()))) {
+		while (!suppressed
+				&& !((Settings.TOUCH_L.isPressed() || Settings.TOUCH_R
+						.isPressed())) && Settings.LIGHT.getLightValue() < 80) {
 			if (sonic.getDistance() > (distanceToWall + 10)) {
 				pilot.arc(-15, -90, true);
 			} else if (sonic.getDistance() <= distanceToWall) {

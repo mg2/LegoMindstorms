@@ -3,6 +3,7 @@ package edu.kit.curiosity.behaviors.whip;
 import lejos.nxt.LightSensor;
 import lejos.robotics.navigation.DifferentialPilot;
 import lejos.robotics.subsumption.Behavior;
+import lejos.util.Delay;
 import edu.kit.curiosity.Settings;
 
 /**
@@ -31,7 +32,8 @@ public class WhipAbyssDetected implements Behavior {
 	 */
 	@Override
 	public boolean takeControl() {
-		return (!Settings.beforeWhip && !Settings.afterWhip && lightSensor.getLightValue() < threshold);
+		return (!Settings.beforeWhip && !Settings.afterWhip && lightSensor
+				.getLightValue() < threshold);
 	}
 
 	/**
@@ -40,10 +42,14 @@ public class WhipAbyssDetected implements Behavior {
 	 */
 	@Override
 	public void action() {
+		System.out.println("Abys");
 		suppressed = false;
 		while (lightSensor.getLightValue() < threshold && !suppressed) {
-			pilot.rotate(10);
-			Settings.whipAndBridgeCounter++;
+			pilot.rotate(10, true);
+			if (!pilot.isMoving()) {
+				Settings.whipAndBridgeCounter++;
+			}
+			Delay.msDelay(10);
 		}
 		while (pilot.isMoving() && !suppressed) {
 			Thread.yield();

@@ -7,7 +7,7 @@ public class DetectTape implements Behavior {
 
 	@Override
 	public boolean takeControl() {
-		return Settings.LIGHT.getLightValue() > 90 && !Settings.atStartofSlider && !Settings.afterSlider;
+		return Settings.LIGHT.getLightValue() > 80 && !Settings.atStartofSlider && !Settings.afterSlider;
 	}
 
 	@Override
