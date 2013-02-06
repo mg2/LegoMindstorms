@@ -67,7 +67,7 @@ public class ArbitratorManager {
 	private Behavior[] startBehavior = { s1, s2, s3, s4 };
 
 	/**
-	 * Race behavior and arbitrator
+	 * Race behavior.
 	 */
 	private Behavior r1 = new RaceFollowWall(13);
 	private Behavior r2 = new Race();
@@ -78,7 +78,7 @@ public class ArbitratorManager {
 	private Behavior[] raceBehavior = { r1, r2, r3, r4, r5, r6 };
 
 	/**
-	 * Bridge behavior and arbitrator
+	 * Bridge behavior.
 	 */
 	private Behavior b0 = new DriveForward();
 	private Behavior b1 = new HitWallBeforeBridge();
@@ -90,7 +90,7 @@ public class ArbitratorManager {
 	private Behavior[] bridgeBehavior = { b0, b1, b2, b3, b4, b5, b6 };
 
 	/**
-	 * Maze behavior and arbitrator
+	 * Maze behavior.
 	 */
 	private Behavior m1 = new DriveForward();
 	private Behavior m2 = new FollowWall(12);
@@ -102,7 +102,7 @@ public class ArbitratorManager {
 	private Behavior[] mazeBehavior = { m1, m2, m3, m4, m9, m5 };
 
 	/**
-	 * Swamp behavior and arbitrator
+	 * Swamp behavior.
 	 */
 	private Behavior sw1 = new SwampForward();
 	private Behavior sw2 = new ReadCodes();
@@ -110,7 +110,7 @@ public class ArbitratorManager {
 	private Behavior[] swampBehavior = { sw1, sw2, sw3 };
 
 	/**
-	 * Bluetooth Gate behavior and arbitrator
+	 * Bluetooth Gate behavior.
 	 */
 	private Behavior bt1 = new LabyrinthGate();
 	private Behavior bt2 = new ReadCodes();
@@ -128,7 +128,7 @@ public class ArbitratorManager {
 	private Behavior[] turnTableArray = { tt1, tt2, tt3, tt4, tt5 };
 
 	/**
-	 * Slider behavior and arbitrator
+	 * Slider behavior.
 	 */
 	private Behavior g0 = new TapeFollow();
 	private Behavior g1 = new SliderFollowWall(10);
@@ -161,7 +161,7 @@ public class ArbitratorManager {
 	private Behavior[] suspensionBridgeArray = { sb1, sb2, sb3 };
 
 	/**
-	 * Tape behavior and arbitrator
+	 * Tape behavior.
 	 */
 	private Behavior t1 = new TapeFollow();
 	private Behavior t2 = new TapeGapFound();
@@ -186,7 +186,7 @@ public class ArbitratorManager {
 	private Behavior[] colorGateBehavior = { c1, c2, c3, c4, c5, c6, c7 };
 
 	/**
-	 * End Opponent behavior and arbitrator
+	 * End Opponent behavior.
 	 */
 	private Behavior e1 = new DriveForward();
 	private Behavior[] endBehavior = { e1 };
@@ -228,8 +228,8 @@ public class ArbitratorManager {
 	}
 
 	/**
-	 * Changes the current arbitrator, according to the given {@code RobotState}
-	 * .
+	 * Changes the current arbitrator, according to the given
+	 * {@code RobotState} .
 	 * 
 	 * @param state
 	 *            given {@code RobotState} to change arbitrator one
@@ -240,19 +240,28 @@ public class ArbitratorManager {
 	}
 
 	/**
-	 * Update the current arbitrator to a level specific one, depending on the
-	 * passed {@code RobotState}.
+	 * Update the current arbitrator to a level specific one, depending on
+	 * the passed {@code RobotState}.
 	 * 
 	 * @param state
 	 *            given {@code RobotState} to change the arbitrator to
 	 */
 	private void updateArbitrator(RobotState state) {
-		if (state != null && state != RobotState.START) {
+		if (state != null && state != RobotState.START && state != RobotState.READCODE) {
 			this.arbitrator.stop();
 		}
 		System.out.println(state.toString() + " mode selected");
 
 		switch (state) {
+			case READCODE:
+				pilot.setTravelSpeed(pilot.getMaxTravelSpeed() * 0.6);
+				pilot.setRotateSpeed(pilot.getMaxRotateSpeed() / 4);
+				Settings.motorAAngle = Settings.SENSOR_FRONT;
+
+				System.out.println("Relocating. Press ENTER to continue.");
+				Button.ENTER.waitForPress();
+				this.arbitrator = new CustomArbitrator(this.startBehavior);
+				break;
 			case START:
 				pilot.setTravelSpeed(pilot.getMaxTravelSpeed() * 0.6);
 				pilot.setRotateSpeed(pilot.getMaxRotateSpeed() / 4);
@@ -267,11 +276,12 @@ public class ArbitratorManager {
 				Settings.motorAAngle = Settings.SENSOR_RIGHT;
 				Settings.atStart = false;
 
-				if (!Settings.relocate) {
+				if (!Settings.raceStarted) {
 					System.out.println("Press ENTER");
 					Button.ENTER.waitForPressAndRelease();
 					// wait 10 seconds before starting the race
 					Delay.msDelay(10000);
+					Settings.raceStarted = true;
 				}
 
 				this.arbitrator = new CustomArbitrator(this.raceBehavior);
@@ -366,8 +376,13 @@ public class ArbitratorManager {
 				break;
 		}
 
-		// update the thread to run the selected arbitrator
+		// update the thread to run the selected this.arbitrator
 		this.thread = new Thread(this.arbitrator);
 		this.thread.start();
+		Settings.isRunning = true;
+	}
+
+	public void stopArbitrator() {
+		this.arbitrator.stop();
 	}
 }
