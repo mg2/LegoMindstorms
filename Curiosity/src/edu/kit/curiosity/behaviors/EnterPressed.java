@@ -9,14 +9,14 @@ public class EnterPressed implements Behavior {
 
 	@Override
 	public boolean takeControl() {
-		return Button.ENTER.isDown() || Button.ESCAPE.isDown() || Button.LEFT.isDown() || Button.RIGHT.isPressed();
+		return Button.ENTER.isDown() || Button.ESCAPE.isDown() || Button.LEFT.isDown() || Button.RIGHT.isDown();
 	}
 
 	@Override
 	public void action() {
 		System.out.println("Waiting...");
-		Button.waitForAnyPress();
-		Settings.arbiMgr.changeState(RobotState.READCODE);		
+		while (!Button.ENTER.isUp());
+		Settings.arbiMgr.changeState(RobotState.START);		
 	}
 
 	@Override
