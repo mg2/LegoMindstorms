@@ -115,6 +115,7 @@ public class Settings {
 	public static boolean afterSlider = false;
 	public static boolean parkCompleted = false;
 	public static boolean bluetooth = false;
+	public static boolean atStartOfTurntable = true;
 
 	public final static double tapeFollowSpeed = 0.25;
 

@@ -28,7 +28,7 @@ public class TurntablePark implements Behavior {
 	@Override
 	public boolean takeControl() {
 		// TODO after bluetooth permission!
-		return Settings.bluetooth && !parked;
+		return Settings.bluetooth && ! Settings.atStartOfTurntable && !parked;
 	}
 
 	@Override
