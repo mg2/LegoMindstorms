@@ -15,6 +15,13 @@ import edu.kit.curiosity.behaviors.bridge.AbyssDetected;
 import edu.kit.curiosity.behaviors.bridge.DriveUntilAbyss;
 import edu.kit.curiosity.behaviors.bridge.HitWallBeforeBridge;
 import edu.kit.curiosity.behaviors.bridge.ReachedEndOfBridge;
+import edu.kit.curiosity.behaviors.colorGate.ButtonPressed;
+import edu.kit.curiosity.behaviors.colorGate.ColorFound;
+import edu.kit.curiosity.behaviors.colorGate.ColorTapeFollow;
+import edu.kit.curiosity.behaviors.colorGate.FirstColor;
+import edu.kit.curiosity.behaviors.colorGate.FollowWallColor;
+import edu.kit.curiosity.behaviors.colorGate.WallAfterButton;
+import edu.kit.curiosity.behaviors.hangingBridge.FollowBridgeFast;
 import edu.kit.curiosity.behaviors.maze.BeginMaze;
 import edu.kit.curiosity.behaviors.maze.FollowWall;
 import edu.kit.curiosity.behaviors.maze.HitWall;
@@ -29,6 +36,15 @@ import edu.kit.curiosity.behaviors.swamp.SwampForward;
 import edu.kit.curiosity.behaviors.tapefollow.TapeFollow;
 import edu.kit.curiosity.behaviors.tapefollow.TapeGapFound;
 import edu.kit.curiosity.behaviors.tapefollow.TapeObstacleFound;
+import edu.kit.curiosity.behaviors.turntable.TurntableConnect;
+import edu.kit.curiosity.behaviors.turntable.TurntablePark;
+import edu.kit.curiosity.behaviors.turntable.TurntableRotate;
+import edu.kit.curiosity.behaviors.whip.DriveUntilWhipAbyss;
+import edu.kit.curiosity.behaviors.whip.EndOfWhip;
+import edu.kit.curiosity.behaviors.whip.WaitForWhip;
+import edu.kit.curiosity.behaviors.whip.WhipAbyssDetected;
+import edu.kit.curiosity.behaviors.whip.WhipDriveForward;
+import edu.kit.curiosity.behaviors.whip.WhipIsDown;
 
 /**
  * This class manages the different arbitrators for all the different levels.
@@ -82,8 +98,8 @@ public class ArbitratorManager {
 	private Behavior m4 = new HitWall();
 	private Behavior m9 = new ReadCodes();
 	private Behavior m5 = new SensorHeadPosition();
-	
-	private Behavior[] mazeBehavior = { m1, m2, m3, m4, m9, m5};
+
+	private Behavior[] mazeBehavior = { m1, m2, m3, m4, m9, m5 };
 
 	/**
 	 * Swamp behavior and arbitrator
@@ -99,7 +115,18 @@ public class ArbitratorManager {
 	private Behavior bt1 = new LabyrinthGate();
 	private Behavior bt2 = new ReadCodes();
 	private Behavior bt3 = new SensorHeadPosition();
-	private Behavior[] btgateBehavior = {bt1, bt2, bt3 };
+	private Behavior[] btgateBehavior = { bt1, bt2, bt3 };
+
+	/**
+	 * Turntable behavior.
+	 */
+	private Behavior tt1 = new TapeFollow();
+	private Behavior tt2 = new TurntablePark();
+	private Behavior tt3 = new TurntableRotate();
+	private Behavior tt4 = new TurntableConnect();
+	private Behavior tt5 = new SensorHeadPosition();
+	private Behavior[] turnTableArray = { tt1, tt2, tt3, tt4, tt5 };
+
 	/**
 	 * Slider behavior and arbitrator
 	 */
@@ -112,6 +139,28 @@ public class ArbitratorManager {
 	private Behavior[] gateBehavior = { g0, g1, g2, g3, g4, g5 };
 
 	/**
+	 * Seesaw behavior.
+	 */
+	private Behavior w1 = new TapeFollow();
+	private Behavior w2 = new WhipDriveForward();
+	private Behavior w3 = new WhipIsDown();
+	private Behavior w4 = new DriveUntilWhipAbyss();
+	private Behavior w5 = new WhipAbyssDetected();
+	private Behavior w6 = new WaitForWhip();
+	private Behavior w7 = new EndOfWhip();
+	private Behavior w8 = new SensorHeadPosition();
+	private Behavior[] seesawArray = { w1, w2, w3, w4, w5, w6, w7, w8 };
+
+	/**
+	 * Suspension bridge behavior.
+	 */
+	private Behavior sb1 = new TapeFollow();
+	private Behavior sb2 = new FollowBridgeFast();
+	private Behavior sb3 = new SensorHeadPosition();
+
+	private Behavior[] suspensionBridgeArray = { sb1, sb2, sb3 };
+
+	/**
 	 * Tape behavior and arbitrator
 	 */
 	private Behavior t1 = new TapeFollow();
@@ -119,8 +168,22 @@ public class ArbitratorManager {
 	private Behavior t3 = new TapeObstacleFound();
 	private Behavior t4 = new ReadCodes();
 	private Behavior t5 = new SensorHeadPosition();
-	private Behavior t6 = new MotorAStall();
-	private Behavior[] tapeBehavior = { t1, t2, t3, t4, t5, t6 };
+	// private Behavior t6 = new MotorAStall();
+	private Behavior[] tapeBehavior = { t1, t2, t3, t4, t5 };
+
+	/**
+	 * ColorGate behavior.
+	 */
+	private Behavior c1 = new ColorTapeFollow();
+	private Behavior c2 = new FirstColor();
+	private Behavior c3 = new FollowWallColor(12);
+	private Behavior c4 = new ColorFound();
+	private Behavior c5 = new ButtonPressed();
+	private Behavior c6 = new WallAfterButton();
+	private Behavior c7 = new SensorHeadPosition();
+	// private Behavior tf7 = new MotorAStall();
+
+	private Behavior[] colorGateBehavior = { c1, c2, c3, c4, c5, c6, c7 };
 
 	/**
 	 * End Opponent behavior and arbitrator
@@ -201,16 +264,17 @@ public class ArbitratorManager {
 				Settings.PILOT.setTravelSpeed(Settings.PILOT.getMaxTravelSpeed() * 0.70);
 				Settings.PILOT.setRotateSpeed(Settings.PILOT.getMaxRotateSpeed() / 4);
 				Motor.A.setSpeed(Motor.A.getMaxSpeed() / 5);
-				new SensorHeadCalibrate();
 				Settings.motorAAngle = Settings.SENSOR_RIGHT;
 				Settings.atStart = false;
 
-				System.out.println("Press ENTER");
-				Button.ENTER.waitForPressAndRelease();
-				// wait 10 seconds before starting the race
-				Delay.msDelay(10000);
+				if (!Settings.relocate) {
+					System.out.println("Press ENTER");
+					Button.ENTER.waitForPressAndRelease();
+					// wait 10 seconds before starting the race
+					Delay.msDelay(10000);
+				}
 
-				this.arbitrator = new CustomArbitrator(raceBehavior);
+				this.arbitrator = new CustomArbitrator(this.raceBehavior);
 				break;
 			case BRIDGE:
 				Settings.readState = false;
@@ -230,7 +294,7 @@ public class ArbitratorManager {
 				Settings.motorAAngle = Settings.SENSOR_RIGHT;
 				Motor.A.setStallThreshold(10, 1000);
 
-				this.arbitrator = new CustomArbitrator(mazeBehavior);
+				this.arbitrator = new CustomArbitrator(this.mazeBehavior);
 				break;
 			case SWAMP:
 				Settings.readState = false;
@@ -240,23 +304,21 @@ public class ArbitratorManager {
 				Settings.motorAAngle = Settings.SENSOR_FRONT;
 				Motor.A.setStallThreshold(10, 1000);
 
-				this.arbitrator = new CustomArbitrator(swampBehavior);
+				this.arbitrator = new CustomArbitrator(this.swampBehavior);
 				break;
 			case BT_GATE:
 				pilot.setTravelSpeed(pilot.getMaxTravelSpeed() / 2);
 				pilot.setRotateSpeed(pilot.getMaxRotateSpeed() / 4);
 				Motor.A.setSpeed(Motor.A.getMaxSpeed() / 5);
 				Settings.motorAAngle = Settings.SENSOR_FRONT;
-				
-				this.arbitrator = new CustomArbitrator(btgateBehavior);
+
+				this.arbitrator = new CustomArbitrator(this.btgateBehavior);
 				break;
-			case TAPE:
-				double speed = pilot.getMaxTravelSpeed() * Settings.tapeFollowSpeed;
-				pilot.setTravelSpeed(speed);
-				pilot.setRotateSpeed(pilot.getRotateMaxSpeed());
+			case TURNTABLE:
+				Settings.bluetooth = false;
 				Settings.motorAAngle = Settings.SENSOR_FRONT;
 
-				this.arbitrator = new CustomArbitrator(tapeBehavior);
+				this.arbitrator = new CustomArbitrator(this.turnTableArray);
 				break;
 			case SLIDER:
 				pilot.setTravelSpeed(pilot.getMaxTravelSpeed() / 2);
@@ -264,7 +326,40 @@ public class ArbitratorManager {
 				Motor.A.setSpeed(Motor.A.getMaxSpeed() / 5);
 				Settings.motorAAngle = Settings.SENSOR_FRONT;
 
-				this.arbitrator = new CustomArbitrator(gateBehavior);
+				this.arbitrator = new CustomArbitrator(this.gateBehavior);
+				break;
+			case SEESAW:
+				Settings.PILOT.setTravelSpeed(Settings.PILOT.getMaxTravelSpeed() * 0.40);
+				Settings.PILOT.setRotateSpeed(Settings.PILOT.getMaxRotateSpeed() * 0.15);
+				Motor.A.setSpeed(Motor.A.getMaxSpeed() / 5);
+				Settings.motorAAngle = Settings.SENSOR_FRONT;
+
+				this.arbitrator = new CustomArbitrator(this.seesawArray);
+				break;
+			case SUSPENSION_BRIDGE:
+				pilot.setRotateSpeed(pilot.getRotateMaxSpeed());
+				Settings.motorAAngle = Settings.SENSOR_FRONT;
+
+				this.arbitrator = new CustomArbitrator(this.suspensionBridgeArray);
+				break;
+			case LINE_OBSTACLE:
+				double speed = pilot.getMaxTravelSpeed() * Settings.tapeFollowSpeed;
+				pilot.setTravelSpeed(speed);
+				pilot.setRotateSpeed(pilot.getRotateMaxSpeed());
+				Settings.motorAAngle = Settings.SENSOR_FRONT;
+
+				this.arbitrator = new CustomArbitrator(this.tapeBehavior);
+				break;
+			case COLOR_GATE:
+				Motor.A.setSpeed(Motor.A.getMaxSpeed() / 5);
+				Settings.PILOT.setTravelSpeed(Settings.PILOT.getMaxTravelSpeed() * 0.75);
+				Settings.PILOT.setRotateSpeed(Settings.PILOT.getMaxRotateSpeed() * 0.15);
+				Settings.motorAAngle = Settings.SENSOR_FRONT;
+
+				this.arbitrator = new CustomArbitrator(this.colorGateBehavior);
+				break;
+			case END_OPPONENT:
+				this.arbitrator = new CustomArbitrator(this.endBehavior);
 				break;
 			default:
 				System.out.println("No arbitrator selected! Error! Error!");
