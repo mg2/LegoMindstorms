@@ -130,13 +130,14 @@ public class ArbitratorManager {
 	/**
 	 * Slider behavior.
 	 */
-	private Behavior g0 = new TapeFollow();
-	private Behavior g1 = new SliderFollowWall(10);
-	private Behavior g2 = new SliderHitWall();
-	private Behavior g3 = new StartSlider();
-	private Behavior g4 = new DetectTape();
-	private Behavior g5 = new SensorHeadPosition();
-	private Behavior[] gateBehavior = { g0, g1, g2, g3, g4, g5 };
+	Behavior g1 = new TapeFollow();
+	// TODO: GAP
+	Behavior g2 = new ReadCodes();
+	Behavior g3 = new SliderFollowWall(10);
+	Behavior g4 = new SliderHitWall();
+	Behavior g5 = new StartSlider();
+	Behavior g6 = new SensorHeadPosition();
+	private Behavior[] gateBehavior = { g1, g2, g3, g4, g5, g6 };
 
 	/**
 	 * Seesaw behavior.
@@ -228,8 +229,8 @@ public class ArbitratorManager {
 	}
 
 	/**
-	 * Changes the current arbitrator, according to the given
-	 * {@code RobotState} .
+	 * Changes the current arbitrator, according to the given {@code RobotState}
+	 * .
 	 * 
 	 * @param state
 	 *            given {@code RobotState} to change arbitrator one
@@ -240,140 +241,148 @@ public class ArbitratorManager {
 	}
 
 	/**
-	 * Update the current arbitrator to a level specific one, depending on
-	 * the passed {@code RobotState}.
+	 * Update the current arbitrator to a level specific one, depending on the
+	 * passed {@code RobotState}.
 	 * 
 	 * @param state
 	 *            given {@code RobotState} to change the arbitrator to
 	 */
 	private void updateArbitrator(RobotState state) {
-		if (state != null && state != RobotState.START && state != RobotState.READCODE) {
+		if (state != null && state != RobotState.START
+				&& state != RobotState.READCODE) {
 			this.arbitrator.stop();
 		}
 		System.out.println(state.toString() + " mode selected");
 
 		switch (state) {
-			case READCODE:
-				pilot.setTravelSpeed(pilot.getMaxTravelSpeed() * 0.6);
-				pilot.setRotateSpeed(pilot.getMaxRotateSpeed() / 4);
-				Settings.motorAAngle = Settings.SENSOR_FRONT;
+		case READCODE:
+			pilot.setTravelSpeed(pilot.getMaxTravelSpeed() * 0.6);
+			pilot.setRotateSpeed(pilot.getMaxRotateSpeed() / 4);
+			Settings.motorAAngle = Settings.SENSOR_FRONT;
 
-				System.out.println("Relocating. Press ENTER to continue.");
-				Button.ENTER.waitForPress();
-				this.arbitrator = new CustomArbitrator(this.startBehavior);
-				break;
-			case START:
-				pilot.setTravelSpeed(pilot.getMaxTravelSpeed() * 0.6);
-				pilot.setRotateSpeed(pilot.getMaxRotateSpeed() / 4);
-				Settings.motorAAngle = Settings.SENSOR_FRONT;
+			System.out.println("Relocating. Press ENTER to continue.");
+			Button.ENTER.waitForPress();
+			this.arbitrator = new CustomArbitrator(this.startBehavior);
+			break;
+		case START:
+			pilot.setTravelSpeed(pilot.getMaxTravelSpeed() * 0.6);
+			pilot.setRotateSpeed(pilot.getMaxRotateSpeed() / 4);
+			Settings.motorAAngle = Settings.SENSOR_FRONT;
 
-				this.arbitrator = new CustomArbitrator(startBehavior);
-				break;
-			case RACE:
-				Settings.PILOT.setTravelSpeed(Settings.PILOT.getMaxTravelSpeed() * 0.70);
-				Settings.PILOT.setRotateSpeed(Settings.PILOT.getMaxRotateSpeed() / 4);
-				Motor.A.setSpeed(Motor.A.getMaxSpeed() / 5);
-				Settings.motorAAngle = Settings.SENSOR_RIGHT;
-				Settings.atStart = false;
+			this.arbitrator = new CustomArbitrator(startBehavior);
+			break;
+		case RACE:
+			Settings.PILOT
+					.setTravelSpeed(Settings.PILOT.getMaxTravelSpeed() * 0.70);
+			Settings.PILOT
+					.setRotateSpeed(Settings.PILOT.getMaxRotateSpeed() / 4);
+			Motor.A.setSpeed(Motor.A.getMaxSpeed() / 5);
+			Settings.motorAAngle = Settings.SENSOR_RIGHT;
+			Settings.atStart = false;
 
-				if (!Settings.raceStarted) {
-					System.out.println("Press ENTER");
-					Button.ENTER.waitForPressAndRelease();
-					// wait 10 seconds before starting the race
-					Delay.msDelay(10000);
-					Settings.raceStarted = true;
-				}
+			if (!Settings.raceStarted) {
+				System.out.println("Press ENTER");
+				Button.ENTER.waitForPressAndRelease();
+				// wait 10 seconds before starting the race
+				Delay.msDelay(10000);
+				Settings.raceStarted = true;
+			}
 
-				this.arbitrator = new CustomArbitrator(this.raceBehavior);
-				break;
-			case BRIDGE:
-				Settings.readState = false;
-				Settings.LIGHT.setHigh(Settings.light_bridge);
-				Settings.LIGHT.setLow(Settings.light_black);
-				Motor.A.setSpeed(Motor.A.getMaxSpeed() / 5);
-				pilot.setRotateSpeed(pilot.getMaxRotateSpeed() / 5);
-				pilot.setTravelSpeed(30);
-				Settings.motorAAngle = Settings.SENSOR_RIGHT;
+			this.arbitrator = new CustomArbitrator(this.raceBehavior);
+			break;
+		case BRIDGE:
+			Settings.readState = false;
+			Settings.LIGHT.setHigh(Settings.light_bridge);
+			Settings.LIGHT.setLow(Settings.light_black);
+			Motor.A.setSpeed(Motor.A.getMaxSpeed() / 5);
+			pilot.setRotateSpeed(pilot.getMaxRotateSpeed() / 5);
+			pilot.setTravelSpeed(30);
+			Settings.motorAAngle = Settings.SENSOR_RIGHT;
 
-				this.arbitrator = new CustomArbitrator(this.bridgeBehavior);
-				break;
-			case MAZE:
-				pilot.setTravelSpeed(pilot.getMaxTravelSpeed() / 2);
-				pilot.setRotateSpeed(pilot.getMaxRotateSpeed() / 4);
-				Motor.A.setSpeed(Motor.A.getMaxSpeed() / 5);
-				Settings.motorAAngle = Settings.SENSOR_RIGHT;
-				Motor.A.setStallThreshold(10, 1000);
+			this.arbitrator = new CustomArbitrator(this.bridgeBehavior);
+			break;
+		case MAZE:
+			pilot.setTravelSpeed(pilot.getMaxTravelSpeed() / 2);
+			pilot.setRotateSpeed(pilot.getMaxRotateSpeed() / 4);
+			Motor.A.setSpeed(Motor.A.getMaxSpeed() / 5);
+			Settings.motorAAngle = Settings.SENSOR_RIGHT;
+			Motor.A.setStallThreshold(10, 1000);
 
-				this.arbitrator = new CustomArbitrator(this.mazeBehavior);
-				break;
-			case SWAMP:
-				Settings.readState = false;
-				pilot.setTravelSpeed(pilot.getMaxTravelSpeed() / 2);
-				pilot.setRotateSpeed(pilot.getMaxRotateSpeed() / 4);
-				Motor.A.setSpeed(Motor.A.getMaxSpeed() / 5);
-				Settings.motorAAngle = Settings.SENSOR_FRONT;
-				Motor.A.setStallThreshold(10, 1000);
+			this.arbitrator = new CustomArbitrator(this.mazeBehavior);
+			break;
+		case SWAMP:
+			Settings.readState = false;
+			pilot.setTravelSpeed(pilot.getMaxTravelSpeed() / 2);
+			pilot.setRotateSpeed(pilot.getMaxRotateSpeed() / 4);
+			Motor.A.setSpeed(Motor.A.getMaxSpeed() / 5);
+			Settings.motorAAngle = Settings.SENSOR_FRONT;
+			Motor.A.setStallThreshold(10, 1000);
 
-				this.arbitrator = new CustomArbitrator(this.swampBehavior);
-				break;
-			case BT_GATE:
-				pilot.setTravelSpeed(pilot.getMaxTravelSpeed() / 2);
-				pilot.setRotateSpeed(pilot.getMaxRotateSpeed() / 4);
-				Motor.A.setSpeed(Motor.A.getMaxSpeed() / 5);
-				Settings.motorAAngle = Settings.SENSOR_FRONT;
+			this.arbitrator = new CustomArbitrator(this.swampBehavior);
+			break;
+		case BT_GATE:
+			pilot.setTravelSpeed(pilot.getMaxTravelSpeed() / 2);
+			pilot.setRotateSpeed(pilot.getMaxRotateSpeed() / 4);
+			Motor.A.setSpeed(Motor.A.getMaxSpeed() / 5);
+			Settings.motorAAngle = Settings.SENSOR_FRONT;
 
-				this.arbitrator = new CustomArbitrator(this.btgateBehavior);
-				break;
-			case TURNTABLE:
-				Settings.bluetooth = false;
-				Settings.motorAAngle = Settings.SENSOR_FRONT;
+			this.arbitrator = new CustomArbitrator(this.btgateBehavior);
+			break;
+		case TURNTABLE:
+			Settings.bluetooth = false;
+			Settings.motorAAngle = Settings.SENSOR_FRONT;
 
-				this.arbitrator = new CustomArbitrator(this.turnTableArray);
-				break;
-			case SLIDER:
-				pilot.setTravelSpeed(pilot.getMaxTravelSpeed() / 2);
-				pilot.setRotateSpeed(pilot.getMaxRotateSpeed() / 4);
-				Motor.A.setSpeed(Motor.A.getMaxSpeed() / 5);
-				Settings.motorAAngle = Settings.SENSOR_FRONT;
+			this.arbitrator = new CustomArbitrator(this.turnTableArray);
+			break;
+		case SLIDER:
+			pilot.setTravelSpeed(pilot.getMaxTravelSpeed() / 2);
+			pilot.setRotateSpeed(pilot.getMaxRotateSpeed() / 4);
+			Motor.A.setSpeed(Motor.A.getMaxSpeed() / 5);
+			Settings.motorAAngle = Settings.SENSOR_FRONT;
+			Settings.readState = false;
 
-				this.arbitrator = new CustomArbitrator(this.gateBehavior);
-				break;
-			case SEESAW:
-				Settings.PILOT.setTravelSpeed(Settings.PILOT.getMaxTravelSpeed() * 0.40);
-				Settings.PILOT.setRotateSpeed(Settings.PILOT.getMaxRotateSpeed() * 0.15);
-				Motor.A.setSpeed(Motor.A.getMaxSpeed() / 5);
-				Settings.motorAAngle = Settings.SENSOR_FRONT;
+			this.arbitrator = new CustomArbitrator(this.gateBehavior);
+			break;
+		case SEESAW:
+			Settings.PILOT
+					.setTravelSpeed(Settings.PILOT.getMaxTravelSpeed() * 0.40);
+			Settings.PILOT
+					.setRotateSpeed(Settings.PILOT.getMaxRotateSpeed() * 0.15);
+			Motor.A.setSpeed(Motor.A.getMaxSpeed() / 5);
+			Settings.motorAAngle = Settings.SENSOR_FRONT;
 
-				this.arbitrator = new CustomArbitrator(this.seesawArray);
-				break;
-			case SUSPENSION_BRIDGE:
-				pilot.setRotateSpeed(pilot.getRotateMaxSpeed());
-				Settings.motorAAngle = Settings.SENSOR_FRONT;
+			this.arbitrator = new CustomArbitrator(this.seesawArray);
+			break;
+		case SUSPENSION_BRIDGE:
+			pilot.setRotateSpeed(pilot.getRotateMaxSpeed());
+			Settings.motorAAngle = Settings.SENSOR_FRONT;
 
-				this.arbitrator = new CustomArbitrator(this.suspensionBridgeArray);
-				break;
-			case LINE_OBSTACLE:
-				double speed = pilot.getMaxTravelSpeed() * Settings.tapeFollowSpeed;
-				pilot.setTravelSpeed(speed);
-				pilot.setRotateSpeed(pilot.getRotateMaxSpeed());
-				Settings.motorAAngle = Settings.SENSOR_FRONT;
+			this.arbitrator = new CustomArbitrator(this.suspensionBridgeArray);
+			break;
+		case LINE_OBSTACLE:
+			double speed = pilot.getMaxTravelSpeed() * Settings.tapeFollowSpeed;
+			pilot.setTravelSpeed(speed);
+			pilot.setRotateSpeed(pilot.getRotateMaxSpeed());
+			Settings.motorAAngle = Settings.SENSOR_FRONT;
 
-				this.arbitrator = new CustomArbitrator(this.tapeBehavior);
-				break;
-			case COLOR_GATE:
-				Motor.A.setSpeed(Motor.A.getMaxSpeed() / 5);
-				Settings.PILOT.setTravelSpeed(Settings.PILOT.getMaxTravelSpeed() * 0.75);
-				Settings.PILOT.setRotateSpeed(Settings.PILOT.getMaxRotateSpeed() * 0.15);
-				Settings.motorAAngle = Settings.SENSOR_FRONT;
+			this.arbitrator = new CustomArbitrator(this.tapeBehavior);
+			break;
+		case COLOR_GATE:
+			Motor.A.setSpeed(Motor.A.getMaxSpeed() / 5);
+			Settings.PILOT
+					.setTravelSpeed(Settings.PILOT.getMaxTravelSpeed() * 0.75);
+			Settings.PILOT
+					.setRotateSpeed(Settings.PILOT.getMaxRotateSpeed() * 0.15);
+			Settings.motorAAngle = Settings.SENSOR_FRONT;
 
-				this.arbitrator = new CustomArbitrator(this.colorGateBehavior);
-				break;
-			case END_OPPONENT:
-				this.arbitrator = new CustomArbitrator(this.endBehavior);
-				break;
-			default:
-				System.out.println("No arbitrator selected! Error! Error!");
-				break;
+			this.arbitrator = new CustomArbitrator(this.colorGateBehavior);
+			break;
+		case END_OPPONENT:
+			this.arbitrator = new CustomArbitrator(this.endBehavior);
+			break;
+		default:
+			System.out.println("No arbitrator selected! Error! Error!");
+			break;
 		}
 
 		// update the thread to run the selected this.arbitrator
