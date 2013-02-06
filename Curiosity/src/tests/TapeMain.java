@@ -36,6 +36,7 @@ public class TapeMain implements ButtonListener {
 
 		Behavior tf1 = new LineFollow();
 		Behavior tf2 = new TapeLost();
+		@SuppressWarnings("unused")
 		Behavior tf3 = new GapFound(); // >130
 		Behavior tf4 = new ObstacleFound();
 		Behavior tf5 = new SensorHeadPosition();
