@@ -21,6 +21,7 @@ import edu.kit.curiosity.behaviors.colorGate.ColorTapeFollow;
 import edu.kit.curiosity.behaviors.colorGate.FirstColor;
 import edu.kit.curiosity.behaviors.colorGate.FollowWallColor;
 import edu.kit.curiosity.behaviors.colorGate.WallAfterButton;
+import edu.kit.curiosity.behaviors.end.ALLTHEEND;
 import edu.kit.curiosity.behaviors.hangingBridge.FollowBridgeFast;
 import edu.kit.curiosity.behaviors.maze.BeginMaze;
 import edu.kit.curiosity.behaviors.maze.FollowWall;
@@ -193,8 +194,9 @@ public class ArbitratorManager {
 	/**
 	 * End Opponent behavior.
 	 */
-	private Behavior e1 = new DriveForward();
-	private Behavior[] endBehavior = { e1 };
+	private Behavior e1 = new ALLTHEEND();
+	private Behavior e2 = new SensorHeadPosition();
+	private Behavior[] endBehavior = { e1, e2 };
 
 	/**
 	 * Instantiate an {@code ArbitratorManager}
@@ -383,6 +385,10 @@ public class ArbitratorManager {
 			this.arbitrator = new CustomArbitrator(this.colorGateBehavior);
 			break;
 		case END_OPPONENT:
+			Settings.PILOT.setTravelSpeed(Settings.PILOT.getMaxTravelSpeed());
+			pilot.setRotateSpeed(pilot.getMaxRotateSpeed() / 4);
+			Motor.A.setSpeed(Motor.A.getMaxSpeed() / 5);
+			Settings.motorAAngle = Settings.SENSOR_FRONT;
 			this.arbitrator = new CustomArbitrator(this.endBehavior);
 			break;
 		default:
