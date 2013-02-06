@@ -19,6 +19,7 @@ public class Settings {
 	 */
 	public static ArbitratorManager arbiMgr;
 	public final static RobotState FIRST_LEVEL = RobotState.RACE;
+	// defines if the robot is being relocated
 	public static boolean relocate = false;
 
 	/**
