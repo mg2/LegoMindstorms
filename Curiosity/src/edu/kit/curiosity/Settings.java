@@ -20,7 +20,10 @@ public class Settings {
 	public static ArbitratorManager arbiMgr;
 	public final static RobotState FIRST_LEVEL = RobotState.RACE;
 	// defines if the robot is being relocated
-	public static boolean relocate = false;
+	//public static boolean relocate = false;
+	public static boolean raceStarted = false;
+	// defines if the robot is currently running or not
+	public static boolean isRunning = false;
 
 	/**
 	 * General settings for the robot.
@@ -96,7 +99,7 @@ public class Settings {
 	public static int light_green = 415;
 	public static int searchedColor;
 	public static int color1;
-	
+
 	/**
 	 * Relative light percents.
 	 */
@@ -104,7 +107,6 @@ public class Settings {
 	public final static int light_yellow_rel = 90;
 	public final static int light_red_rel = 80;
 	public final static int light_green_rel = 57;
-	
 
 	public static int whipAndBridgeCounter = 0;
 	public static boolean buttonPressed = false;
