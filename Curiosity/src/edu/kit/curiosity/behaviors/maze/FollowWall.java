@@ -48,6 +48,7 @@ public class FollowWall implements Behavior {
 	@Override
 	public void action() {
 		suppressed = false;
+		Settings.readState = true;
 		while (!suppressed && !((Settings.TOUCH_L.isPressed() || Settings.TOUCH_R.isPressed()))) {
 			if (sonic.getDistance() > (distanceToWall + 10)) {
 				pilot.arc(-15, -90, true);
