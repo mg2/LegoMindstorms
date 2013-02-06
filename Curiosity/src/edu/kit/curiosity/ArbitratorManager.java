@@ -36,6 +36,7 @@ import edu.kit.curiosity.behaviors.swamp.SwampForward;
 import edu.kit.curiosity.behaviors.tapefollow.TapeFollow;
 import edu.kit.curiosity.behaviors.tapefollow.TapeGapFound;
 import edu.kit.curiosity.behaviors.tapefollow.TapeObstacleFound;
+import edu.kit.curiosity.behaviors.turntable.TurntableBegin;
 import edu.kit.curiosity.behaviors.turntable.TurntableConnect;
 import edu.kit.curiosity.behaviors.turntable.TurntablePark;
 import edu.kit.curiosity.behaviors.turntable.TurntableRotate;
@@ -120,12 +121,15 @@ public class ArbitratorManager {
 	/**
 	 * Turntable behavior.
 	 */
+
 	private Behavior tt1 = new TapeFollow();
 	private Behavior tt2 = new TurntablePark();
 	private Behavior tt3 = new TurntableRotate();
 	private Behavior tt4 = new TurntableConnect();
-	private Behavior tt5 = new SensorHeadPosition();
-	private Behavior[] turnTableArray = { tt1, tt2, tt3, tt4, tt5 };
+	private Behavior tt5 = new TurntableBegin();
+	private Behavior tt6 = new ReadCodes();
+	private Behavior tt7 = new SensorHeadPosition();
+	private Behavior[] turnTableArray = { tt1, tt2, tt3, tt4, tt5, tt6, tt7 };
 
 	/**
 	 * Slider behavior.
@@ -330,6 +334,7 @@ public class ArbitratorManager {
 			break;
 		case TURNTABLE:
 			Settings.bluetooth = false;
+			Settings.readState = false;
 			Settings.motorAAngle = Settings.SENSOR_FRONT;
 
 			this.arbitrator = new CustomArbitrator(this.turnTableArray);
