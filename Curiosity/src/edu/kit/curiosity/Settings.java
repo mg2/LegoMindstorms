@@ -116,6 +116,6 @@ public class Settings {
 	public static boolean parkCompleted = false;
 	public static boolean bluetooth = false;
 
-	public final static double tapeFollowSpeed = 0.25;
+	public final static double tapeFollowSpeed = 0.15;
 
 }
