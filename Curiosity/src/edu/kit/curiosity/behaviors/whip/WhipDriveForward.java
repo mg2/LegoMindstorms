@@ -3,7 +3,6 @@ package edu.kit.curiosity.behaviors.whip;
 import lejos.robotics.navigation.DifferentialPilot;
 import lejos.robotics.subsumption.Behavior;
 import edu.kit.curiosity.Settings;
-import edu.kit.curiosity.behaviors.DriveForward;
 
 public class WhipDriveForward implements Behavior {
 	
@@ -17,6 +16,9 @@ public class WhipDriveForward implements Behavior {
 		this.pilot = Settings.PILOT;
 	}
 	
+	public boolean takeControl() {
+		return (Settings.beforeWhip || !Settings.afterWhip);
+	}
 	/**
 	 * Initiates the cleanup when this Behavior is suppressed
 	 */
@@ -36,10 +38,6 @@ public class WhipDriveForward implements Behavior {
 			//}
 		}
 		//pilot.stop();
-	}
-	
-	public boolean takeControl() {
-		return (Settings.beforeWhip || !Settings.afterWhip);
 	}
 
 }

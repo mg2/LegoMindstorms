@@ -6,7 +6,8 @@ import lejos.util.Delay;
 public class SoundTest {
  
         // IMPERIAL MARCH
-        private static final String name1 = "Imperial March";
+        @SuppressWarnings("unused")
+		private static final String name1 = "Imperial March";
         private static final short[] note1 = { 294, 38, 330, 13, 392, 13, 0, 13,
                         392, 13, 0, 13, 330, 4, 0, 8, 294, 4, 0, 8, 196, 4, 0, 8, 247, 4,
                         0, 8, 294, 4, 0, 8, 247, 4, 0, 8, 330, 13, 0, 13, 294, 4, 0, 8,
@@ -17,8 +18,10 @@ public class SoundTest {
                         0, 8, 330, 13, 0, 13, 294, 4, 0, 8, 247, 4, 0, 8, 196, 4, 0, 8,
                         247, 6, 0, 7, 294, 13, 0, 13, 294, 4, 0, 8, 294, 4, 0, 8, 370, };
  
-        private static final String name2 = "Pokemon";
-        private static final short[] note2 = { 294, 38, 330, 13, 392, 13, 0, 13,
+        @SuppressWarnings("unused")
+		private static final String name2 = "Pokemon";
+        @SuppressWarnings("unused")
+		private static final short[] note2 = { 294, 38, 330, 13, 392, 13, 0, 13,
                         392, 13, 0, 13, 330, 4, 0, 8, 294, 4, 0, 8, 196, 4, 0, 8, 247, 4,
                         0, 8, 294, 4, 0, 8, 247, 4, 0, 8, 330, 13, 0, 13, 294, 4, 0, 8,
                         247, 4, 0, 8, 220, 4, 0, 8, 247, 4, 0, 8, 196, 25, 220, 13, 233,
@@ -27,7 +30,8 @@ public class SoundTest {
                         4, 0, 8, 294, 4, 0, 8, 196, 4, 0, 8, 247, 13, 294, 4, 0, 8, 247, 4,
                         0, 8, 330, 13, 0, 13, 294, 4, 0, 8, 247, 4, 0, 8, 196, 4, 0, 8,
                         247, 6, 0, 7, 294, 13, 0, 13, 294, 4, 0, 8, 294, 4, 0, 8, 370, };
-        private static final String name3 = "Benny Hill";
+        @SuppressWarnings("unused")
+		private static final String name3 = "Benny Hill";
         static final short[] note3 = { 294, 38, 330, 13, 392, 13, 0, 13, 392, 13,
                         0, 13, 330, 4, 0, 8, 294, 4, 0, 8, 196, 4, 0, 8, 247, 4, 0, 8, 294,
                         4, 0, 8, 247, 4, 0, 8, 330, 13, 0, 13, 294, 4, 0, 8, 247, 4, 0, 8,
@@ -40,7 +44,8 @@ public class SoundTest {
  
         public static void play() {
                 while (true) {
-                        int r = (int) Math.ceil(3 * Math.random());
+                        @SuppressWarnings("unused")
+						int r = (int) Math.ceil(3 * Math.random());
                         for (int i = 0; i < note1.length; i += 2) {
                                 final int tone = (int) note1[i];
                                 final int b = i + 1;

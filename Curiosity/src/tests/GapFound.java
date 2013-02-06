@@ -12,6 +12,7 @@ public class GapFound implements Behavior {
 	// TODO
 	// TODO
 
+	@SuppressWarnings("unused")
 	private boolean suppressed = false;
 	DifferentialPilot dp;
 	LightSensor ls;
