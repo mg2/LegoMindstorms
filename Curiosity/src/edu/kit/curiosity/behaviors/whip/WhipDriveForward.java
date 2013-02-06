@@ -30,14 +30,17 @@ public class WhipDriveForward implements Behavior {
 	 * Moves forward as long as this Behavior is active
 	 */
 	public void action() {
+		System.out.println("Drive Forward");
 		suppressed = false;
+		Settings.PILOT.setTravelSpeed(Settings.PILOT.getMaxTravelSpeed() * 0.1);
 		//pilot.forward();
 		while (!suppressed) {
 			//if (!pilot.isMoving()) {
 				pilot.travel(1, true);
 			//}
 		}
-		//pilot.stop();
+		pilot.stop();
+		Settings.PILOT.setTravelSpeed(Settings.PILOT.getMaxTravelSpeed() * 0.4);
 	}
 
 }

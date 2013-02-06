@@ -14,7 +14,7 @@ import edu.kit.curiosity.Settings;
 public class WaitForWhip implements Behavior {
 
 	private boolean suppressed = false;
-	private final int distance = 25; // TODO genauerer Abstand
+	private final int distance = 30; // TODO genauerer Abstand
 	UltrasonicSensor sonic = Settings.SONIC;
 	DifferentialPilot pilot = Settings.PILOT;
 
@@ -25,15 +25,16 @@ public class WaitForWhip implements Behavior {
 
 	@Override
 	public void action() {
+		System.out.println("Wait for whip");
+		System.out.println("Distance: " + Settings.SONIC.getDistance());
 		suppressed = false;
 		while (!suppressed && sonic.getDistance() <= distance) {
 			pilot.travel(0, true);
-			Thread.yield();
 		}
-		Delay.msDelay(1000);
+		Delay.msDelay(2000);
 		if (!suppressed) {
 			pilot.travel(30); // TODO genauere Strecke
-			Settings.motorAAngle = -90;
+			Settings.motorAAngle = Settings.SENSOR_RIGHT;
 			Settings.beforeWhip = false;
 		}
 	}
