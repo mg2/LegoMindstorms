@@ -103,10 +103,10 @@ public class Settings {
 	/**
 	 * Relative light percents.
 	 */
-	public final int light_bridge_rel = 66;
-	public final int light_yellow_rel = 90;
-	public final int light_red_rel = 80;
-	public final int light_green_rel = 57;
+	public final static int light_bridge_rel = 66;
+	public final static int light_yellow_rel = 90;
+	public final static int light_red_rel = 80;
+	public final static int light_green_rel = 57;
 
 	public static int whipAndBridgeCounter = 0;
 	public static boolean buttonPressed = false;

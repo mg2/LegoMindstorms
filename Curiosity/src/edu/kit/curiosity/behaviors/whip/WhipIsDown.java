@@ -7,7 +7,7 @@ public class WhipIsDown implements Behavior {
 
 	@Override
 	public boolean takeControl() {
-		return (Settings.beforeWhip && Settings.LIGHT.getLightValue() > 50);
+		return (Settings.beforeWhip && Settings.LIGHT.getLightValue() > Settings.light_bridge_rel);
 	}
 
 	@Override

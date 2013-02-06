@@ -7,13 +7,14 @@ public class EndOfWhip implements Behavior {
 
 	@Override
 	public boolean takeControl() {
-		return (Settings.whipAndBridgeCounter >= 10 && !Settings.afterWhip);
+		return (Settings.whipAndBridgeCounter >= 10 || Settings.LIGHT.getLightValue() > 90) && !Settings.afterWhip ;
 	}
 
 	@Override
 	public void action() {
 		//Settings.PILOT.travel(20);
 		Settings.PILOT.rotate(Settings.whipAndBridgeCounter * (-10));
+		Settings.readState = true;
 		Settings.PILOT.setTravelSpeed(Settings.PILOT.getMaxTravelSpeed() * Settings.tapeFollowSpeed);
 		Settings.whipAndBridgeCounter = 0;
 		Settings.afterWhip = true;
