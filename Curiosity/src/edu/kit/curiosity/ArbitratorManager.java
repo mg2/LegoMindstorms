@@ -7,8 +7,6 @@ import lejos.robotics.subsumption.Behavior;
 import lejos.robotics.subsumption.CustomArbitrator;
 import lejos.util.Delay;
 import edu.kit.curiosity.behaviors.DriveForward;
-import edu.kit.curiosity.behaviors.EnterPressed;
-import edu.kit.curiosity.behaviors.MotorAStall;
 import edu.kit.curiosity.behaviors.ReadCodes;
 import edu.kit.curiosity.behaviors.SensorHeadPosition;
 import edu.kit.curiosity.behaviors.bluetooth.LabyrinthGate;
@@ -29,7 +27,6 @@ import edu.kit.curiosity.behaviors.maze.HitWall;
 import edu.kit.curiosity.behaviors.race.Race;
 import edu.kit.curiosity.behaviors.race.RaceDrive;
 import edu.kit.curiosity.behaviors.race.RaceFollowWall;
-import edu.kit.curiosity.behaviors.slider.DetectTape;
 import edu.kit.curiosity.behaviors.slider.SliderFollowWall;
 import edu.kit.curiosity.behaviors.slider.SliderHitWall;
 import edu.kit.curiosity.behaviors.slider.StartSlider;
@@ -71,8 +68,7 @@ public class ArbitratorManager {
 	private Behavior s1 = new DriveForward();
 	private Behavior s2 = new ReadCodes();
 	private Behavior s3 = new SensorHeadPosition();
-	private Behavior s4 = new EnterPressed();
-	private Behavior[] startBehavior = { s1, s2, s3, s4 };
+	private Behavior[] startBehavior = { s1, s2, s3 };
 	// private Behavior[] startBehavior = { s1 };
 
 	/**
@@ -179,9 +175,8 @@ public class ArbitratorManager {
 	private Behavior t3 = new TapeObstacleFound();
 	private Behavior t4 = new ReadCodes();
 	private Behavior t5 = new SensorHeadPosition();
-	private Behavior t6 = new EnterPressed();
 	// private Behavior t6 = new MotorAStall();
-	private Behavior[] tapeBehavior = { t1, t2, t3, t4, t5, t6 };
+	private Behavior[] tapeBehavior = { t1, t2, t3, t4, t5 };
 
 	/**
 	 * ColorGate behavior.
