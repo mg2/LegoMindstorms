@@ -46,15 +46,16 @@ public class RaceFollowWall implements Behavior {
 	@Override
 	public void action() {
 		suppressed = false;
-		Settings.readState = false;
-		System.out.println("Follow");
-		while (!suppressed && !((Settings.TOUCH_L.isPressed() || Settings.TOUCH_R.isPressed()))) {
+		
+		while (!suppressed) {
 			if (sonic.getDistance() > (distanceToWall + 20)) {
 				pilot.arc(-15, -90, true);
-			} else if (sonic.getDistance() <= distanceToWall) {
-				pilot.arc(100, 20, true);
+			} else if (sonic.getDistance() < distanceToWall + 5) {
+				pilot.arc(110, 20, true);
 			} else if (sonic.getDistance() > distanceToWall) {
-				pilot.arc(-100, -20, true);
+				pilot.arc(-150, -20, true);
+			} else {
+				pilot.travel(10, true);
 			}
 		}
 		// pilot.stop();
