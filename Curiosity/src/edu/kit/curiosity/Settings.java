@@ -117,6 +117,6 @@ public class Settings {
 	public static boolean bluetooth = false;
 	public static boolean atStartOfTurntable = true;
 
-	public final static double tapeFollowSpeed = 0.25;
+	public final static double tapeFollowSpeed = 0.15;
 
 }
