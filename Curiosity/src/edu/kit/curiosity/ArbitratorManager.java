@@ -58,6 +58,12 @@ public class ArbitratorManager {
 	private DifferentialPilot pilot = Settings.PILOT;
 
 	/**
+	 * Relocate behavior.
+	 */
+	private Behavior relocate = new StopArbitrator();
+	private Behavior[] relocateBehavior = { relocate };
+	
+	/**
 	 * Start behavior
 	 */
 	private Behavior s1 = new DriveForward();
@@ -65,6 +71,7 @@ public class ArbitratorManager {
 	private Behavior s3 = new SensorHeadPosition();
 	private Behavior s4 = new MotorAStall();
 	private Behavior[] startBehavior = { s1, s2, s3, s4 };
+	//private Behavior[] startBehavior = { s1 };
 
 	/**
 	 * Race behavior.
@@ -228,8 +235,8 @@ public class ArbitratorManager {
 	}
 
 	/**
-	 * Changes the current arbitrator, according to the given
-	 * {@code RobotState} .
+	 * Changes the current arbitrator, according to the given {@code RobotState}
+	 * .
 	 * 
 	 * @param state
 	 *            given {@code RobotState} to change arbitrator one
@@ -240,26 +247,32 @@ public class ArbitratorManager {
 	}
 
 	/**
-	 * Update the current arbitrator to a level specific one, depending on
-	 * the passed {@code RobotState}.
+	 * Update the current arbitrator to a level specific one, depending on the
+	 * passed {@code RobotState}.
 	 * 
 	 * @param state
 	 *            given {@code RobotState} to change the arbitrator to
 	 */
 	private void updateArbitrator(RobotState state) {
-		if (state != null && state != RobotState.START && state != RobotState.READCODE) {
+		if (state != null && state != RobotState.START) {
 			this.arbitrator.stop();
 		}
 		System.out.println(state.toString() + " mode selected");
 
 		switch (state) {
+			case RELOCATE:
+				pilot.setTravelSpeed(0);
+				pilot.setRotateSpeed(0);
+				System.out.println("Relocating. Press ENTER to continue.");
+				Button.waitForAnyPress();
+				//updateArbitrator(RobotState.READCODE);
+				this.arbitrator = new CustomArbitrator(this.startBehavior);
+				break;
 			case READCODE:
 				pilot.setTravelSpeed(pilot.getMaxTravelSpeed() * 0.6);
 				pilot.setRotateSpeed(pilot.getMaxRotateSpeed() / 4);
 				Settings.motorAAngle = Settings.SENSOR_FRONT;
 
-				System.out.println("Relocating. Press ENTER to continue.");
-				Button.ENTER.waitForPress();
 				this.arbitrator = new CustomArbitrator(this.startBehavior);
 				break;
 			case START:
@@ -357,6 +370,9 @@ public class ArbitratorManager {
 				pilot.setTravelSpeed(speed);
 				pilot.setRotateSpeed(pilot.getRotateMaxSpeed());
 				Settings.motorAAngle = Settings.SENSOR_FRONT;
+				
+				pilot.rotate(-40);
+				pilot.travel(30, false);
 
 				this.arbitrator = new CustomArbitrator(this.tapeBehavior);
 				break;
@@ -376,13 +392,19 @@ public class ArbitratorManager {
 				break;
 		}
 
-		// update the thread to run the selected this.arbitrator
-		this.thread = new Thread(this.arbitrator);
-		this.thread.start();
+		// update the thread to run the selected arbitrator
+		System.out.println(state);
+		if (state != RobotState.RELOCATE) {
+			this.thread = new Thread(this.arbitrator);
+			this.thread.start();
+		}
 		Settings.isRunning = true;
 	}
 
 	public void stopArbitrator() {
+		System.out.println("stop");
+		this.pilot.stop();
+		this.thread = new Thread();
 		this.arbitrator.stop();
 	}
 }
