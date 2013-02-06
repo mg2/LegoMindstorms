@@ -20,7 +20,9 @@ public class CuriosityMain implements ButtonListener {
 	 */
 	public static void main(String[] args) {
 		new SensorHeadCalibrate();
-		new LightCalibrate(false, false);
+//		new LightCalibrate(false, false);
+		Settings.LIGHT.setHigh(Settings.light_line);
+		Settings.LIGHT.setLow(Settings.light_black);
 		new CuriosityMain();
 
 		Settings.arbiMgr = new ArbitratorManager(RobotState.START);
@@ -33,8 +35,8 @@ public class CuriosityMain implements ButtonListener {
 
 	@Override
 	public void buttonReleased(Button b) {
-		System.out.println("started: " + Settings.raceStarted);
-		System.out.println("running: " + Settings.isRunning);
+//		System.out.println("started: " + Settings.raceStarted);
+//		System.out.println("running: " + Settings.isRunning);
 		//Settings.arbiMgr.stopArbitrator();
 		if (Settings.raceStarted) {
 			if (Settings.isRunning) {

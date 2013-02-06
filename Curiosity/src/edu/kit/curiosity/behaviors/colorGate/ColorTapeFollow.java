@@ -58,12 +58,8 @@ public class ColorTapeFollow implements Behavior {
 		suppressed = false;
 
 		while (!suppressed) {
-			if (light.getLightValue() < 20) {
-				pilot.setTravelSpeed(pilot.getMaxTravelSpeed());
-				pilot.travel(10);
-				pilot.setTravelSpeed(pilot.getMaxTravelSpeed() * Settings.tapeFollowSpeed);
-			}
-			else if (light.getLightValue() > blackWhiteThreshold) {
+			pilot.setTravelSpeed(pilot.getMaxTravelSpeed() * 0.15);
+			if (light.getLightValue() > blackWhiteThreshold) {
 				// On white, turn right
 				l = 0;
 				// System.out.print("right ");
@@ -92,7 +88,7 @@ public class ColorTapeFollow implements Behavior {
 
 					if (r > 2 * out)
 						m = -1;
-					//pilot.setTravelSpeed(pilot.getMaxTravelSpeed());
+					// pilot.setTravelSpeed(pilot.getMaxTravelSpeed());
 
 					// travel back until line found
 					while (i >= 0

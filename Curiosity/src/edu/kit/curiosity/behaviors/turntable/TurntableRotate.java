@@ -25,7 +25,7 @@ public class TurntableRotate implements Behavior {
 		
 		while (sonic.getDistance() > 20) {
 			System.out.println("Rotating...");
-			turnControl.turnClockwise(-20);
+			turnControl.turnClockwise(-10);
 			Delay.msDelay(2000);
 		}
 		while (sonic.getDistance() < 100) {
@@ -38,6 +38,7 @@ public class TurntableRotate implements Behavior {
 			Settings.PILOT.travel(50);
 			turnControl.disconnectFromTurntable();
 			Settings.bluetooth = false;
+			Settings.PILOT.setTravelSpeed(Settings.PILOT.getMaxTravelSpeed() * 0.15);
 		}
 	}
 

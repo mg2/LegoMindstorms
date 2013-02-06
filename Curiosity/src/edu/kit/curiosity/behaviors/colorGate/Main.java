@@ -1,40 +1,55 @@
-package edu.kit.curiosity.behaviors.turntable;
+package edu.kit.curiosity.behaviors.colorGate;
 
-import edu.kit.curiosity.Settings;
+import lejos.nxt.Button;
+import lejos.nxt.LCD;
 import lejos.nxt.LightSensor;
+import lejos.nxt.TouchSensor;
 import lejos.nxt.UltrasonicSensor;
 import lejos.robotics.navigation.DifferentialPilot;
-import lejos.robotics.subsumption.Behavior;
 import lejos.util.Delay;
+import edu.kit.curiosity.LightCalibrate;
+import edu.kit.curiosity.SensorHeadCalibrate;
+import edu.kit.curiosity.Settings;
+import edu.kit.curiosity.behaviors.bluetooth.GateControl;
 
-public class TurntablePark implements Behavior {
-	UltrasonicSensor sonic = Settings.SONIC;
-	LightSensor light = Settings.LIGHT;
-	DifferentialPilot pilot = Settings.PILOT;
+public class Main {
+	static DifferentialPilot pilot = Settings.PILOT;
+	static LightSensor light = Settings.LIGHT;
+	static UltrasonicSensor sonic = Settings.SONIC;
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		/**
+		 * !!!!!!MARTIN!!!!!!!!! !!!!!!WICHTIG!!!!!!!!
+		 * 
+		 * Geschwindigkeit setzen
+		 */
+		double speed = pilot.getMaxTravelSpeed();
+//		pilot.setTravelSpeed(pilot.getMaxTravelSpeed() * 0.25);
+//		pilot.setRotateSpeed(pilot.getMaxRotateSpeed() * 0.5);
 
-	private static boolean suppressed;
-	private static boolean timesUp;
-	private static int mode;
-	private static boolean parked = false;
-	private final int blackWhiteThreshold = 20;
-	private final int tr = 45;
-	private final int sleep = 10;
+		pilot = Settings.PILOT;
+		pilot.setTravelSpeed(speed);
+		new SensorHeadCalibrate();
 
-	public TurntablePark() {
-		timesUp = false;
-		mode = 0;
-	}
+		Settings.motorAAngle = 0;
 
-	@Override
-	public boolean takeControl() {
-		// TODO after bluetooth permission!
-		return Settings.bluetooth && ! Settings.atStartOfTurntable && !parked;
-	}
+		new LightCalibrate(false, false);
+		int numOfTapes = 0;
+		boolean counted = false;
+		boolean reading = false;
+		boolean suppressed = false;
+		boolean timesUp = false;
+		int mode = 0;
+		boolean parked = false;
+		int blackWhiteThreshold = 40;
+		int tr = 45;
+		int sleep = 10;
 
-	@Override
-	public void action() {
-		suppressed = false;
-		System.out.println("Parking...");
+		TouchSensor touchL = Settings.TOUCH_L;
+		TouchSensor touchR = Settings.TOUCH_R;
+		GateControl gateControl = new GateControl();
 		pilot.setTravelSpeed(pilot.getMaxTravelSpeed() * 0.25);
 		pilot.setRotateSpeed(pilot.getMaxRotateSpeed() * 0.5);
 
@@ -67,13 +82,15 @@ public class TurntablePark implements Behavior {
 
 		// Mode 1
 		// Turn Around
-		while (!suppressed && mode == 1 && light.getLightValue() < 90) {
+		while (!suppressed && mode == 1 && light.getLightValue() < 60) {
+			//pilot.rotate(5, true);
 			pilot.steer(-100, 5, true);
 			Delay.msDelay(sleep);
 		}
 		if (!suppressed && mode == 1) {
+			pilot.reset();
 			mode = 2;
-			pilot.rotate(-5);
+//			pilot.rotate(-5);
 			while (!suppressed && pilot.isMoving())
 				;
 		}
@@ -134,11 +151,8 @@ public class TurntablePark implements Behavior {
 			System.out.println("Parked.");
 			Delay.msDelay(2000);
 		}
-	}
-
-	@Override
-	public void suppress() {
-		suppressed = true;
+		pilot.stop();
+		Button.waitForAnyPress();
 
 	}
 

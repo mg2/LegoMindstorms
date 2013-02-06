@@ -16,10 +16,10 @@ public class EndOfWhip implements Behavior {
 		System.out.println("End of Whip");
 		// Settings.PILOT.travel(20);
 		if (Settings.LIGHT.getLightValue() > 80) {
-			Settings.PILOT.travel(-10);
+			Settings.PILOT.travel(-5);
 			Settings.PILOT.rotate(-140);
 		} else {
-			Settings.PILOT.rotate(Settings.whipAndBridgeCounter * (-10));
+			Settings.PILOT.rotate(Settings.whipAndBridgeCounter * (-9));
 		}
 		Settings.readState = true;
 		Settings.PILOT.setTravelSpeed(Settings.PILOT.getMaxTravelSpeed()
