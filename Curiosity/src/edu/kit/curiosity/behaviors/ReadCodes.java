@@ -11,12 +11,12 @@ public class ReadCodes implements Behavior {
 	private boolean suppressed;
 	private boolean reading;
 	private boolean counted;
-	
+
 	private DifferentialPilot pilot;
 	private LightSensor light;
-	
+
 	private int numOfTapes;
-	
+
 	public ReadCodes() {
 		numOfTapes = 0;
 		counted = false;
@@ -26,39 +26,37 @@ public class ReadCodes implements Behavior {
 		pilot = Settings.PILOT;
 		light = Settings.LIGHT;
 	}
-	
+
 	@Override
 	public boolean takeControl() {
-		return Settings.readState && (light.getLightValue() > 30);
+		return Settings.readState && (light.getLightValue() > 40);
 	}
 
 	@Override
 	public void action() {
 		System.out.println("READ");
 		suppressed = false;
-		//readState = false;
+		// readState = false;
 		reading = false;
 
 		counted = false;
 		numOfTapes = 0;
-		
+
 		pilot.forward();
 		
-		while(!suppressed) {
-			if(!suppressed && !counted 
-					&& light.getLightValue() > 50) {
+		while (!suppressed) {
+			if (!suppressed && !counted && light.getLightValue() > 60) {
 				numOfTapes++;
 				counted = true;
 				reading = true;
-				//pilot.forward();
+				// pilot.forward();
 				pilot.travel(1, true);
-			} else if(!suppressed && counted
-					&& light.getLightValue() < 40) {
-				//pilot.forward();	
+			} else if (!suppressed && counted && light.getLightValue() < 40) {
+				// pilot.forward();
 				pilot.travel(1, true);
 				counted = false;
-			} 
-			if(reading && pilot.getMovementIncrement() > 10) {
+			}
+			if (reading && pilot.getMovementIncrement() > 10) {
 				LCD.clear();
 				// set States..
 				System.out.println("CodeNumber: " + numOfTapes);
@@ -67,49 +65,49 @@ public class ReadCodes implements Behavior {
 				suppressed = true;
 			}
 		}
-		
+
 		pilot.stop();
-		
-		switch(numOfTapes) {
-			case 13:
-				Settings.arbiMgr.changeState(RobotState.RACE);
-				break;
-			case 5:
-				Settings.arbiMgr.changeState(RobotState.BRIDGE);
-				break;
-			case 7:
-				Settings.arbiMgr.changeState(RobotState.MAZE);
-				break;
-			case 4:
-				Settings.arbiMgr.changeState(RobotState.SWAMP);
-				break;
-			case 3:
-				Settings.arbiMgr.changeState(RobotState.BT_GATE);
-				break;
-			case 11:
-				Settings.arbiMgr.changeState(RobotState.TURNTABLE);
-				break;
-			case 12:
-				Settings.arbiMgr.changeState(RobotState.SLIDER);
-				break;
-			case 10:
-				Settings.arbiMgr.changeState(RobotState.SEESAW);
-				break;
-			case 6:
-				Settings.arbiMgr.changeState(RobotState.SUSPENSION_BRIDGE);
-				break;
-			case 9:
-				Settings.arbiMgr.changeState(RobotState.LINE_OBSTACLE);
-				break;
-			case 8:
-				Settings.arbiMgr.changeState(RobotState.COLOR_GATE);
-				break;
-			case 14:
-				Settings.arbiMgr.changeState(RobotState.END_OPPONENT);
-				break;
-			default:
-				System.out.println("No codes read!");
-				break;
+
+		switch (numOfTapes) {
+		case 13:
+			Settings.arbiMgr.changeState(RobotState.RACE);
+			break;
+		case 5:
+			Settings.arbiMgr.changeState(RobotState.BRIDGE);
+			break;
+		case 7:
+			Settings.arbiMgr.changeState(RobotState.MAZE);
+			break;
+		case 4:
+			Settings.arbiMgr.changeState(RobotState.SWAMP);
+			break;
+		case 3:
+			Settings.arbiMgr.changeState(RobotState.BT_GATE);
+			break;
+		case 11:
+			Settings.arbiMgr.changeState(RobotState.TURNTABLE);
+			break;
+		case 12:
+			Settings.arbiMgr.changeState(RobotState.SLIDER);
+			break;
+		case 10:
+			Settings.arbiMgr.changeState(RobotState.SEESAW);
+			break;
+		case 6:
+			Settings.arbiMgr.changeState(RobotState.SUSPENSION_BRIDGE);
+			break;
+		case 9:
+			Settings.arbiMgr.changeState(RobotState.LINE_OBSTACLE);
+			break;
+		case 8:
+			Settings.arbiMgr.changeState(RobotState.COLOR_GATE);
+			break;
+		case 14:
+			Settings.arbiMgr.changeState(RobotState.END_OPPONENT);
+			break;
+		default:
+			System.out.println("No codes read!");
+			break;
 		}
 	}
 
