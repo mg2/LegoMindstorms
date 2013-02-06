@@ -1,6 +1,5 @@
 package edu.kit.curiosity.behaviors.tapefollow;
 
-import lejos.nxt.Button;
 import lejos.nxt.LightSensor;
 import lejos.robotics.navigation.DifferentialPilot;
 import lejos.robotics.subsumption.Behavior;
@@ -75,53 +74,40 @@ public class TapeFollow implements Behavior {
 			}
 			
 			// between out and 2 * out
-			if (i > out && i <= 1.5 * out) {
+			if (i > out && i <= 2 * out) {
 				// last out turns were in same direction
 				if (r > out || l > out) {
 					// make turn steeper
 					tr = 150;
 				}
-			} else if (i > 1.5 * out) { // more than 2 * out
-				if (r > 1.5 * out || l > 1.5 * out) {
+			} else if (i > 2 * out) { // more than 2 * out
+				if (r > 2 * out || l > 2 * out) {
 					// multiplier
 					int m = 1;
 
 					if (r > 2 * out)
 						m = -1;
-					// pilot.setTravelSpeed(pilot.getMaxTravelSpeed());
 
 					// travel back until line found
 					//TODO
-					//
-					System.out.println("gap?");
-					Button.waitForAnyPress();
-
+					while (i >= out
+							&& light.getLightValue() < blackWhiteThreshold) {
+						i--;
+						pilot.steer(tr, -5, true);
+						Delay.msDelay(sleep);
+					}
+					tr = 90;
 					while (i >= 0
 							&& light.getLightValue() < blackWhiteThreshold) {
 						i--;
+						pilot.steer(tr, -5, true);
 						Delay.msDelay(sleep);
 					}
+					pilot.travel(10);
 
 					// Invert multiplier
 					pilot.stop();
-					m *= -1;
-					// Travels forward arc in the other direction
-					while (i < 2 * out
-							&& light.getLightValue() < blackWhiteThreshold) {
-						pilot.steer(m * tr, m * 10, true); // travel back
-						i++;
-						Delay.msDelay(sleep);
-					}
-					pilot.stop();
-
-					// Travels backward arc in the other direction
-					while (i >= 0
-							&& light.getLightValue() < blackWhiteThreshold) {
-						pilot.steer(m * tr, (-1) * m * 10, true); // travel
-																	// back
-						i--;
-						Delay.msDelay(sleep);
-					}
+					
 					if (!suppressed
 							&& light.getLightValue() < blackWhiteThreshold)
 						Settings.gap = true;
