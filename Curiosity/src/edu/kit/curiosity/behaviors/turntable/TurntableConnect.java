@@ -1,8 +1,8 @@
 package edu.kit.curiosity.behaviors.turntable;
 
+import lejos.robotics.subsumption.Behavior;
 import edu.kit.curiosity.Settings;
 import edu.kit.curiosity.behaviors.bluetooth.TurnControl;
-import lejos.robotics.subsumption.Behavior;
 
 public class TurntableConnect implements Behavior {
 	

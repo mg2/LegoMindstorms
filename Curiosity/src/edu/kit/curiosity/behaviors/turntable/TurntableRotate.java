@@ -1,10 +1,10 @@
 package edu.kit.curiosity.behaviors.turntable;
 
-import edu.kit.curiosity.Settings;
-import edu.kit.curiosity.behaviors.bluetooth.TurnControl;
 import lejos.nxt.UltrasonicSensor;
 import lejos.robotics.subsumption.Behavior;
 import lejos.util.Delay;
+import edu.kit.curiosity.Settings;
+import edu.kit.curiosity.behaviors.bluetooth.TurnControl;
 
 public class TurntableRotate implements Behavior {
 	

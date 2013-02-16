@@ -1,9 +1,9 @@
 package edu.kit.curiosity.behaviors;
 
-import edu.kit.curiosity.RobotState;
-import edu.kit.curiosity.Settings;
 import lejos.nxt.Button;
 import lejos.robotics.subsumption.Behavior;
+import edu.kit.curiosity.RobotState;
+import edu.kit.curiosity.Settings;
 
 public class EnterPressed implements Behavior {
 

@@ -1,11 +1,11 @@
 package edu.kit.curiosity.behaviors.turntable;
 
-import edu.kit.curiosity.Settings;
 import lejos.nxt.LightSensor;
 import lejos.nxt.UltrasonicSensor;
 import lejos.robotics.navigation.DifferentialPilot;
 import lejos.robotics.subsumption.Behavior;
 import lejos.util.Delay;
+import edu.kit.curiosity.Settings;
 
 public class TurntablePark implements Behavior {
 	UltrasonicSensor sonic = Settings.SONIC;

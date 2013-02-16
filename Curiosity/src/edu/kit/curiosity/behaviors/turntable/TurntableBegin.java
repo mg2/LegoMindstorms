@@ -1,7 +1,7 @@
 package edu.kit.curiosity.behaviors.turntable;
 
-import edu.kit.curiosity.Settings;
 import lejos.robotics.subsumption.Behavior;
+import edu.kit.curiosity.Settings;
 
 public class TurntableBegin implements Behavior {
 

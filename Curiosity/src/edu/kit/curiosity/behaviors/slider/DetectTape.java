@@ -1,7 +1,7 @@
 package edu.kit.curiosity.behaviors.slider;
 
-import edu.kit.curiosity.Settings;
 import lejos.robotics.subsumption.Behavior;
+import edu.kit.curiosity.Settings;
 
 public class DetectTape implements Behavior {
 

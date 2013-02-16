@@ -1,7 +1,6 @@
 package edu.kit.curiosity.behaviors.colorGate;
 
 import lejos.nxt.Button;
-import lejos.nxt.LCD;
 import lejos.nxt.LightSensor;
 import lejos.nxt.TouchSensor;
 import lejos.nxt.UltrasonicSensor;
